@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
-import styles from './_header-area-layout.scss';
-import HeaderNav from 'base/components/layout/HeaderNav';
-import { NavLink } from 'react-router-dom';
-import figuresLogo from 'base/images/logo/figures--logo--negative.svg';
+import React, { Component } from "react";
+import classNames from "classnames/bind";
+import PropTypes from "prop-types";
+import styles from "./_header-area-layout.scss";
+import HeaderNav from "base/components/layout/HeaderNav";
+import { NavLink } from "react-router-dom";
+import figuresLogo from "base/images/logo/figures--logo--negative.svg";
 
 let cx = classNames.bind(styles);
 
 class HeaderAreaLayout extends Component {
-
   render() {
-
     return (
-      <div className={styles['header-area']}>
-        <div className={cx({ 'header-top': true, 'container': true })}>
-          <NavLink
-            to="/figures"
-            className={styles['header-logo-container']}
-          >
+      <div
+        className={cx("grv-theme--header-area", {
+          [styles["header-area"]]: true,
+        })}
+      >
+        <div className={cx({ "header-top": true, container: true })}>
+          <NavLink to="/figures" className={styles["header-logo-container"]}>
             <img src={figuresLogo} alt="Figures" role="presentation" />
           </NavLink>
           <HeaderNav />
@@ -31,6 +30,6 @@ class HeaderAreaLayout extends Component {
 
 HeaderAreaLayout.propTypes = {
   children: PropTypes.node,
-}
+};
 
 export default HeaderAreaLayout;

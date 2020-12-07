@@ -16,7 +16,7 @@ import CoursesList from 'base/views/CoursesList';
 import ProgressOverview from 'base/views/ProgressOverview';
 import 'base/sass/base/_base-overrides.scss';
 import styles from 'base/sass/base/_grid.scss';
-
+import cx from "classnames";
 
 class App extends Component {
 
@@ -34,7 +34,10 @@ class App extends Component {
 
     return (
       <LoadingSpinner>
-        <main id="main" className={styles['layout-root']}>
+        <main id="main" className={cx('grv-theme--main', {
+          [styles['layout-root']]: true
+        })
+        }>
           <Route render={ ({location}) => (
             <ReactCSSTransitionReplace
               transitionName = 'page'
