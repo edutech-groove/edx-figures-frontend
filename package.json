@@ -77,8 +77,8 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "start": "PRIMARY_COLOR=#E60978 node scripts/start.js",
+    "build": "PRIMARY_COLOR=#E60978 BASE_FONT_SIZE=16 node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {

@@ -1,0 +1,134 @@
+$color01: white;
+$color02: black;
+$color03: #E60978;
+$color03d: #d3106c;
+$color04: #fea628;
+$color05: #207945;
+$color06: $color02;
+$color06d: $color02;
+$color07: $color02;
+$color07d: $color02;
+$color08: #333333;
+$color09: #999999;
+$color10: #798f9a;
+$color11: #a9bdc7;
+$color11d: #9fb4bf;
+$color12: #c4c4c4;
+$color12d: #c4c4c4;
+$color13: #f2f5f9;
+$color14: #f4f7f8;
+$color15: #8899aa;
+$color16: #e3e3e3;
+$color17: #5d7790;
+$color18: #fafafa;
+
+$color19: #9b9b9b;
+$color20: #efefef;
+$color21: #f04545;
+$color22: #FFD9ED;
+$color23: #FBFBFB;
+$color24: #FF9D00;
+$color25: #FFF5E5;
+
+$globalRadius: 4px;
+$globalRadius2: 40px;
+
+$textColor01: #333 !default;
+$textColor02: #666 !default;
+$textColor03: #999 !default;
+
+$grey01: #EDEDED;
+$grey02: #e7e7e7;
+$grey03: #d6d6d6;
+$grey04: #f7f7f7;
+$grey05: #F3F3F3;
+$grey06: #4A4A4A;
+$grey07: #e2e2e2;
+$grey08: #f3f3f4;
+$grey09: #e6e6e6;
+$grey10: #C6CBD0;
+
+// Override base vars
+$primary-color: $color03;
+$base-text-color: $textColor01;
+
+
+// Functions & Mixins
+@mixin fz($px) {
+  font-size: #{$px}px;
+  font-size: calcRem($px);
+}
+
+// Hover, Focus mixins
+@mixin whenHover {
+  &:hover,
+  &:focus {
+    &:not(:disabled) {
+      @content;
+    }
+  }
+}
+
+@mixin whenHoverOnly {
+  &:hover {
+    &:not(:disabled) {
+      @content;
+    }
+  }
+}
+
+@mixin whenFocusOnly {
+  &:focus {
+    &:not(:disabled) {
+      @content;
+    }
+  }
+}
+
+@mixin useButtonShape {
+  border-radius: $globalRadius2;
+  box-shadow: none;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  min-width: 150px;
+}
+
+@mixin usePrimaryButtonStyle() {
+  @include useButtonShape;
+  background-color: $color03;
+  background-image: none;
+  border-color: $color03;
+  color: $color01;
+
+  &:not([disabled]):not(.disabled) {
+    &:hover {
+      box-shadow: none;
+      background-color: $color03d;
+      background-image: none;
+      border-color: $color03d;
+      color: $color01;
+    }
+  }
+
+  &:active,
+  &:focus {
+    background-color: $color03d;
+    box-shadow: inset 0 4px 4px -4px $color02;
+    color: $color01;
+    outline: none;
+  }
+}
+
+@mixin useLightPinkButton {
+  @include useButtonShape;
+  background-color: $color22;
+  border-color: $color22;
+  color: $color03;
+  border-radius: $globalRadius2;
+
+  @include whenHover {
+    background-color: $color03d;
+    color: $color01;
+  }
+}
