@@ -4,8 +4,8 @@
 
 
 .header-area {
-  background-color: $primary-color;
-  color: pick-visible-color($primary-color, #fff, $base-text-color);
+  background-color: $grey08;
+  color: $base-text-color;
   position: relative;
   padding: 0 calcRem(20);
 

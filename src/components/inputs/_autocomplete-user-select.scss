@@ -8,13 +8,10 @@
 
 button.selector-trigger-button {
   @include override-edx-styles;
-  border-radius: $elements-border-radius;
-  padding: calcRem(12) calcRem(20);
-  font-size: $base-font-size;
-  font-family: $font-family;
-  font-weight: 600;
-  transition: all 0.2s ease-in-out;
+  @include usePrimaryButtonStyle;
+  @include fz(15);
   margin-left: calcRem(20);
+  transition: all 0.2s ease-in-out;
 
   &.positive {
     border: calcRem(2) solid $primary-color;
@@ -22,15 +19,7 @@ button.selector-trigger-button {
   }
 
   &.negative {
-    border: calcRem(2) solid pick-visible-color($primary-color, #fff, $base-text-color);
-    color: pick-visible-color($primary-color, #fff, $base-text-color);
-  }
-
-  &:hover, &:hover:not(:disabled) {
-    cursor: pointer;
-    background: #FFFFFF;
-    box-shadow: 2px 4px 6px 0 rgba(0,0,0,0.15);
-    color: $primary-color;
+    color: $color01;
   }
 }
 

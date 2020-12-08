@@ -10,38 +10,33 @@
 
   .main-content {
     margin-bottom: calcRem(30);
+    padding-top: calcRem(50);
     text-align: center;
   }
 
   .users-count {
+    align-items: center;
+    display: flex;
+    justify-content: center;
 
     .number {
+      @include fz(28);
+      color: $primary-color;
       display: block;
       font-weight: 900;
-      font-size: calcRem(64);
       line-height: 120%;
+      margin-right: 16px;
     }
 
     .text {
+      @include fz(24);
       display: block;
       font-weight: 900;
-      font-size: calcRem(18);
       line-height: 120%;
     }
   }
 
-  .text-separator {
-    display: block;
-    width: calcRem(100);
-    height: calcRem(2);
-    background-color: pick-visible-color($primary-color, #fff, $base-text-color);
-    margin: calcRem(20) auto;
-  }
-
   .comparison-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: $base-font-size;
 
     &__icon {
@@ -56,54 +51,58 @@
       margin-right: calcRem(10);
       font-weight: regular;
     }
+
+    &__upper {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      padding: 16px 0 14px;
+    }
+
+    &__lower {
+      display: block;
+    }
   }
 
   .mau-history-link, .mau-history-link:not(.btn) {
+    @include useYellowButton;
+    @include fz(15);
+    display: inline-block;
     flex-shrink: 0;
     flex-grow: 0;
-    text-transform: uppercase;
-    font-weight: bold;
-    padding: calcRem(5) calcRem(10);
-    border: calcRem(2) solid pick-visible-color($primary-color, #fff, $base-text-color);
-    border-radius: calcRem(50);
-    color: pick-visible-color($primary-color, #fff, $base-text-color);
+    text-transform: capitalize;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-
-    &:hover {
-      background-color: pick-visible-color($primary-color, #fff, $base-text-color);
-      color: pick-visible-color(pick-visible-color($primary-color, #fff, $base-text-color), #fff, $primary-color);
-    }
   }
 
   .bar-tooltip {
     position: relative;
     left: calcRem(10);
-    background-color: $base-text-color;
-    color: #fff;
+    background-color: $color01;
+    color: $base-text-color;
     width: calcRem(100);
     border-radius: calcRem(2);
     padding: calcRem(10);
     text-align: center;
 
     &:after {
+      border-color: rgba(136, 183, 213, 0);
+      border-right-color: $base-text-color;
+      border-width: calcRem(10);
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      margin-top: calcRem(-10);
+      pointer-events: none;
+      position: absolute;
+      right: 100%;
       top: 50%;
-    	right: 100%;
-    	border: solid transparent;
-    	content: " ";
-    	height: 0;
-    	width: 0;
-    	position: absolute;
-    	pointer-events: none;
-    	border-color: rgba(136, 183, 213, 0);
-    	border-right-color: $base-text-color;
-    	border-width: calcRem(10);
-    	margin-top: calcRem(-10);
+      width: 0;
     }
 
     .tooltip-value {
-      font-size: calcRem(14);
+      @include fz(15);
       font-weight: bold;
     }
 

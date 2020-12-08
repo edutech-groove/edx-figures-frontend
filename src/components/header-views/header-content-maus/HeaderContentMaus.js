@@ -52,12 +52,16 @@ class HeaderContentMaus extends Component {
           </div>
           <span className={styles['text-separator']} />
           <div className={styles['comparison-box']}>
-            <span className={styles['comparison-box__icon']}>{comparisonIcon}</span>
-            <span className={styles['comparison-box__text']}>
-              {(currentPeriodValue >= previousPeriodValue) ? 'up' : 'down'} {comparisonValue} compared to last month
-            </span>
+            <div className={styles['comparison-box__upper']}>
+              <span className={styles['comparison-box__icon']}>{comparisonIcon}</span>
+              <span className={styles['comparison-box__text']}>
+                {(currentPeriodValue >= previousPeriodValue) ? 'up' : 'down'} {comparisonValue} compared to last month
+              </span>
+            </div>
             {this.props.showHistoryButton ? (
-              <Link to='/figures/mau-history' className={styles['mau-history-link']}>See details</Link>
+              <div className={styles['comparison-box__lower']}>
+                <Link to='/figures/mau-history' className={styles['mau-history-link']}>See details</Link>
+              </div>
             ) : ''}
           </div>
         </div>

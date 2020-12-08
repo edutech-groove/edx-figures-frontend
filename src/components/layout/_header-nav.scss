@@ -2,16 +2,20 @@
 @import '~base/sass/base/functions';
 
 .header-nav {
-  margin-left: auto;
-  display: flex;
   align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  width: 100%;
+
+  .ac-course-button {
+    margin-left: auto;
+  }
 }
 
 a.header-nav__link, a.header-nav__link:not(.btn) {
+  @include fz(15);
   margin-right: calcRem(30);
-  font-size: $base-font-size;
-  font-weight: 600;
-  color: pick-visible-color($primary-color, #fff, $base-text-color);
+  color: $textColor01;
   text-decoration: none;
   position: relative;
 
@@ -21,13 +25,15 @@ a.header-nav__link, a.header-nav__link:not(.btn) {
     height: calcRem(2);
     width: 0;
     left: 0;
-    background-color: pick-visible-color($primary-color, #fff, $base-text-color);
+    // background-color: pick-visible-color($primary-color, #fff, $base-text-color);
     content: '';
+    background-color: $color03;
     transition: all 0.2s ease-in-out;
   }
 
   &:hover {
-    color: pick-visible-color($primary-color, #fff, $base-text-color);
+    // color: pick-visible-color($primary-color, #fff, $base-text-color);
+    color: $color03;
 
     &:after {
       width: 100%;
@@ -35,10 +41,12 @@ a.header-nav__link, a.header-nav__link:not(.btn) {
   }
 
   &:focus {
-    color: pick-visible-color($primary-color, #fff, $base-text-color);
+    // color: pick-visible-color($primary-color, #fff, $base-text-color);
+    color: $color03;
   }
 
   &.active {
+    color: $color03;
     font-weight: 900;
     opacity: 0.6;
   }

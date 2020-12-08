@@ -52,11 +52,51 @@ $grey10: #C6CBD0;
 $primary-color: $color03;
 $base-text-color: $textColor01;
 
+$font2: "Plumpfull Black", sans-serif;
 
 // Functions & Mixins
+@mixin useFont2() {
+  font-family: $font2;
+  font-weight: normal;
+}
+
 @mixin fz($px) {
   font-size: #{$px}px;
   font-size: calcRem($px);
+}
+
+// Global shadows
+
+@mixin global-shadow {
+  box-shadow: 0 1px 1px rgba(0,0,0,0.025),
+              0 2px 2px rgba(0,0,0,0.05),
+              0 4px 4px rgba(0,0,0,0.05),
+              0 8px 8px rgba(0,0,0,0.075);
+}
+
+@mixin global-shadow-2 {
+  box-shadow: 0 1px 1px rgba(0,0,0,0.0125),
+              0 2px 2px rgba(0,0,0,0.025),
+              0 4px 4px rgba(0,0,0,0.05);
+}
+
+@mixin global-shadow-3 {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05),
+    0 2px 2px rgba(0, 0, 0, 0.075);
+}
+
+@mixin global-shadow-4 {
+  box-shadow: 1px 1px rgba(0, 0, 0, 0.05), 0 0 12px rgba(0, 0, 0, 0.125);
+}
+
+@mixin global-shadow-5 {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.0125), 0 2px 2px rgba(0, 0, 0, 0.025);
+}
+
+@mixin global-shadow-6 {
+  box-shadow: 0 1px 1px rgba(0,0,0,0.0125),
+              0 3px 3px rgba(0,0,0,0.025),
+              0 6px 6px rgba(0,0,0,0.035);
 }
 
 // Hover, Focus mixins
@@ -132,3 +172,39 @@ $base-text-color: $textColor01;
     color: $color01;
   }
 }
+
+@mixin useYellowButton {
+  background-color: $color24;
+  border-color: $color24;
+  border-radius: $globalRadius2;
+  color: $color01;
+  height: 36px;
+  line-height: 36px;
+  min-width: 130px;
+  padding: 0 16px;
+
+  @include whenHover {
+    background-color: $color25;
+    border-color: $color25;
+    color: $color24;
+  }
+}
+
+@mixin useLightYellowButton {
+  border-color: $color25;
+  background-color: $color25;
+  border-radius: $globalRadius2;
+  color: $color24;
+  height: 36px;
+  line-height: 36px;
+  min-width: 120px;
+  padding: 0 16px;
+
+  @include whenHover {
+    background-color: $color24;
+    border-color: $color24;
+    color: $color01;
+  }
+}
+
+

@@ -3,12 +3,12 @@
 @import '~base/sass/base/grid';
 
 .stat-card {
-  border: calcRem(1) solid #efefef;
   background-color: #fff;
-  box-shadow: 0 calcRem(2) calcRem(4) 0 rgba(0,0,0,0.25);
+  border: calcRem(1) solid #efefef;
+  box-shadow: none;
+  display: flex;
   padding: calcRem(20);
   transition: all 0.3s ease-in-out;
-  display: flex;
 
   &.span-2 {
     grid-column-end: span 2;
@@ -35,7 +35,7 @@
   }
 
   &:hover {
-    box-shadow: 0 calcRem(6) calcRem(12) 0 rgba(0,0,0,0.25);
+    @include global-shadow-2;
   }
 
   .main-content {

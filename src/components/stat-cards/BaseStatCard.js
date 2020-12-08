@@ -111,7 +111,7 @@ class BaseStatCard extends Component {
             )}
           </div>
           {(this.props.enableHistory && !this.props.singleValue) ? (
-            <button onClick={this.historyToggle} className={styles['history-toggle']}>{this.state.historyExpanded ? 'hide history' : 'see history'}</button>
+            <button onClick={this.historyToggle} className={styles['history-toggle']}>{this.state.historyExpanded ? 'Hide history' : 'See history'}</button>
           ) : (
             <span className={styles['history-toggle-faux']}></span>
           )}

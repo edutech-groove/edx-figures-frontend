@@ -5,7 +5,7 @@
  * Usage: pick-visible-color($bg-color, $color-1, $color-2)
  */
 
- @function luma($c) {
+@function luma($c) {
   $-local-red: red(rgba($c, 1.0));
   $-local-green: green(rgba($c, 1.0));
   $-local-blue: blue(rgba($c, 1.0));
