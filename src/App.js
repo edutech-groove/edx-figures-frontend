@@ -19,6 +19,14 @@ import styles from 'base/sass/base/_grid.scss';
 import cx from "classnames";
 
 class App extends Component {
+  addAppRootClass = () => {
+    const dom = document.querySelector(".content-wrapper.for--static");
+
+    if (!dom)
+      return null;
+
+    dom.classList.add('content--figures');
+  }
 
   componentDidMount() {
     this.props.fetchActiveUsersGeneralData();
@@ -28,6 +36,8 @@ class App extends Component {
     this.props.fetchNewUsersGeneralData();
     this.props.fetchCourseCompletionsGeneralData();
     (process.env.ENABLE_CSV_REPORTS === "enabled") && this.props.fetchAllCsvReportsData();
+
+    this.addAppRootClass();
   }
 
   render() {
