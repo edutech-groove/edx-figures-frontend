@@ -2,7 +2,6 @@
 
 
 :global {
-
 	.edx-figures-app {
 		input {
 			background: none;
@@ -20,7 +19,7 @@
 			}
 		}
 
-		input[type="submit"]:hover:not(:disabled), input[type="button"]:hover:not(:disabled), button {
+		input[type="submit"]:hover:not(:disabled), input[type="button"]:hover:not(:disabled), button:not(.ignore) {
 			background: none;
 			box-shadow: none;
 			text-shadow: none;

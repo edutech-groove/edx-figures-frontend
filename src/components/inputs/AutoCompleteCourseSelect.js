@@ -11,7 +11,7 @@ import apiConfig from "base/apiConfig";
 
 let cx = classNames.bind({
   ...styles,
-  ...stylesHeader
+  ...stylesHeader,
 });
 
 const WAIT_INTERVAL = 1000;
@@ -122,10 +122,10 @@ class AutoCompleteCourseSelect extends Component {
     );
 
     return (
-      <div className={cx(styles["ac-course-selector"], 'ac-course-button')}>
+      <div className={cx(styles["ac-course-selector"], "ac-course-button")}>
         <button
           onClick={this.modalTrigger}
-          className={cx({
+          className={cx("ignore", {
             "selector-trigger-button": true,
             positive: !this.props.negativeStyleButton,
             negative: this.props.negativeStyleButton,

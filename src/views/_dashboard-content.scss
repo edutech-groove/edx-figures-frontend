@@ -23,7 +23,6 @@
   }
 
   .functionality-callout-cta {
-    @include usePrimaryButtonStyle;
     @include fz(15);
     display: inline-block;
     font-size: calcRem(15);
@@ -32,6 +31,10 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     text-decoration: none;
+
+    &:not(.btn) {
+      @include usePrimaryButtonStyle;
+    }
 
     &:hover {
       color: #fff;
