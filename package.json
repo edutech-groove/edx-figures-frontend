@@ -78,7 +78,7 @@
   },
   "scripts": {
     "start": "PRIMARY_COLOR=#E60978 node scripts/start.js",
-    "build": "PRIMARY_COLOR=#E60978 BASE_FONT_SIZE=16 node scripts/build.js",
+    "build": "PRIMARY_COLOR=#E60978 REM_BASE=16 BASE_FONT_SIZE=16 node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {

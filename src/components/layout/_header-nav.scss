@@ -14,7 +14,7 @@
 
 a.header-nav__link, a.header-nav__link:not(.btn) {
   @include fz(15);
-  margin-right: calcRem(30);
+  margin-right: 24px;
   color: $textColor01;
   text-decoration: none;
   position: relative;
