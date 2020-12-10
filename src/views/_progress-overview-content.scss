@@ -156,9 +156,11 @@
     outline: none;
 
     span {
+      @include fz(13);
+      color: $textColor02;
       margin-right: calcRem(5);
-      text-decoration: underline;
-      font-size: calcRem(12);
+      text-decoration: none;
+      text-transform: uppercase;
     }
 
     &:hover, &:focus {
@@ -237,21 +239,21 @@ button.export-the-csv-button {
   }
 
   .progress-bar {
-    width: 100%;
-    max-width: calcRem(500);
-    height: calcRem(18);
-    border-radius: calcRem(30);
-    padding: 4px;
+    border-radius: 0 0 $globalRadius $globalRadius;
     border: 1px solid #ddd;
+    height: calcRem(18);
     margin: calcRem(40) 0 calcRem(20);
+    max-width: calcRem(500);
     overflow: hidden;
+    padding: 4px;
+    width: 100%;
   }
 
   .progress-bar-inner {
+    background-color: $primary-color;
+    border-radius: 0 0 $globalRadius $globalRadius;
     display: block;
     height: 100%;
-    background-color: $primary-color;
-    border-radius: calcRem(30);
   }
 
   .percentage {

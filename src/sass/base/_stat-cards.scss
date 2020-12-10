@@ -5,6 +5,7 @@
 .stat-card {
   background-color: #fff;
   border: calcRem(1) solid #efefef;
+  border-radius: $globalRadius;
   box-shadow: none;
   display: flex;
   padding: calcRem(20);

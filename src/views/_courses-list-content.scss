@@ -39,9 +39,11 @@
     outline: none;
 
     span {
+      @include fz(13);
+      color: $textColor02;
       margin-right: calcRem(5);
-      text-decoration: underline;
-      font-size: calcRem(12);
+      text-decoration: none;
+      text-transform: uppercase;
     }
 
     &:hover, &:focus {
@@ -122,5 +124,9 @@
     flex-grow: 1;
     flex-shrink: 1;
     width: 100%;
+
+    .svg-inline--fa {
+      color: $primary-color;
+    }
   }
 }
