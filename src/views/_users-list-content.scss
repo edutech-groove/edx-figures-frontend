@@ -9,18 +9,20 @@
 }
 
 .users-list {
-  padding: calcRem(25) 0;
-  border-top: 1px solid #ccc;
+  border-top: none;
+  margin: 0;
+  padding: 0;
 }
 
 .user-list-item {
-  display: grid;
-  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 2fr;
-  grid-column-gap: calcRem(20);
-  border-bottom: 1px solid #ccc;
-  padding: calcRem(20) 0;
-  font-size: calcRem(14);
+  @include fz(15);
   align-items: center;
+  border-bottom: 1px dashed $grey03;
+  color: $textColor01;
+  display: grid;
+  grid-column-gap: calcRem(20);
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 2fr;
+  padding: calcRem(20) 0;
 
   @media (max-width: $half-screen-breakpoint) {
     grid-template-columns: 1fr;
@@ -28,10 +30,13 @@
   }
 
   &.list-header {
+    align-items: flex-end;
     font-size: calcRem(12);
+    padding: 15px 0;
   }
 
   .sorting-header-button {
+    color: $textColor02;
     padding: 0;
     margin: 0;
     background: none;
@@ -91,7 +96,7 @@
     @include fz(15);
     cursor: pointer;
     display: inline-block;
-    font-weight: 600;
+    font-weight: 400;
     padding: 0;
     text-align: center;
     text-decoration: none;
@@ -123,9 +128,9 @@
   .mobile-value {
     flex-grow: 1;
     flex-shrink: 1;
-    width: 100%;
+    width: 99%;
 
-    .svg-inline--fa {
+    .checkmark-icon {
       color: $primary-color;
     }
   }

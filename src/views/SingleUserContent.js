@@ -9,6 +9,16 @@ import HeaderContentUser from 'base/components/header-views/header-content-user/
 import UserCoursesList from 'base/components/user-courses-list/UserCoursesList';
 import apiConfig from 'base/apiConfig';
 
+import iconUsername from 'base/images/icon-username.svg';
+import iconActivated from 'base/images/icon-activated.svg';
+import iconBirthday from 'base/images/icon-birthday.svg';
+import iconCountry from 'base/images/icon-country.svg';
+import iconCourse from 'base/images/icon-course.svg';
+import iconDateStart from 'base/images/icon-date-start.svg';
+import iconEducation from 'base/images/icon-education.svg';
+import iconEmail from 'base/images/icon-email.svg';
+import iconGender from 'base/images/icon-gender.svg';
+
 var countries = require("i18n-iso-countries");
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
@@ -75,39 +85,66 @@ class SingleUserContent extends Component {
             </div>
             <ul className={styles['user-details']}>
               <li>
-                <span className={styles['label']}>Username:</span>
+                <span className={styles['label']}>
+                  <img src={iconUsername} alt="Username" />
+                  Username
+                </span>
                 <span className={styles['value']}>{this.state.userData.getIn(['username'])}</span>
               </li>
               <li>
-                <span className={styles['label']}>Year of birth:</span>
+                <span className={styles['label']}>
+                  <img src={iconBirthday} alt="Year of birth" />
+                  Year of birth
+                </span>
                 <span className={styles['value']}>{this.state.userData.getIn(['year_of_birth'])}</span>
               </li>
               <li>
-                <span className={styles['label']}>Gender:</span>
+                <span className={styles['label']}>
+                  <img src={iconGender} alt="Gender" />
+                  Gender
+                </span>
                 <span className={styles['value']}>{genderDict[this.state.userData.getIn(['gender'])]}</span>
               </li>
               <li>
-                <span className={styles['label']}>Date joined:</span>
+                <span className={styles['label']}>
+                  <img src={iconDateStart} alt="Date joined" />
+                  Date joined
+                </span>
                 <span className={styles['value']}>{dateJoined.toUTCString()}</span>
               </li>
               <li>
-                <span className={styles['label']}>Account activated:</span>
+                <span className={styles['label']}>
+                  <img src={iconActivated} alt="Account Activated" />
+                  Account activated
+                </span>
                 <span className={styles['value']}>{this.state.userData.getIn(['is_active'], false) ? 'Account activated' : 'Not activated'}</span>
               </li>
               <li>
-                <span className={styles['label']}>Courses enrolled:</span>
+                <span className={styles['label']}>
+                  <img src={iconCourse} alt="Courses enrolled" />
+                  Courses enrolled
+                </span>
                 <span className={styles['value']}>{this.state.userData.getIn(['courses']) ? this.state.userData.getIn(['courses']).length : ""}</span>
               </li>
               <li>
-                <span className={styles['label']}>Country:</span>
+                <span className={styles['label']}>
+                  <img src={iconCountry} alt="Country" />
+                  Country
+                </span>
                 <span className={styles['value']}>{this.state.userData.getIn(['country']) ? countries.getName(this.state.userData.getIn(['country']), "en") : "Not Available"}</span>
               </li>
               <li>
-                <span className={styles['label']}>Level of education:</span>
+                <span className={styles['label']}>
+                  <img src={iconEducation} alt="Level of Education" />
+                  Level of education
+                </span>
                 <span className={styles['value']}>{this.state.userData.getIn(['level_of_education']) ? educationLevelsDict[this.state.userData.getIn(['level_of_education'])] : 'Not Available'}</span>
               </li>
               <li>
-                <span className={styles['label']}>Email address:</span>
+                <span className={styles['label']}>
+                  <img src={iconEmail} alt="Email address" />
+                  Email address
+                </span>
                 <span className={styles['value']}><a href={"mailto:" + this.state.userData.getIn(['email'])}>{this.state.userData.getIn(['email'])}</a></span>
               </li>
             </ul>

@@ -121,13 +121,16 @@
 }
 
 .users-list {
-  padding: calcRem(25) 0;
+  border-top: none;
+  margin: 0;
+  padding: 0;
 }
 
 .user-list-item {
-  font-size: calcRem(14);
-  height: calcRem(80);
+  @include fz(15);
+  color: $textColor01;
   display: flex;
+  height: calcRem(80);
 
   &:nth-child(even) {
 
@@ -149,6 +152,7 @@
   }
 
   .sorting-header-button {
+    color: $textColor02;
     padding: 0;
     margin: 0;
     background: none;

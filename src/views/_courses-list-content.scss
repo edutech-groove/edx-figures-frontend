@@ -17,7 +17,7 @@
   display: grid;
   grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr 1fr;
   grid-column-gap: calcRem(20);
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px dashed $grey03;
   padding: calcRem(20) 0;
   font-size: calcRem(14);
   align-items: center;
@@ -28,10 +28,13 @@
   }
 
   &.list-header {
+    align-items: flex-end;
     font-size: calcRem(12);
+    padding: 15px 0;
   }
 
   .sorting-header-button {
+    color: $textColor02;
     padding: 0;
     margin: 0;
     background: none;
@@ -125,7 +128,7 @@
     flex-shrink: 1;
     width: 100%;
 
-    .svg-inline--fa {
+    .checkmark-icon {
       color: $primary-color;
     }
   }
