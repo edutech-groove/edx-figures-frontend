@@ -16,11 +16,11 @@
     margin-left: auto;
 
     .paginator-dropdown-label {
+      @include fz(15);
       flex-shrink: 0;
       flex-grow: 0;
       display: inline-block;
       margin-right: calcRem(10);
-      font-size: calcRem(12);
       color: #666;
     }
   }
@@ -65,8 +65,14 @@
     }
   }
 
+  .text-item,
+  .text-item-dummy {
+    background-color: $grey08;
+  }
+
   .number-item {
-    color: $primary-color;
+    background-color: $color01;
+    color: $textColor01;
     margin-right: calcRem(5);
   }
 
