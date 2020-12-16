@@ -309,8 +309,11 @@ class ProgressOverview extends Component {
         <HeaderAreaLayout>
           <HeaderContentStatic
             title='Learners progress overview'
-            subtitle={'This view allows you to view a snapshot of your sites learners progress. Total number of results in current view is: ' + this.state.count + '. You can also filter down the results in the view, then export the data in the view as a CSV file on-the-fly.'}
-          />
+          >
+            <React.Fragment>
+              This view allows you to view a snapshot of your sites learners progress. Total number of results in current view is <span>{this.state.count}</span><br />You can also filter down the results in the view, then export the data in the view as a CSV file on-the-fly.
+            </React.Fragment>
+          </HeaderContentStatic>
         </HeaderAreaLayout>
         {this.state.csvExportProgress ? (
           <div className={cx({ 'container': true, 'csv-export-content': true})}>

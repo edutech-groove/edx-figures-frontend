@@ -11,7 +11,8 @@ class HeaderContentStatic extends Component {
     return (
       <section className={cx({ 'header-content-static': true, 'container': true})}>
         <h1 className={styles['title']}>{this.props.title}</h1>
-        <p className={styles['subtitle']}>{this.props.subtitle}</p>
+        <p className={styles['subtitle']}>
+          {this.props.children || this.props.subtitle}</p>
       </section>
     );
   }

@@ -197,8 +197,11 @@ class CoursesList extends Component {
         <HeaderAreaLayout>
           <HeaderContentStatic
             title='Courses list'
-            subtitle={'This view allows you to browse your sites courses. Total number of results: ' + this.state.count + '.'}
-          />
+          >
+            <React.Fragment>
+              This view allows you to browse your sites courses. Total number of results <span>{this.state.count}</span>
+            </React.Fragment>
+          </HeaderContentStatic>
         </HeaderAreaLayout>
         <div className={cx({ 'container': true, 'courses-content': true})}>
           <ListSearch

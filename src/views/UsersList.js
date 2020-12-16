@@ -170,8 +170,9 @@ class UsersList extends Component {
         <HeaderAreaLayout>
           <HeaderContentStatic
             title='Users list'
-            subtitle={'This view allows you to browse your sites users. Total number of results: ' + this.state.count + '.'}
-          />
+          >
+            This view allows you to browse your sites users. Total number of results <span>{this.state.count}</span>
+          </HeaderContentStatic>
         </HeaderAreaLayout>
         <div className={cx({ 'container': true, 'users-content': true})}>
           <ListSearch

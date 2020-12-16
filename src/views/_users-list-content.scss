@@ -92,18 +92,26 @@
   }
 
   .user-action {
-    @include useLightYellowButton;
-    @include fz(15);
+    font-size: calcRem(14);
+    padding: calcRem(8) calcRem(15);
+    font-weight: normal;
+    color: $primary-color;
+    border: calcRem(1) solid $primary-color;
+    background: transparent;
     cursor: pointer;
-    display: inline-block;
-    font-weight: 400;
-    padding: 0;
-    text-align: center;
-    text-decoration: none;
+    border-radius: calcRem(30);
     transition: all 0.3s ease-in-out;
+    text-decoration: none;
+
+    &:hover {
+      color: #fff;
+      background: $primary-color;
+    }
 
     @media (max-width: $half-screen-breakpoint) {
+      display: inline-block;
       min-width: calcRem(200);
+      text-align: center;
     }
   }
 }

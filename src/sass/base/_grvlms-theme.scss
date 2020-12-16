@@ -194,7 +194,7 @@ $font2: "Plumpfull Black", sans-serif;
   border-color: $color25;
   background-color: $color25;
   border-radius: $globalRadius2;
-  color: $color24;
+  color: $color24 !important;
   height: 36px;
   line-height: 36px;
   min-width: 120px;
@@ -203,7 +203,7 @@ $font2: "Plumpfull Black", sans-serif;
   @include whenHover {
     background-color: $color24;
     border-color: $color24;
-    color: $color01;
+    color: $color01 !important;
   }
 }
 
