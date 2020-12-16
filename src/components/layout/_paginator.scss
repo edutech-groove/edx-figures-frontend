@@ -34,28 +34,8 @@
     align-items: center;
   }
 
+  .text-item-dummy,
   .text-item {
-    display: block;
-    padding: 1rem;
-    font-size: calcRem(14);
-    color: $primary-color;
-    margin-right: calcRem(5);
-    border: none;
-    background: none;
-    outline: none;
-
-    &:hover {
-      opacity: 0.6;
-      cursor: pointer;
-    }
-  }
-
-  .text-item-dummy {
-    display: block;
-    padding: calcRem(10);
-    font-size: calcRem(14);
-    color: #ccc;
-    pointer-events: none;
     margin-right: calcRem(5);
   }
 
@@ -65,15 +45,19 @@
     margin-right: calcRem(5);
   }
 
-  .number-item {
+  .text-item,
+  .text-item-dummy,
+  .number-item,
+  .number-item-active {
+    @include fz(15);
+    border-radius: $globalRadius*2;
+    border: 1px solid transparent;
     display: block;
-    padding: calcRem(10);
-    font-size: calcRem(14);
-    color: $primary-color;
-    margin-right: calcRem(5);
-    border: none;
-    background: none;
+    height: 32px;
+    line-height: 32px;
+    min-width: 32px;
     outline: none;
+    padding: 0 6px;
 
     &:hover {
       opacity: 0.6;
@@ -81,15 +65,18 @@
     }
   }
 
-  .number-item-active {
-    display: block;
-    padding: calcRem(10);
-    font-size: calcRem(14);
-    color: #ccc;
-    pointer-events: none;
+  .number-item {
+    color: $primary-color;
     margin-right: calcRem(5);
-    border: none;
-    background: none;
-    outline: none;
+  }
+
+  .number-item-active {
+    color: $primary-color;
+    background-color: $color22;
+    pointer-events: none;
+
+    & + .number-item {
+      margin-left: calcRem(5);
+    }
   }
 }

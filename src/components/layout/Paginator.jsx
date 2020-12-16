@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { List } from 'immutable';
 import styles from './_paginator.scss';
+import cx from "classnames";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft  } from '@fortawesome/free-solid-svg-icons';
 
 const perPageDropdownOptions = List([
   { value: 20, label: '20' },
@@ -12,7 +15,7 @@ const perPageDropdownOptions = List([
 
 class Paginator extends React.Component {
 
-  constructor(props: Props) {
+  constructor(props) {
     super(props);
     this.state = {
       currentPage: this.props.currentPage,
@@ -46,7 +49,12 @@ class Paginator extends React.Component {
     var renderEllipsis = true;
     for (let i = 0; i < this.props.pages; i++) {
       const page = i + 1;
-      const buttonClass = (page !== this.state.currentPage) ? styles['number-item'] : styles['number-item-active'];
+      const buttonClass = cx({
+        'ignore': true,
+        [styles['number-item']]: Boolean(page !== this.state.currentPage),
+        [styles['number-item-active']]: Boolean(page === this.state.currentPage),
+      })
+
       if (this.props.pages > this.props.ellipsisPageLimit) {
         if (numbersToRender.includes(i)) {
           pageNumbers.push(
@@ -83,65 +91,77 @@ class Paginator extends React.Component {
         <div className={styles['number-controls-container']}>
           {(this.state.currentPage !== 1) ? (
             <button
-              className={styles['text-item']}
+              className={cx({
+                [styles['text-item']]: true,
+                'ignore': true
+              })}
               onClick={() => this.props.pageSwitchFunction(1)}
             >
-              First
+              <FontAwesomeIcon icon={faAngleDoubleLeft}/>
             </button>
           ) : (
             <span
               className={styles['text-item-dummy']}
             >
-              First
+              <FontAwesomeIcon icon={faAngleDoubleLeft}/>
             </span>
           )}
           {(this.state.currentPage !== 1) ? (
             <button
-              className={styles['text-item']}
+              className={cx({
+                [styles['text-item']]: true,
+                'ignore': true
+              })}
               onClick={() => this.props.pageSwitchFunction(this.props.currentPage-1)}
             >
-              Previous
+              <FontAwesomeIcon icon={faAngleLeft}/>
             </button>
           ) : (
             <span
               className={styles['text-item-dummy']}
             >
-              Previous
+              <FontAwesomeIcon icon={faAngleLeft}/>
             </span>
           )}
           {pageNumbers}
           {(this.state.currentPage !== this.props.pages) ? (
             <button
-              className={styles['text-item']}
+              className={cx({
+                [styles['text-item']]: true,
+                'ignore': true
+              })}
               onClick={() => this.props.pageSwitchFunction(this.props.currentPage+1)}
             >
-              Next
+              <FontAwesomeIcon icon={faAngleRight}/>
             </button>
           ) : (
             <span
               className={styles['text-item-dummy']}
             >
-              Next
+              <FontAwesomeIcon icon={faAngleRight}/>
             </span>
           )}
           {(this.state.currentPage !== this.props.pages) ? (
             <button
-              className={styles['text-item']}
+              className={cx({
+                [styles['text-item']]: true,
+                'ignore': true
+              })}
               onClick={() => this.props.pageSwitchFunction(this.props.pages)}
             >
-              Last
+              <FontAwesomeIcon icon={faAngleDoubleRight}/>
             </button>
           ) : (
             <span
               className={styles['text-item-dummy']}
             >
-              Last
+              <FontAwesomeIcon icon={faAngleDoubleRight}/>
             </span>
           )}
         </div>
         <div className={styles['dropdown-controls-container']}>
           <span className={styles['paginator-dropdown-label']}>
-            Per page:
+            Per page
           </span>
           <div className={styles['dropdown-inner-container']}>
             <Select
