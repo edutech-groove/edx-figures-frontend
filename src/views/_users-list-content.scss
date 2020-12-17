@@ -51,6 +51,7 @@
       text-transform: uppercase;
 
       & + svg {
+        @include fz(13);
         color: $textColor02;
       }
     }
@@ -92,27 +93,17 @@
   }
 
   .user-action {
-    font-size: calcRem(14);
-    padding: calcRem(8) calcRem(15);
-    font-weight: normal;
-    color: $primary-color;
-    border: calcRem(1) solid $primary-color;
-    background: transparent;
+    @include useLightYellowButton;
+    @include fz(15);
+    border: none;
+    box-shadow: none;
     cursor: pointer;
-    border-radius: calcRem(30);
-    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    min-width: 100px;
+    outline: none;
+    text-align: center;
     text-decoration: none;
-
-    &:hover {
-      color: #fff;
-      background: $primary-color;
-    }
-
-    @media (max-width: $half-screen-breakpoint) {
-      display: inline-block;
-      min-width: calcRem(200);
-      text-align: center;
-    }
+    transition-duration: 100ms;
   }
 }
 

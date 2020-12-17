@@ -60,20 +60,30 @@
     padding: 0 6px;
 
     &:hover {
-      opacity: 0.6;
       cursor: pointer;
     }
   }
 
   .text-item,
   .text-item-dummy {
+    color: $textColor01;
     background-color: $grey08;
+
+    &:hover {
+      background-color: $color03;
+      color: $color01;
+    }
   }
 
   .number-item {
     background-color: $color01;
     color: $textColor01;
     margin-right: calcRem(5);
+
+    &:hover {
+      background-color: $color01;
+      color: $color03;
+    }
   }
 
   .number-item-active {
