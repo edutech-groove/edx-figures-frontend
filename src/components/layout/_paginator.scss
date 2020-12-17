@@ -54,10 +54,11 @@
     border: 1px solid transparent;
     display: block;
     height: 32px;
-    line-height: 32px;
+    line-height: 30px;
     min-width: 32px;
     outline: none;
     padding: 0 6px;
+    text-align: center;
 
     &:hover {
       cursor: pointer;
@@ -92,6 +93,10 @@
     pointer-events: none;
 
     & + .number-item {
+      margin-left: calcRem(5);
+    }
+
+    & + .text-item-dummy {
       margin-left: calcRem(5);
     }
   }

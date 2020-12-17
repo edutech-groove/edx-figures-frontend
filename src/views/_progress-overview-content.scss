@@ -178,13 +178,13 @@
   }
 
   .user-fullname-link {
-    color: $primary-color;
+    color: $primary-color !important;
     text-decoration: none;
   }
 }
 
 button.export-the-csv-button {
-  padding: calcRem(15) calcRem(30);
+  padding: 8px calcRem(30);
   color: #fff;
   display: inline-block;
   background-color: $primary-color !important;
