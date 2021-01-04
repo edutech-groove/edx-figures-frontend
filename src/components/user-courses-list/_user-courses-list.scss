@@ -5,7 +5,7 @@
 
 .user-courses-list {
   grid-column: span 3;
-  padding-left: calcRem(30);
+  padding-left: calcRem(40);
 
   @media (max-width: $tablet-breakpoint) {
     grid-column: span 1;
@@ -101,14 +101,14 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: calcRem(8);
+    height: calcRem(6);
     background-color: #eee;
 
     .bar {
       border-radius: $globalRadius;
       background-color: $primary-color;
       display: block;
-      height: calcRem(8);
+      height: calcRem(6);
 
       &.finished {
         background-color: $positive-color;

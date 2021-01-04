@@ -52,7 +52,9 @@ $grey10: #C6CBD0;
 $primary-color: $color03;
 $base-text-color: $textColor01;
 
+$font1: "Nunito", sans-serif;
 $font2: "Plumpfull Black", sans-serif;
+$font-family: $font1;
 
 // Functions & Mixins
 @mixin useFont2() {

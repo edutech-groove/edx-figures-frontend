@@ -80,9 +80,11 @@ class SingleUserContent extends Component {
         </HeaderAreaLayout>
         <div className={cx({ 'container': true, 'base-grid-layout': true, 'user-content': true})}>
           <div className={styles['user-information']}>
-            <div className={styles['name']}>
-              {this.state.userData['name']}
-            </div>
+            {this.state.userData['name'] && (
+              <div className={styles['name']}>
+                {this.state.userData['name']}
+              </div>
+            )}
             <ul className={styles['user-details']}>
               <li>
                 <span className={styles['label']}>

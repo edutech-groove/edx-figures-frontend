@@ -12,6 +12,7 @@
 
   .user-information {
     grid-column-end: span 1;
+    width: 340px;
 
     @media (max-width: $tablet-breakpoint) {
       padding: 0 calcRem(30);
@@ -30,7 +31,7 @@
       width: 100%;
 
       li {
-        border-top: calcRem(1) solid lighten($base-text-color, 75%);
+        border-top: calcRem(1) dashed lighten($base-text-color, 75%);
         list-style-type: none;
         padding: calcRem(15) 0;
         display: flex;
@@ -56,10 +57,16 @@
         }
 
         .value {
-          flex-shrink: 1;
           flex-grow: 1;
+          flex-shrink: 1;
+          font-weight: 600;
           text-align: right;
           width: 100%;
+          word-break: break-word;
+
+          a {
+            color: $textColor01;
+          }
         }
       }
     }
