@@ -4,8 +4,6 @@ import Autosuggest from "react-autosuggest";
 import { Link } from "react-router-dom";
 import styles from "./_autocomplete-user-select.scss";
 import classNames from "classnames/bind";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import apiConfig from "base/apiConfig";
 
 let cx = classNames.bind(styles);
@@ -126,23 +124,27 @@ class AutoCompleteUserSelect extends Component {
         </button>
         {this.state.modalActive && (
           <div className={styles["selector-modal"]}>
-            <Autosuggest
-              suggestions={suggestions}
-              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              getSuggestionValue={getSuggestionValue}
-              renderSuggestion={renderSuggestion}
-              inputProps={inputProps}
-              theme={styles}
-              alwaysRenderSuggestions
-              ref={this.storeInputReference}
-            />
-            <button
-              onClick={this.modalTrigger}
-              className={styles["modal-dismiss"]}
-            >
-              <FontAwesomeIcon icon={faTimes} />
-            </button>
+            <div>
+              <Autosuggest
+                suggestions={suggestions}
+                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                getSuggestionValue={getSuggestionValue}
+                renderSuggestion={renderSuggestion}
+                inputProps={inputProps}
+                theme={styles}
+                alwaysRenderSuggestions
+                ref={this.storeInputReference}
+              />
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.414 18.414">
+                  <g transform="translate(-3.5 -3.5)">
+                    <path d="M18.722,11.611A7.111,7.111,0,1,1,11.611,4.5a7.111,7.111,0,0,1,7.111,7.111Z" transform="translate(0)"/>
+                    <path d="M28.842,28.842l-3.867-3.867" transform="translate(-8.342 -8.342)"/>
+                  </g>
+                </svg>
+              </span>
+            </div>
           </div>
         )}
         {this.state.modalActive && (

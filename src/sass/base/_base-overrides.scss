@@ -37,4 +37,17 @@
 			letter-spacing: normal;
 		}
 	}
+
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+}
+
+@font-face {
+    font-family: 'Plumpfull Black';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('../../fonts/Plumpfull.woff') format('woff');
 }

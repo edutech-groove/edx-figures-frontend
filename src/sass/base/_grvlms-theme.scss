@@ -28,9 +28,19 @@ $color21: #f04545;
 $color22: #FFD9ED;
 $color23: #FBFBFB;
 $color24: #FF9D00;
+$color24d: #EA9000;
 $color25: #FFF5E5;
 
+// Specific grv-theme colors (Use with caution for fallback)
+$grvColor01: #25304c;
+$grvColor02: #3b455e;
+$grvColor03: #ffa850;
+$grvColor04: #6760fa;
+$grvColor05: #38c976;
+$grvColor06: #0094e3;
+
 $globalRadius: 4px;
+$globalRadius1: 20px;
 $globalRadius2: 40px;
 
 $textColor01: #333 !default;
@@ -127,88 +137,6 @@ $font-family: $font1;
   }
 }
 
-@mixin useButtonShape {
-  border-radius: $globalRadius2;
-  box-shadow: none;
-  cursor: pointer;
-  height: 40px;
-  line-height: 40px;
-  min-width: 150px;
-}
-
-@mixin usePrimaryButtonStyle() {
-  @include useButtonShape;
-  background-color: $color03;
-  background-image: none;
-  border-color: $color03;
-  color: $color01;
-
-  &:not([disabled]):not(.disabled) {
-    &:hover {
-      box-shadow: none;
-      background-color: $color03d;
-      background-image: none;
-      border-color: $color03d;
-      color: $color01;
-    }
-  }
-
-  &:active,
-  &:focus {
-    background-color: $color03d;
-    box-shadow: inset 0 4px 4px -4px $color02;
-    color: $color01;
-    outline: none;
-  }
-}
-
-@mixin useLightPinkButton {
-  @include useButtonShape;
-  background-color: $color22;
-  border-color: $color22;
-  color: $color03;
-  border-radius: $globalRadius2;
-
-  @include whenHover {
-    background-color: $color03d;
-    color: $color01;
-  }
-}
-
-@mixin useYellowButton {
-  background-color: $color24;
-  border-color: $color24;
-  border-radius: $globalRadius2;
-  color: $color01;
-  height: 36px;
-  line-height: 36px;
-  min-width: 130px;
-  padding: 0 16px;
-
-  @include whenHover {
-    background-color: $color25;
-    border-color: $color25;
-    color: $color24;
-  }
-}
-
-@mixin useLightYellowButton {
-  border-color: $color25;
-  background-color: $color25;
-  border-radius: $globalRadius2;
-  color: $color24 !important;
-  height: 36px;
-  line-height: 36px;
-  min-width: 120px;
-  padding: 0 16px;
-
-  @include whenHover {
-    background-color: $color24;
-    border-color: $color24;
-    color: $color01 !important;
-  }
-}
-
 /* Sizing shortcuts */
 /*--------------------------------------*/
 @mixin size($value) {
@@ -232,3 +160,122 @@ $font-family: $font1;
   }
 }
 
+@import '~base/sass/base/buttons';
+@import '~base/sass/base/typo';
+
+@mixin setInputGeneric {
+  @include useFont1;
+  @include fz(15);
+  border-radius: $globalRadius;
+  border: calcRem(1) solid $grey08;
+  box-shadow: none;
+  color: $textColor01;
+  font-style: normal;
+  line-height: calcRem(21);
+  outline: none;
+  text-transform: none;
+  background-color: $grey08;
+  padding: calcRem(10) calcRem(15) !important;
+  resize: none;
+  background-image: none;
+
+  &[disabled] {
+    background-color: $grey09 !important;
+    color: $textColor03 !important;
+  }
+
+  @include whenFocusOnly {
+    background-color: $color01 !important;
+    border-color: $color03 !important;
+    color: $textColor01 !important;
+    box-shadow: 0 0 0 calcRem(4) rgba($color03, 0.25) !important;
+    outline: none;
+    background-image: none;
+  }
+
+  &.block {
+    display: block;
+    width: 100%;
+  }
+
+  &.error,
+  &.invalid {
+    @include errorInput;
+
+    &~.invalid-message,
+    &~.error,
+    &~.error-message {
+      @include errorInputMessage;
+    }
+  }
+}
+
+@mixin errorInput {
+  background-color: #FFEEEE !important;
+  border-color: $color21 !important;
+}
+
+@mixin errorInputMessage {
+  @include captain();
+  color: $color21 !important;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+@mixin useSearchButtonStyle($svgColorType: 'fill') {
+  @include usePrimaryButtonStyle($svgColorType);
+  border-radius: 0 $globalRadius2 $globalRadius2 $globalRadius2;
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  top: 0;
+  padding: 0 calcRem(10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calcRem(40);
+  width: calcRem(50);
+
+  svg {
+    width: calcRem(16);
+    height: calcRem(16);
+
+    path {
+      @if ($svgColorType=='fill') {
+        fill: $color01;
+        stroke: none;
+      }
+
+      @else if ($svgColorType=='stroke') {
+        stroke: $color01;
+        fill: none;
+      }
+    }
+  }
+}
+
+@mixin searchInputStyle() {
+  background-color: $color01;
+  border: 1px solid $grey03;
+  border-bottom-right-radius: $globalRadius2;
+  border-top-right-radius: $globalRadius2;
+  height: calcRem(40);
+  padding-right: calcRem(65);
+}
+
+body {
+  textarea,
+  input[type="text"],
+  input[type="search"],
+  input[type="url"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="number"] {
+    &.input {
+      @include setInputGeneric;
+    }
+  
+    @include setInputGeneric;
+  }
+}

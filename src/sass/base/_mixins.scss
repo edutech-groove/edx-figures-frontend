@@ -61,3 +61,71 @@
     transition: all 0.3s ease-in-out;
   }
 }
+
+@mixin usePopover {
+  border-color: transparent;
+  position: relative;
+  border-radius: calcRem(8);
+  padding: calcRem(20);
+  margin: 0;
+  list-style: none;
+  box-shadow: 0px 0px calcRem(16) rgba(137, 137, 137, 0.161);
+  background-color: #fff;
+
+  &:after {
+    position: absolute;
+    border-style: solid;
+    content: "";
+    display: block;
+    height: 0;
+    width: 0;
+  }
+}
+
+@mixin usePopoverBottom {
+  @include usePopover;
+
+  &:after {
+    border-color: transparent transparent #fff transparent;
+    border-width: 0 calcRem(6) calcRem(8) calcRem(6);
+    left: 50%;
+    transform: translateX(-50%);
+    top: calcRem(-8);
+  }
+}
+
+@mixin usePopoverTop {
+  @include usePopover;
+
+  &:after {
+    border-color: #fff transparent transparent transparent;
+    border-width: calcRem(8) calcRem(6) 0 calcRem(6);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calcRem(-8);
+  }
+}
+
+@mixin usePopoverLeft {
+  @include usePopover;
+
+  &:after {
+    border-color: transparent transparent transparent #fff;
+    border-width: calcRem(6) 0 calcRem(6) calcRem(8);
+    top: 50%;
+    transform: translateY(-50%);
+    right: calcRem(-8);
+  }
+}
+
+@mixin usePopoverRight {
+  @include usePopover;
+
+  &:after {
+    border-color: transparent #fff transparent transparent;
+    border-width: calcRem(6) calcRem(8) calcRem(6) 0;
+    top: 50%;
+    transform: translateY(-50%);
+    left: calcRem(-8);
+  }
+}

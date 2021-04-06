@@ -10,7 +10,7 @@
 
 .layout-root {
   width: 100%;
-  padding: 0;
+  padding: 0 0 calcRem(20);
   font-size: $rem-base-size + 0px;
   font-family: $font-family;
   -webkit-font-smoothing: antialiased;

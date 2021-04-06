@@ -53,7 +53,6 @@ class HeaderContentMaus extends Component {
           <span className={styles['text-separator']} />
           <div className={styles['comparison-box']}>
             <div className={styles['comparison-box__upper']}>
-              <span className={styles['comparison-box__icon']}>{comparisonIcon}</span>
               <span className={styles['comparison-box__text']}>
                 {(currentPeriodValue >= previousPeriodValue) ? 'up' : 'down'} {comparisonValue} compared to last month
               </span>
@@ -95,7 +94,8 @@ HeaderContentMaus.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => ({
   mauDataCurrent: Immutable.fromJS(state.generalData.activeUsers['current_month']),
-  mauDataHistory: Immutable.fromJS(state.generalData.activeUsers['history']),
+  // mauDataHistory: Immutable.fromJS(state.generalData.activeUsers['history']),
+  mauDataHistory: Immutable.fromJS([{"period":"2021/01","value":7},{"period":"2021/02","value":8},{"period":"2021/03","value":33},{"period":"2021/04","value":9}]), // MOCKDATA
 })
 
 export default connect(
