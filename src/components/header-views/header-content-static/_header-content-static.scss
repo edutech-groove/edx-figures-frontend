@@ -3,40 +3,32 @@
 @import '~base/sass/base/grid';
 
 .header-content-static {
-  margin-bottom: calcRem(60);
   position: relative;
-  padding-bottom: calcRem(40);
+  padding-top: calcRem(60);
+  padding-bottom: calcRem(50);
+  text-align: center;
 
   .title {
-    @include useFont2;
-    @include fz(28);
-    color: pick-visible-color($grey08, #fff, $base-text-color);
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    line-height: 120%;
-    margin: calcRem(20) 0 calcRem(10);
-    text-align: center;
-    text-transform: uppercase;
+    @include heading1;
+    margin: 0 0 calcRem(10);
   }
 
   .subtitle {
-    @include fz(15);
-    font-weight: normal;
-    color: pick-visible-color($grey08, #fff, $base-text-color);
-    line-height: 150%;
-    text-align: center;
+    @include paragraph2;
+    margin: 0;
 
     span {
-      @include fz(15);
+      @include paragraph1;
+      margin-left: calcRem(10);
+      margin-bottom: 0;
+      padding: calcRem(2) calcRem(7);
       background-color: $color24;
       border-color: $color24;
       border-radius: $globalRadius;
       color: $color01;
       display: inline-block;
-      height: 24px;
-      line-height: 24px;
-      margin-left: 10px;
-      min-width: 40px;
+      min-width: calcRem(40);
+      box-sizing: border-box;
     }
   }
 }

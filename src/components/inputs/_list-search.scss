@@ -4,18 +4,29 @@
 
 .list-search {
   display: block;
-  padding: calcRem(15) 0;
 
   .inner-container {
-    padding: 8px 0;
     width: 100%;
-    max-width: calcRem(420);
-    border-bottom: 1px solid #ccc;
-    display: flex;
-    align-items: center;
+    width: calcRem(360);
+    position: relative;
+    
+    >input {
+      box-sizing: border-box;
+      width: 100%;
+      @include searchInputStyle;
+      @include fz(15);
 
-    &.active {
-      border-bottom: 2px solid $primary-color;
+      &+span {
+        @include useSearchButtonStyle('stroke');
+
+        svg {
+          path {
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: calcRem(2);
+          }
+        }
+      }
     }
   }
 

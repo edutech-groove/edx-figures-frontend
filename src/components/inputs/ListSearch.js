@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from './_list-search.scss';
 import classNames from 'classnames/bind';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 let cx = classNames.bind(styles);
 
@@ -50,7 +48,6 @@ class ListSearch extends Component {
     return (
       <div className={styles['list-search']}>
         <div className={cx({ 'inner-container': true, 'active': (this.state.value !== '')})}>
-          <FontAwesomeIcon icon={faSearch} className={styles['search-icon']} />
           <input
             type="text"
             className={styles['list-search-input']}
@@ -58,11 +55,14 @@ class ListSearch extends Component {
             onChange={(e) => this.onChange(e.target.value)}
             placeholder={this.props.inputPlaceholder}
           />
-          {this.state.value ? (
-            <button className={styles['clear-button']} onClick={() => this.clearInput()}>
-              <FontAwesomeIcon icon={faTimes} className={styles['clear-icon']} />
-            </button>
-          ) : ''}
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.414 18.414">
+              <g transform="translate(-3.5 -3.5)">
+                <path d="M18.722,11.611A7.111,7.111,0,1,1,11.611,4.5a7.111,7.111,0,0,1,7.111,7.111Z" transform="translate(0)"/>
+                <path d="M28.842,28.842l-3.867-3.867" transform="translate(-8.342 -8.342)"/>
+              </g>
+            </svg>
+          </span>
         </div>
       </div>
     )

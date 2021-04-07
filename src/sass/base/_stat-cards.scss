@@ -1,10 +1,11 @@
 @import '~base/sass/base/variables';
 @import '~base/sass/base/functions';
 @import '~base/sass/base/grid';
+@import '~base/sass/base/mixins';
 
 .stat-card {
   background-color: #fff;
-  border: calcRem(1) solid #efefef;
+  border: calcRem(1) solid #E8E8E8;
   border-radius: $globalRadius;
   box-shadow: none;
   display: flex;
@@ -21,37 +22,67 @@
             :global(.recharts-cartesian-grid-horizontal) {
               line {
                 &:not(:last-child) {
-                  stroke-dasharray: 5;
+                  stroke-dasharray: 2;
                 }
               }
             }
           }
+
           :global(.recharts-cartesian-axis) {
+
             :global(.recharts-cartesian-axis-line),
             :global(recharts-cartesian-axis-tick-line) {
               stroke: #A7A7A7;
               stroke-width: 1px;
             }
-            :global(.echarts-cartesian-axis-ticks) {
+
+            :global(.recharts-cartesian-axis-ticks) {
               :global(.recharts-cartesian-axis-tick-value) {
                 @include captain;
+                margin-bottom: 0;
+              }
+
+              :global(.recharts-cartesian-axis-tick-line) {
+                stroke: #A7A7A7;
+                stroke-width: 1px;
               }
             }
-            &:global(recharts-yAxis) {
-              :global(.echarts-cartesian-axis-ticks) {
+
+            &:global(.recharts-yAxis) {
+              :global(.recharts-cartesian-axis-ticks) {
                 :global(.recharts-cartesian-axis-tick-value) {
-                  margin-bottom: calcRem(5);
+                  transform: translateX(calcRem(-5));
                 }
               }
             }
 
-            &:global(recharts-xAxis) {
-              :global(.echarts-cartesian-axis-ticks) {
+            &:global(.recharts-xAxis) {
+              :global(.recharts-cartesian-axis-ticks) {
                 :global(.recharts-cartesian-axis-tick-value) {
-                  margin-bottom: 0;
-                  margin-right: calcRem(5);
+                  transform: translateY(calcRem(10));
                 }
               }
+            }
+          }
+        }
+
+        :global(.recharts-tooltip-wrapper) {
+          >* {
+            text-align: center;
+            @include usePopoverTop;
+            background-color: #25304C;
+            padding: calcRem(5) 0;
+            border-radius: calcRem(4);
+
+            &:after {
+              border-top-color: #25304C;
+              margin-left: 0
+            }
+
+            >* {
+              @include paragraph1;
+              margin-bottom: 0;
+              color: #fff;
             }
           }
         }

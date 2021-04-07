@@ -27,27 +27,14 @@
       padding: 0;
   
       .mau-table {
-        width: 100%;
-        padding: 0;
-        margin: 0;
-
+        @include usePrimaryTableStyle;
+        
         tr {
           text-align: left;
 
-          th {
-            padding: calcRem(10) 0;
-            border-bottom: 1px solid $grey03;
-            @include captain;
-            margin-bottom: 0;
-            text-transform: uppercase;
-          }
-
           td {
-            padding: calcRem(20) 0;
-            border-bottom: 1px dashed $grey03;
             @include paragraph1;
-            margin-bottom: 0;
-    
+
             &.mau-count,
             &.positive {
               color: $grvColor05;
@@ -61,11 +48,6 @@
           >* {
             &:not(:first-child) {
               text-align: right;
-              padding-left: calcRem(10);
-            }
-
-            &:not(:last-child) {
-              padding-right: calcRem(10);
             }
           }
         }

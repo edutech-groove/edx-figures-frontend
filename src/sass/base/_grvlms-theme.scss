@@ -175,20 +175,20 @@ $font-family: $font1;
   outline: none;
   text-transform: none;
   background-color: $grey08;
-  padding: calcRem(10) calcRem(15) !important;
+  padding: calcRem(10) calcRem(15);
   resize: none;
   background-image: none;
 
   &[disabled] {
-    background-color: $grey09 !important;
-    color: $textColor03 !important;
+    background-color: $grey09;
+    color: $textColor03;
   }
 
   @include whenFocusOnly {
-    background-color: $color01 !important;
-    border-color: $color03 !important;
-    color: $textColor01 !important;
-    box-shadow: 0 0 0 calcRem(4) rgba($color03, 0.25) !important;
+    background-color: $color01;
+    border-color: $color03;
+    color: $textColor01;
+    box-shadow: 0 0 0 calcRem(4) rgba($color03, 0.25);
     outline: none;
     background-image: none;
   }
@@ -211,13 +211,13 @@ $font-family: $font1;
 }
 
 @mixin errorInput {
-  background-color: #FFEEEE !important;
-  border-color: $color21 !important;
+  background-color: #FFEEEE;
+  border-color: $color21;
 }
 
 @mixin errorInputMessage {
   @include captain();
-  color: $color21 !important;
+  color: $color21;
   margin-top: 6px;
   margin-bottom: 0;
 }
@@ -260,7 +260,7 @@ $font-family: $font1;
   border-bottom-right-radius: $globalRadius2;
   border-top-right-radius: $globalRadius2;
   height: calcRem(40);
-  padding-right: calcRem(65);
+  padding-right: calcRem(65) !important;
 }
 
 body {
@@ -277,5 +277,10 @@ body {
     }
   
     @include setInputGeneric;
+
+    &:global([id*="react-select-"]) {
+      padding: 0;
+      box-shadow: none !important;
+    }
   }
 }

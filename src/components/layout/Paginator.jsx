@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import { List } from 'immutable';
 import styles from './_paginator.scss';
 import cx from "classnames";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft  } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft, faCaretDown  } from '@fortawesome/free-solid-svg-icons';
 
 const perPageDropdownOptions = List([
   { value: 20, label: '20' },
@@ -97,13 +97,27 @@ class Paginator extends React.Component {
               })}
               onClick={() => this.props.pageSwitchFunction(1)}
             >
-              <FontAwesomeIcon icon={faAngleDoubleLeft}/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="9" viewBox="0 0 8 9">
+                <g transform="translate(3 9) rotate(-90)">
+                  <path d="M4.5,0a.5.5,0,0,0-.354.147l-4,4a.5.5,0,0,0,.707.707L4.5,1.207,8.146,4.854a.5.5,0,0,0,.707-.707l-4-4A.5.5,0,0,0,4.5,0Z"/>
+                </g>
+                <g transform="translate(0 9) rotate(-90)">
+                  <path d="M4.5,0a.5.5,0,0,0-.354.147l-4,4a.5.5,0,0,0,.707.707L4.5,1.207,8.146,4.854a.5.5,0,0,0,.707-.707l-4-4A.5.5,0,0,0,4.5,0Z"/>
+                </g>
+              </svg>
             </button>
           ) : (
             <span
               className={styles['text-item-dummy']}
             >
-              <FontAwesomeIcon icon={faAngleDoubleLeft}/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="9" viewBox="0 0 8 9">
+                <g transform="translate(3 9) rotate(-90)">
+                  <path d="M4.5,0a.5.5,0,0,0-.354.147l-4,4a.5.5,0,0,0,.707.707L4.5,1.207,8.146,4.854a.5.5,0,0,0,.707-.707l-4-4A.5.5,0,0,0,4.5,0Z"/>
+                </g>
+                <g transform="translate(0 9) rotate(-90)">
+                  <path d="M4.5,0a.5.5,0,0,0-.354.147l-4,4a.5.5,0,0,0,.707.707L4.5,1.207,8.146,4.854a.5.5,0,0,0,.707-.707l-4-4A.5.5,0,0,0,4.5,0Z"/>
+                </g>
+              </svg>
             </span>
           )}
           {(this.state.currentPage !== 1) ? (
@@ -114,13 +128,21 @@ class Paginator extends React.Component {
               })}
               onClick={() => this.props.pageSwitchFunction(this.props.currentPage-1)}
             >
-              <FontAwesomeIcon icon={faAngleLeft}/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="5" height="9" viewBox="0 0 5 9">
+                <g transform="translate(0 9) rotate(-90)">
+                  <path d="M4.5,0a.5.5,0,0,0-.354.147l-4,4a.5.5,0,0,0,.707.707L4.5,1.207,8.146,4.854a.5.5,0,0,0,.707-.707l-4-4A.5.5,0,0,0,4.5,0Z"/>
+                </g>
+              </svg>
             </button>
           ) : (
             <span
               className={styles['text-item-dummy']}
             >
-              <FontAwesomeIcon icon={faAngleLeft}/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="5" height="9" viewBox="0 0 5 9">
+                <g transform="translate(0 9) rotate(-90)">
+                  <path d="M4.5,0a.5.5,0,0,0-.354.147l-4,4a.5.5,0,0,0,.707.707L4.5,1.207,8.146,4.854a.5.5,0,0,0,.707-.707l-4-4A.5.5,0,0,0,4.5,0Z"/>
+                </g>
+              </svg>
             </span>
           )}
           {pageNumbers}
@@ -132,13 +154,21 @@ class Paginator extends React.Component {
               })}
               onClick={() => this.props.pageSwitchFunction(this.props.currentPage+1)}
             >
-              <FontAwesomeIcon icon={faAngleRight}/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="5" height="9" viewBox="0 0 5 9">
+                <g transform="translate(-390.547 424.663) rotate(-90)">
+                  <path d="M420.164,395.547a.5.5,0,0,1-.354-.147l-4-4a.5.5,0,1,1,.707-.707l3.647,3.647,3.646-3.647a.5.5,0,0,1,.707.707l-4,4A.5.5,0,0,1,420.164,395.547Z"/>
+                </g>
+              </svg>
             </button>
           ) : (
             <span
               className={styles['text-item-dummy']}
             >
-              <FontAwesomeIcon icon={faAngleRight}/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="5" height="9" viewBox="0 0 5 9">
+              <g transform="translate(-390.547 424.663) rotate(-90)">
+                <path d="M420.164,395.547a.5.5,0,0,1-.354-.147l-4-4a.5.5,0,1,1,.707-.707l3.647,3.647,3.646-3.647a.5.5,0,0,1,.707.707l-4,4A.5.5,0,0,1,420.164,395.547Z"/>
+              </g>
+            </svg>
             </span>
           )}
           {(this.state.currentPage !== this.props.pages) ? (
@@ -149,13 +179,33 @@ class Paginator extends React.Component {
               })}
               onClick={() => this.props.pageSwitchFunction(this.props.pages)}
             >
-              <FontAwesomeIcon icon={faAngleDoubleRight}/>
+              
+              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="9" viewBox="0 0 8 9">
+                <g transform="translate(-563 -755)">
+                  <g transform="translate(172.453 1179.663) rotate(-90)">
+                    <path d="M420.164,395.547a.5.5,0,0,1-.354-.147l-4-4a.5.5,0,1,1,.707-.707l3.647,3.647,3.646-3.647a.5.5,0,0,1,.707.707l-4,4A.5.5,0,0,1,420.164,395.547Z"/>
+                  </g>
+                  <g transform="translate(175.453 1179.663) rotate(-90)">
+                    <path d="M420.164,395.547a.5.5,0,0,1-.354-.147l-4-4a.5.5,0,1,1,.707-.707l3.647,3.647,3.646-3.647a.5.5,0,0,1,.707.707l-4,4A.5.5,0,0,1,420.164,395.547Z"/>
+                  </g>
+                </g>
+              </svg>
             </button>
           ) : (
             <span
               className={styles['text-item-dummy']}
             >
-              <FontAwesomeIcon icon={faAngleDoubleRight}/>
+              
+              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="9" viewBox="0 0 8 9">
+                <g transform="translate(-563 -755)">
+                  <g transform="translate(172.453 1179.663) rotate(-90)">
+                    <path d="M420.164,395.547a.5.5,0,0,1-.354-.147l-4-4a.5.5,0,1,1,.707-.707l3.647,3.647,3.646-3.647a.5.5,0,0,1,.707.707l-4,4A.5.5,0,0,1,420.164,395.547Z"/>
+                  </g>
+                  <g transform="translate(175.453 1179.663) rotate(-90)">
+                    <path d="M420.164,395.547a.5.5,0,0,1-.354-.147l-4-4a.5.5,0,1,1,.707-.707l3.647,3.647,3.646-3.647a.5.5,0,0,1,.707.707l-4,4A.5.5,0,0,1,420.164,395.547Z"/>
+                  </g>
+                </g>
+              </svg>
             </span>
           )}
         </div>
@@ -168,6 +218,33 @@ class Paginator extends React.Component {
               options={perPageDropdownOptions.toArray()}
               onChange = {(payload) => this.props.changePerPageFunction(payload.value)}
               value={perPageDropdownOptions.get(perPageDropdownOptions.findIndex(item => (item.value === this.state.perPage)))}
+              styles={{
+                control: (base, state) => ({
+                  ...base,
+                  background: state.isFocused ? '#FFF' : '#F3F3F4',
+                  border: '1px solid transparent',
+                  borderColor: state.isFocused ? '#E60978 !important' : '#F3F3F4',
+                  boxShadow: state.isFocused ? '0 0 0 0.25rem rgba(230, 9, 120, 0.25)' : 'none',
+
+                  '&:hover': {
+                    borderColor: state.isFocused ? '#E60978' : '#F3F3F4',
+                  }
+                }),
+
+                option: (base, state) => ({
+                  ...base,
+                  color: '#333',
+                  backgroundColor: state.isFocused ? '#FBFBFB' : '#fff',
+                })
+              }}
+              components={{
+                IndicatorSeparator: () => null,
+                DropdownIndicator: (props) => {
+                  return (<components.DropdownIndicator {...props}>
+                    <FontAwesomeIcon icon={faCaretDown}/>
+                  </components.DropdownIndicator>);
+                }
+              }}
             />
           </div>
         </div>
