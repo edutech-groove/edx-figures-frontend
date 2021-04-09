@@ -33,6 +33,8 @@
           text-align: left;
 
           td {
+            padding-top: calcRem(20);
+            padding-bottom: calcRem(20);
             @include paragraph1;
 
             &.mau-count,

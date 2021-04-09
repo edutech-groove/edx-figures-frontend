@@ -40,36 +40,17 @@
   
     tr {
       th {
-        .sorting-header-button {
-          padding: 0;
-          margin: 0;
-          background: none;
-          border: none;
-          outline: none;
-      
-          span {
-            @include captain;
-            margin-bottom: 0;
-            text-transform: uppercase;
-      
-            & + svg {
-              @include fz(13);
-              color: $textColor02;
-              margin-left: calcRem(5);
-            }
-          }
-      
-          &:hover, &:focus {
-            cursor: pointer;
-          }
-        }
-      
-        &.is-active {
+        &.self-paced {
           text-align: center;
         }
       }
-    
+
       td {
+        .course-name-link {
+          &:hover {
+            color: $grvColor06;
+          }
+        }
         .course-name-link,
         &.enrolments,
         &.completions {

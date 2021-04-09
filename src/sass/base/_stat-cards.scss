@@ -21,7 +21,7 @@
           :global(.recharts-cartesian-grid) {
             :global(.recharts-cartesian-grid-horizontal) {
               line {
-                &:not(:last-child) {
+                &:not(:first-child) {
                   stroke-dasharray: 2;
                 }
               }

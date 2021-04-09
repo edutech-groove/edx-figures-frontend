@@ -30,6 +30,9 @@ $color23: #FBFBFB;
 $color24: #FF9D00;
 $color24d: #EA9000;
 $color25: #FFF5E5;
+$color26: #F0F5FC;
+$color27: #CFD7E2;
+$color28: #8EA1BC;
 
 // Specific grv-theme colors (Use with caution for fallback)
 $grvColor01: #25304c;
@@ -39,9 +42,9 @@ $grvColor04: #6760fa;
 $grvColor05: #38c976;
 $grvColor06: #0094e3;
 
-$globalRadius: 4px;
-$globalRadius1: 20px;
-$globalRadius2: 40px;
+$globalRadius: calcRem(4);
+$globalRadius1: calcRem(20);
+$globalRadius2: calcRem(40);
 
 $textColor01: #333 !default;
 $textColor02: #666 !default;

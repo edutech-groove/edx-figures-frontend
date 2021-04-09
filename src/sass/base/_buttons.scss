@@ -486,3 +486,117 @@
     @include useDangerTransparentButtonStyle($svgColorType);
     padding: 0;
 }
+
+@mixin useBlueLink($svgColorType: 'fill') {
+    color: $grvColor06;
+    text-decoration: none;
+    background-color: transparent;
+    box-shadow: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    background-color: transparent;
+    font-weight: 300;
+    text-align: left;
+
+    .btn-content {
+        display: flex;
+        align-items: center;
+    }
+
+    svg {
+        margin: 0 5px;
+        width: auto;
+        height: 12px;
+
+        @if ($svgColorType=='fill') {
+            fill: $grvColor06;
+            stroke: none;
+
+            * {
+                fill: $grvColor06;
+                stroke: none;
+            }
+        }
+
+        @else if ($svgColorType=='stroke') {
+            stroke: $grvColor06;
+            fill: none;
+
+            * {
+                stroke: $grvColor06;
+                fill: none;
+            }
+        }
+    }
+
+    @include whenHover {
+        text-decoration: underline;
+        box-shadow: none;
+        font-weight: 300;
+    }
+
+}
+
+@mixin usePrimaryToggle {
+    display: none;
+
+    &+* {
+        display: inline-block;
+        position: relative;
+        width: calcRem(44);
+        min-width: calcRem(44);
+        height: calcRem(24);
+        margin-bottom: 0;
+        cursor: pointer;
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            border-radius: $globalRadius2;
+            transition: all .2s ease-in-out;
+            min-height: unset;
+            max-height: unset;
+            min-width: unset;
+            max-width: unset;
+        }
+
+        &::before {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: $color21;
+        }
+
+        &::after {
+            width: calcRem(16);
+            height: calcRem(16);
+            top: calcRem(4);
+            left: calcRem(4);
+            background-color: $color01;
+        }
+    }
+
+    &:checked {
+        &+* {
+            &::before {
+                background-color: $grvColor05;
+            }
+
+            &::after {
+                left: calcRem(24);
+            }
+        }
+    }
+
+    &:disabled {
+        &+* {
+            &::before {
+                background-color: #D4D4D4;
+            }
+        }
+    }
+}

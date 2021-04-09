@@ -8,7 +8,7 @@ import HeaderContentStatic from 'base/components/header-views/header-content-sta
 import Paginator from 'base/components/layout/Paginator';
 import ListSearch from 'base/components/inputs/ListSearch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faAngleDoubleUp, faAngleDoubleDown } from '@fortawesome/free-solid-svg-icons';
+import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 import classNames from 'classnames/bind';
 let cx = classNames.bind(styles);
@@ -244,11 +244,11 @@ class CoursesList extends Component {
                     <span>
                       Course name
                     </span>
-                    {/* {(this.state.ordering === 'display_name') ? (
-                      <FontAwesomeIcon icon={faAngleDoubleUp} />
+                    {(this.state.ordering === 'display_name') ? (
+                      <FontAwesomeIcon icon={faCaretUp} />
                     ) : (this.state.ordering === '-display_name') ? (
-                      <FontAwesomeIcon icon={faAngleDoubleDown} />
-                    ) : ''} */}
+                      <FontAwesomeIcon icon={faCaretDown} />
+                    ) : ''}
                   </button>
                 </th>
                 <th className={styles['course-id']}>
@@ -265,11 +265,11 @@ class CoursesList extends Component {
                     <span>
                       Self paced
                     </span>
-                    {/* {(this.state.ordering === 'self_paced') ? (
-                      <FontAwesomeIcon icon={faAngleDoubleUp} />
+                    {(this.state.ordering === 'self_paced') ? (
+                      <FontAwesomeIcon icon={faCaretUp} />
                     ) : (this.state.ordering === '-self_paced') ? (
-                      <FontAwesomeIcon icon={faAngleDoubleDown} />
-                    ) : ''} */}
+                      <FontAwesomeIcon icon={faCaretDown} />
+                    ) : ''}
                   </button>
                 </th>
                 <th className={styles['enrolments']}>

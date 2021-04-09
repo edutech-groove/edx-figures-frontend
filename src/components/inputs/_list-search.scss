@@ -15,18 +15,36 @@
       width: 100%;
       @include searchInputStyle;
       @include fz(15);
+    }
 
-      &+span {
-        @include useSearchButtonStyle('stroke');
+    .search-btn {
+      @include useSearchButtonStyle('stroke');
+      height: 100%;
 
-        svg {
-          path {
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-width: calcRem(2);
-          }
+      svg {
+        path {
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-width: calcRem(2);
         }
       }
+    }
+
+    .dismiss-btn {
+      border-radius: 50%;
+      position: absolute;
+      z-index: 5;
+      right: calcRem(10);
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      border: 0;
+      padding: 0;
+      outline: none;
+      cursor: pointer;
     }
   }
 

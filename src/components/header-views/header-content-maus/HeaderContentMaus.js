@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import styles from './_header-content-maus.scss';
 import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDoubleUp, faAngleDoubleDown } from '@fortawesome/free-solid-svg-icons';
+import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 let cx = classNames.bind(styles);
 
@@ -36,10 +36,10 @@ class HeaderContentMaus extends Component {
     let comparisonIcon;
     let comparisonValue;
     if (currentPeriodValue >= previousPeriodValue) {
-      comparisonIcon = <FontAwesomeIcon icon={faAngleDoubleUp} />;
+      comparisonIcon = <FontAwesomeIcon icon={faCaretUp} />;
       comparisonValue = currentPeriodValue - previousPeriodValue;
     } else {
-      comparisonIcon = <FontAwesomeIcon icon={faAngleDoubleDown} />;
+      comparisonIcon = <FontAwesomeIcon icon={faCaretDown} />;
       comparisonValue = previousPeriodValue - currentPeriodValue;
     }
 
@@ -71,7 +71,7 @@ class HeaderContentMaus extends Component {
                 data={this.props.mauDataHistory.toJS()}
                 margin={{top: 0, bottom: 0, left: 0, right: 0}}
               >
-                <Area type='linear' dataKey='value' stroke='none' fill='#ffffff' fillOpacity={0.8} />
+                <Area type='linear' dataKey='value' stroke='none' fill='#ffffff' fillOpacity={0.1} />
                 <Tooltip
                   content={<CustomTooltip/>}
                   cursor={{ fill: 'rgba(255, 255, 255, 0.15)'}}
