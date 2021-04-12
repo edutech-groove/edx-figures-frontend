@@ -87,7 +87,8 @@
   }
 
   .course-action {
-    @include useGrvSecondaryYellowButtonStyle;
+    @include useLightYellowButton;
+    @include fz(15);
     border: none;
     box-shadow: none;
     cursor: pointer;

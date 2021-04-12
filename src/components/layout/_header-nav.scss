@@ -13,15 +13,16 @@
 }
 
 a.header-nav__link, a.header-nav__link:not(.btn) {
+  @include fz(15);
+  margin-right: 24px;
+  color: $textColor01;
   text-decoration: none;
   position: relative;
-  @include paragraph2;
-  margin: 0 24px 0 0;
 
   &:after {
     position: absolute;
-    bottom: calcRem(-25);
-    height: calcRem(1);
+    bottom: calcRem(-10);
+    height: calcRem(2);
     width: 0;
     left: 0;
     // background-color: pick-visible-color($primary-color, #fff, $base-text-color);
@@ -30,8 +31,7 @@ a.header-nav__link, a.header-nav__link:not(.btn) {
     transition: all 0.2s ease-in-out;
   }
 
-  &:hover,
-  &:global(.active) {
+  &:hover {
     // color: pick-visible-color($primary-color, #fff, $base-text-color);
     color: $color03;
 
@@ -43,5 +43,11 @@ a.header-nav__link, a.header-nav__link:not(.btn) {
   &:focus {
     // color: pick-visible-color($primary-color, #fff, $base-text-color);
     color: $color03;
+  }
+
+  &.active {
+    color: $color03;
+    font-weight: 900;
+    opacity: 0.6;
   }
 }

@@ -8,7 +8,8 @@
 
 button.selector-trigger-button {
   @include override-edx-styles;
-  @include useGrvPrimaryButtonStyleLarge;
+  @include usePrimaryButtonStyle;
+  @include fz(15);
   margin-left: calcRem(20);
   transition: all 0.2s ease-in-out;
 
@@ -27,35 +28,11 @@ button.selector-trigger-button {
   top: 0;
   right: 0;
   width: calcRem(360);
+  padding: calcRem(17) 0 calcRem(7);
+  background: #FFFFFF;
+  box-shadow: 2px 4px 6px 0 rgba(0,0,0,0.15);
+  border-radius: $elements-border-radius;
   z-index: 50;
-  height: 100%;
-
-  >div {
-    height: 100%;
-
-    >div {
-      height: 100%;
-
-      >input[type="text"] {
-        margin: 0;
-        box-sizing: border-box;
-        @include searchInputStyle;
-        height: 100%;
-      }
-    }
-    >span {
-      @include useSearchButtonStyle('stroke');
-      height: 100%;
-
-      svg {
-        path {
-          stroke-linecap: round;
-          stroke-linejoin: round;
-          stroke-width: calcRem(2);
-        }
-      }
-    }
-  }
 }
 
 .modal-dismiss {

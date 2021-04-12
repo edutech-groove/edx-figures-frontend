@@ -12,7 +12,6 @@ class HeaderNav extends Component {
         <NavLink
           to="/figures"
           className={styles['header-nav__link']}
-          exact
         >
           Overview
         </NavLink>

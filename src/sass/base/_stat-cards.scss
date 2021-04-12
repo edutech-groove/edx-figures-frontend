@@ -11,80 +11,28 @@
   padding: calcRem(20);
   transition: all 0.3s ease-in-out;
 
-  .history-content {
-    margin-left: calcRem(35);
-
-    :global(.recharts-responsive-container) {
-      :global(.recharts-wrapper) {
-        :global(.recharts-surface) {
-          :global(.recharts-cartesian-grid) {
-            :global(.recharts-cartesian-grid-horizontal) {
-              line {
-                &:not(:last-child) {
-                  stroke-dasharray: 5;
-                }
-              }
-            }
-          }
-          :global(.recharts-cartesian-axis) {
-            :global(.recharts-cartesian-axis-line),
-            :global(recharts-cartesian-axis-tick-line) {
-              stroke: #A7A7A7;
-              stroke-width: 1px;
-            }
-            :global(.echarts-cartesian-axis-ticks) {
-              :global(.recharts-cartesian-axis-tick-value) {
-                @include captain;
-              }
-            }
-            &:global(recharts-yAxis) {
-              :global(.echarts-cartesian-axis-ticks) {
-                :global(.recharts-cartesian-axis-tick-value) {
-                  margin-bottom: calcRem(5);
-                }
-              }
-            }
-
-            &:global(recharts-xAxis) {
-              :global(.echarts-cartesian-axis-ticks) {
-                :global(.recharts-cartesian-axis-tick-value) {
-                  margin-bottom: 0;
-                  margin-right: calcRem(5);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  @include whenHover {
-    box-shadow: none;
-  }
-
   &.span-2 {
     grid-column-end: span 2;
 
-    // .main-content {
-    //   width: 50%;
-    // }
+    .main-content {
+      width: 50%;
+    }
   }
 
   &.span-3 {
     grid-column-end: span 3;
 
-    // .main-content {
-    //   width: 33%;
-    // }
+    .main-content {
+      width: 33%;
+    }
   }
 
   &.span-4 {
     grid-column-end: span 4;
 
-    // .main-content {
-    //   width: 25%;
-    // }
+    .main-content {
+      width: 25%;
+    }
   }
 
   &:hover {
@@ -100,18 +48,10 @@
 
     .card-title {
       display: block;
-      @include heading3;
-    }
-
-    .main-data-container {
-      .current-data {
-        @include fz(32);
-        @include useFont2;
-        font-weight: 100;
-        line-height: 1.2;
-        color: $color02;
-        text-transform: uppercase;
-      }
+      font-weight: bold;
+      color: $base-text-color;
+      font-size: calcRem(16);
+      margin: 0 0 calcRem(10);
     }
 
     .card-description {
