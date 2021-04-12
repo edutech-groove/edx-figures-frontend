@@ -5,7 +5,7 @@ import { List } from 'immutable';
 import styles from './_paginator.scss';
 import cx from "classnames";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft, faCaretDown  } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown  } from '@fortawesome/free-solid-svg-icons';
 
 const perPageDropdownOptions = List([
   { value: 20, label: '20' },
@@ -222,7 +222,7 @@ class Paginator extends React.Component {
                 control: (base, state) => ({
                   ...base,
                   background: state.isFocused ? '#FFF' : '#F3F3F4',
-                  border: '1px solid transparent',
+                  border: '0.0625rem solid transparent',
                   borderColor: state.isFocused ? '#E60978 !important' : '#F3F3F4',
                   boxShadow: state.isFocused ? '0 0 0 0.25rem rgba(230, 9, 120, 0.25)' : 'none',
 
@@ -231,10 +231,15 @@ class Paginator extends React.Component {
                   }
                 }),
 
+                dropdownIndicator: (base) => ({
+                  ...base,
+                  color: '#666',
+                }),
+
                 option: (base, state) => ({
                   ...base,
                   color: '#333',
-                  backgroundColor: state.isFocused ? '#FBFBFB' : '#fff',
+                  backgroundColor: state.isFocused ? '#FBFBFB !important' : '#fff !important',
                 })
               }}
               components={{

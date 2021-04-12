@@ -23,68 +23,130 @@
       }
   
       .multiselect-container {
+        // :global(#multiselectContainerReact) {
+        //   >:global(div:first-child) {
+        //     display: flex;
+        //     flex-direction: column;
+        //     align-items: flex-end;
+        //     border: none;
+        //     padding: 0;
+        //     border-radius: 0;
+        //     @include fz(15);
   
-        :global(#multiselectContainerReact) {
-          >:global(div:first-child) {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            border: none;
-            padding: 0;
-            border-radius: 0;
-            @include fz(15);
+        //     :global(.searchBox) {
+        //       margin: 0;
+        //       order: -1;
+        //       width: calcRem(400);
+        //     }
   
-            :global(.searchBox) {
-              margin: 0;
-              order: -1;
-              width: calcRem(400);
+        //     :global(.chip) {
+        //       margin: calcRem(13) 0 0;
+        //       padding: calcRem(3) calcRem(3) calcRem(3) calcRem(16);
+        //       background: $grey04;
+        //       color: $textColor02;
+  
+        //       &:first-of-type {
+        //         margin-top: calcRem(15);
+        //       }
+  
+        //       :global(.icon_cancel) {
+        //         color: $color09;
+        //         margin-left: calcRem(15);
+  
+        //         &::after {
+        //           margin: 0;
+        //         }
+        //       }
+
+        //       &:hover {
+        //         background: #FFF7F7;
+        //         color: $color21;
+    
+        //         :global(.icon_cancel) {
+        //           color: $color21;
+        //         }
+        //       }
+        //     }
+        //   }
+  
+        //   :global(.optionListContainer) {
+        //     top: calcRem(50);
+        //     right: 0;
+        //     width: auto;
+  
+        //     :global(.optionContainer) {
+        //       :global(.option) {
+        //         @include fz(15);
+        //         color: $textColor01;
+  
+        //         &:hover,
+        //         &:global(.highlight) {
+        //           background-color: #FBFBFB;
+        //           color: $textColor01;
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+
+        .custom-label {
+
+          .number,
+          .id {
+            @include fz(11);
+            @include useFont1;
+            line-height: 1.2;
+            font-weight: 600;
+          }
+    
+          .number {
+            color: $color03;
+            margin-bottom: calcRem(5);
+          }
+    
+          .id {
+            color: $textColor02;
+            margin-bottom: 0;
+          }
+    
+          .name {
+            @include paragraph2;
+            margin-bottom: calcRem(5);
+          }
+        }
+
+        .chips {
+          margin-top: calcRem(15);
+
+          .chip {
+            &:not(:last-child) {
+              margin-bottom: calcRem(13);
             }
-  
-            :global(.chip) {
-              margin: calcRem(13) 0 0;
-              padding: calcRem(3) calcRem(3) calcRem(3) calcRem(16);
-              background: $grey04;
-              color: $textColor02;
-  
-              &:first-of-type {
-                margin-top: calcRem(15);
-              }
-  
-              :global(.icon_cancel) {
-                color: $color09;
-                margin-left: calcRem(15);
-  
-                &::after {
-                  margin: 0;
-                }
+            
+            display: flex;
+            justify-content: flex-end;
+
+            .chip-container {
+              display: flex;
+              align-items: center;
+              padding: calcRem(5) calcRem(5) calcRem(3) calcRem(16);
+              background-color: #F7F7F7;
+              border-radius: 12px;
+
+              .course-label {
+                @include captain;
+                margin-bottom: 0;
+                font-weight: 600;
+                margin-right: calcRem(15);
+                white-space: nowrap;
               }
 
-              &:hover {
-                background: #FFF7F7;
-                color: $color21;
-    
-                :global(.icon_cancel) {
-                  color: $color21;
-                }
-              }
-            }
-          }
-  
-          :global(.optionListContainer) {
-            top: calcRem(50);
-            right: 0;
-            width: auto;
-  
-            :global(.optionContainer) {
-              :global(.option) {
-                @include fz(15);
-                color: $textColor01;
-  
-                &:hover,
-                &:global(.highlight) {
-                  background-color: #FBFBFB;
-                  color: $textColor01;
-                }
+              .dismiss-btn {
+                background-color: transparent;
+                border: 0;
+                padding: 0;
+                outline: none;
+                cursor: pointer;
               }
             }
           }
@@ -97,7 +159,6 @@
     margin-top: calcRem(15);
     position: relative;
     width:100%;
-    z-index: 1;
     overflow: auto;
 
     .users-overview-list {

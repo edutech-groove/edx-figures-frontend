@@ -9,11 +9,11 @@ import HeaderContentStatic from 'base/components/header-views/header-content-sta
 import Paginator from 'base/components/layout/Paginator';
 import ListSearch from 'base/components/inputs/ListSearch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretUp, faCaretDown, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCaretUp, faCaretDown, faInfoCircle, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { ExportToCsv } from 'export-to-csv';
-import { Multiselect } from 'multiselect-react-dropdown';
 import learnersProgressOverviewArrow from 'base/images/learners-progress-overview-arrow.svg';
 import ReactTooltip from 'react-tooltip';
+import Select, { components } from 'react-select';
 
 import classNames from 'classnames/bind';
 let cx = classNames.bind(styles);
@@ -26,6 +26,7 @@ class ProgressOverview extends Component {
       learnersList: [],
       selectedCourses: [],
       coursesFilterOptions: [],
+      allCourses: [],
       perPage: 20,
       count: 0,
       pages: 0,
@@ -39,6 +40,7 @@ class ProgressOverview extends Component {
     this.fetchFullViewData = this.fetchFullViewData.bind(this);
     this.getUsersForCsv = this.getUsersForCsv.bind(this);
   }
+  selectRef = null;
 
   constructApiUrl = (rootUrl, searchQuery, selectedCourseIds, orderingType, perPageLimit, resultsOffset) => {
     let requestUrl = rootUrl;
@@ -60,27 +62,38 @@ class ProgressOverview extends Component {
 
   getCourses = () => {
     const requestUrl = apiConfig.coursesIndex + '?limit=1000';
-    // trackPromise(
-    //   fetch((requestUrl), { credentials: "same-origin" })
-    //     .then(response => response.json())
-    //     .then(json => this.setCoursesIndex(json['results']))
-    // )
+    trackPromise(
+      fetch((requestUrl), { credentials: "same-origin" })
+        .then(response => response.json())
+        .then(json => {
+          this.setState({
+            allCourses: json['results'],
+          });
+          this.setCoursesIndex(json['results']);
+        })
+    )
 
-    const json = {"count":10,"next":null,"previous":null,"results":[{"id":"course-v1:Groove+00011+2021_00011","name":"COURSE 11","org":"Groove","number":"00011"},{"id":"course-v1:Groove+00012+2021_00012","name":"COURSE 12","org":"Groove","number":"00012"},{"id":"course-v1:Groove+00014+2021_00014","name":"COURSE 14","org":"Groove","number":"00014"},{"id":"course-v1:Groove+00015+2021_00015","name":"COURSE 15","org":"Groove","number":"00015"},{"id":"course-v1:Groove+00016+2021_00016","name":"COURSE 16","org":"Groove","number":"00016"},{"id":"course-v1:Groove+00017+2021_00017","name":"COURSE 17","org":"Groove","number":"00017"},{"id":"course-v1:Groove+0008+2021_0008","name":"COURSE 08","org":"Groove","number":"0008"},{"id":"course-v1:Groove+0009+2021_0009","name":"COURSE 09","org":"Groove","number":"0009"},{"id":"course-v1:GrooveTechnology+00006+2021_00006","name":"COURSE 06","org":"GrooveTechnology","number":"00006"},{"id":"course-v1:GrooveTechnology+00007+2021_00007","name":"COURSE 15","org":"GrooveTechnology","number":"00007"}]};
-    this.setCoursesIndex(json['results']); //MOCKDATA
+    // const json = {"count":10,"next":null,"previous":null,"results":[{"id":"course-v1:Groove+00011+2021_00011","name":"COURSE 11","org":"Groove","number":"00011"},{"id":"course-v1:Groove+00012+2021_00012","name":"COURSE 12","org":"Groove","number":"00012"},{"id":"course-v1:Groove+00014+2021_00014","name":"COURSE 14","org":"Groove","number":"00014"},{"id":"course-v1:Groove+00015+2021_00015","name":"COURSE 15","org":"Groove","number":"00015"},{"id":"course-v1:Groove+00016+2021_00016","name":"COURSE 16","org":"Groove","number":"00016"},{"id":"course-v1:Groove+00017+2021_00017","name":"COURSE 17","org":"Groove","number":"00017"},{"id":"course-v1:Groove+0008+2021_0008","name":"COURSE 08","org":"Groove","number":"0008"},{"id":"course-v1:Groove+0009+2021_0009","name":"COURSE 09","org":"Groove","number":"0009"},{"id":"course-v1:GrooveTechnology+00006+2021_00006","name":"COURSE 06","org":"GrooveTechnology","number":"00006"},{"id":"course-v1:GrooveTechnology+00007+2021_00007","name":"COURSE 15","org":"GrooveTechnology","number":"00007"}]};
+    // this.setState({
+    //   allCourses: json['results'],
+    // });
+    // this.setCoursesIndex(json['results']); //MOCKDATA
   }
 
-  setCoursesIndex = (courses) => {
-    const coursesFilterOptions = courses.map((course, index) => {
-      const entry = {
-        id: course.id,
-        label: `${course.name} | ${course.number} | ${course.id}`,
-        name: course.name,
-        number: course.number
+  setCoursesIndex = (courses = null) => {
+    const selectedCourses = this.state.selectedCourses;
+    const allCourse = courses ? courses : this.state.allCourses;
+    const coursesFilterOptions = [];
+    
+    allCourse.forEach(course => {
+      if (!selectedCourses.some(c => c.id === course.id)) {
+        const entry = {
+          id: course.id,
+          name: course.name,
+          number: course.number
+        }
+        coursesFilterOptions.push(entry);
       }
-      return (
-        entry
-      )
     })
     this.setState({
       coursesFilterOptions: coursesFilterOptions,
@@ -89,26 +102,26 @@ class ProgressOverview extends Component {
 
   getUsers = (page = 1) => {
     const offset = (page-1) * this.state.perPage;
-    // const requestUrl = this.constructApiUrl(apiConfig.learnerMetrics, this.state.searchQuery, this.state.selectedCourseIds, this.state.ordering, this.state.perPage, offset);
-    // trackPromise(
-    //   fetch((requestUrl), { credentials: "same-origin" })
-    //     .then(response => response.json())
-    //     .then(json => this.setState({
-    //       learnersList: json['results'],
-    //       count: json['count'],
-    //       pages: Math.ceil(json['count'] / this.state.perPage),
-    //       currentPage: page,
-    //     })
-    //   )
-    // )
+    const requestUrl = this.constructApiUrl(apiConfig.learnerMetrics, this.state.searchQuery, this.state.selectedCourseIds, this.state.ordering, this.state.perPage, offset);
+    trackPromise(
+      fetch((requestUrl), { credentials: "same-origin" })
+        .then(response => response.json())
+        .then(json => this.setState({
+          learnersList: json['results'],
+          count: json['count'],
+          pages: Math.ceil(json['count'] / this.state.perPage),
+          currentPage: page,
+        })
+      )
+    )
 
-    const json = {"count":33,"next":"https://openedx.groovetechnology.co/figures/api/learner-metrics/?limit=20&offset=20&ordering=profile__name&search=c","previous":null,"results":[{"id":10,"username":"admin","email":"products@groovetechnology.com","fullname":"admin","is_active":true,"date_joined":"2021-04-06T02:27:23.060097Z","enrollments":[{"id":6,"course_id":"course-v1:Groove+00014+2021_00014","date_enrolled":"2021-04-06","is_enrolled":true,"progress_percent":0.0,"progress_details":null},{"id":4,"course_id":"course-v1:Groove+0009+2021_0009","date_enrolled":"2021-04-06","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}}]},{"id":10,"username":"admin","email":"products@groovetechnology.com","fullname":"admin","is_active":true,"date_joined":"2021-04-06T02:27:23.060097Z","enrollments":[{"id":6,"course_id":"course-v1:Groove+00014+2021_00014","date_enrolled":"2021-04-06","is_enrolled":true,"progress_percent":0.0,"progress_details":null},{"id":4,"course_id":"course-v1:Groove+0009+2021_0009","date_enrolled":"2021-04-06","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}}]},{"id":12,"username":"cy","email":"cy@gmail.com","fullname":"cy","is_active":true,"date_joined":"2021-04-07T01:51:03Z","enrollments":[{"id":11,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":8,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":20,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":12,"username":"cy","email":"cy@gmail.com","fullname":"cy","is_active":true,"date_joined":"2021-04-07T01:51:03Z","enrollments":[{"id":11,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":8,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":20,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":12,"username":"cy","email":"cy@gmail.com","fullname":"cy","is_active":true,"date_joined":"2021-04-07T01:51:03Z","enrollments":[{"id":11,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":8,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":20,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":22,"username":"cy10","email":"cy10@gmail.com","fullname":"cy10","is_active":true,"date_joined":"2021-04-07T02:01:34Z","enrollments":[{"id":19,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}}]},{"id":14,"username":"cy2","email":"cy2@gmail.com","fullname":"cy2","is_active":true,"date_joined":"2021-04-07T01:52:39Z","enrollments":[{"id":21,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":15,"username":"cy3","email":"cy3@gmail.com","fullname":"cy3","is_active":true,"date_joined":"2021-04-07T01:53:04Z","enrollments":[{"id":30,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":22,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":15,"username":"cy3","email":"cy3@gmail.com","fullname":"cy3","is_active":true,"date_joined":"2021-04-07T01:53:04Z","enrollments":[{"id":30,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":22,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":16,"username":"cy4","email":"cy4@gmail.com","fullname":"cy4","is_active":true,"date_joined":"2021-04-07T01:57:17Z","enrollments":[{"id":31,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":23,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}}]},{"id":16,"username":"cy4","email":"cy4@gmail.com","fullname":"cy4","is_active":true,"date_joined":"2021-04-07T01:57:17Z","enrollments":[{"id":31,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":23,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}}]},{"id":17,"username":"cy5","email":"cy5@gmail.com","fullname":"cy5","is_active":true,"date_joined":"2021-04-07T01:59:12Z","enrollments":[{"id":26,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}},{"id":25,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":24,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":17,"username":"cy5","email":"cy5@gmail.com","fullname":"cy5","is_active":true,"date_joined":"2021-04-07T01:59:12Z","enrollments":[{"id":26,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}},{"id":25,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":24,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":17,"username":"cy5","email":"cy5@gmail.com","fullname":"cy5","is_active":true,"date_joined":"2021-04-07T01:59:12Z","enrollments":[{"id":26,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}},{"id":25,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":24,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":18,"username":"cy6","email":"cy6@gmail.com","fullname":"cy6","is_active":true,"date_joined":"2021-04-07T01:59:46Z","enrollments":[{"id":32,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":27,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":15,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}}]},{"id":18,"username":"cy6","email":"cy6@gmail.com","fullname":"cy6","is_active":true,"date_joined":"2021-04-07T01:59:46Z","enrollments":[{"id":32,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":27,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":15,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}}]},{"id":18,"username":"cy6","email":"cy6@gmail.com","fullname":"cy6","is_active":true,"date_joined":"2021-04-07T01:59:46Z","enrollments":[{"id":32,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":27,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":15,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}}]},{"id":19,"username":"cy7","email":"cy7@gmail.com","fullname":"cy7","is_active":true,"date_joined":"2021-04-07T02:00:16Z","enrollments":[{"id":33,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":28,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":16,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":19,"username":"cy7","email":"cy7@gmail.com","fullname":"cy7","is_active":true,"date_joined":"2021-04-07T02:00:16Z","enrollments":[{"id":33,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":28,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":16,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":19,"username":"cy7","email":"cy7@gmail.com","fullname":"cy7","is_active":true,"date_joined":"2021-04-07T02:00:16Z","enrollments":[{"id":33,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":28,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":16,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]}]};
-    this.setState({
-      learnersList: json['results'],
-      count: json['count'],
-      pages: Math.ceil(json['count'] / this.state.perPage),
-      currentPage: page,
-    })
+    // const json = {"count":33,"next":"https://openedx.groovetechnology.co/figures/api/learner-metrics/?limit=20&offset=20&ordering=profile__name&search=c","previous":null,"results":[{"id":10,"username":"admin","email":"products@groovetechnology.com","fullname":"admin","is_active":true,"date_joined":"2021-04-06T02:27:23.060097Z","enrollments":[{"id":6,"course_id":"course-v1:Groove+00014+2021_00014","date_enrolled":"2021-04-06","is_enrolled":true,"progress_percent":0.0,"progress_details":null},{"id":4,"course_id":"course-v1:Groove+0009+2021_0009","date_enrolled":"2021-04-06","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}}]},{"id":10,"username":"admin","email":"products@groovetechnology.com","fullname":"admin","is_active":true,"date_joined":"2021-04-06T02:27:23.060097Z","enrollments":[{"id":6,"course_id":"course-v1:Groove+00014+2021_00014","date_enrolled":"2021-04-06","is_enrolled":true,"progress_percent":0.0,"progress_details":null},{"id":4,"course_id":"course-v1:Groove+0009+2021_0009","date_enrolled":"2021-04-06","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}}]},{"id":12,"username":"cy","email":"cy@gmail.com","fullname":"cy","is_active":true,"date_joined":"2021-04-07T01:51:03Z","enrollments":[{"id":11,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":8,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":20,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":12,"username":"cy","email":"cy@gmail.com","fullname":"cy","is_active":true,"date_joined":"2021-04-07T01:51:03Z","enrollments":[{"id":11,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":8,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":20,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":12,"username":"cy","email":"cy@gmail.com","fullname":"cy","is_active":true,"date_joined":"2021-04-07T01:51:03Z","enrollments":[{"id":11,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":8,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":20,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":22,"username":"cy10","email":"cy10@gmail.com","fullname":"cy10","is_active":true,"date_joined":"2021-04-07T02:01:34Z","enrollments":[{"id":19,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}}]},{"id":14,"username":"cy2","email":"cy2@gmail.com","fullname":"cy2","is_active":true,"date_joined":"2021-04-07T01:52:39Z","enrollments":[{"id":21,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":15,"username":"cy3","email":"cy3@gmail.com","fullname":"cy3","is_active":true,"date_joined":"2021-04-07T01:53:04Z","enrollments":[{"id":30,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":22,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":15,"username":"cy3","email":"cy3@gmail.com","fullname":"cy3","is_active":true,"date_joined":"2021-04-07T01:53:04Z","enrollments":[{"id":30,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":22,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":16,"username":"cy4","email":"cy4@gmail.com","fullname":"cy4","is_active":true,"date_joined":"2021-04-07T01:57:17Z","enrollments":[{"id":31,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":23,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}}]},{"id":16,"username":"cy4","email":"cy4@gmail.com","fullname":"cy4","is_active":true,"date_joined":"2021-04-07T01:57:17Z","enrollments":[{"id":31,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":23,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}}]},{"id":17,"username":"cy5","email":"cy5@gmail.com","fullname":"cy5","is_active":true,"date_joined":"2021-04-07T01:59:12Z","enrollments":[{"id":26,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}},{"id":25,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":24,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":17,"username":"cy5","email":"cy5@gmail.com","fullname":"cy5","is_active":true,"date_joined":"2021-04-07T01:59:12Z","enrollments":[{"id":26,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}},{"id":25,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":24,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":17,"username":"cy5","email":"cy5@gmail.com","fullname":"cy5","is_active":true,"date_joined":"2021-04-07T01:59:12Z","enrollments":[{"id":26,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}},{"id":25,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":24,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":18,"username":"cy6","email":"cy6@gmail.com","fullname":"cy6","is_active":true,"date_joined":"2021-04-07T01:59:46Z","enrollments":[{"id":32,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":27,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":15,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}}]},{"id":18,"username":"cy6","email":"cy6@gmail.com","fullname":"cy6","is_active":true,"date_joined":"2021-04-07T01:59:46Z","enrollments":[{"id":32,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":27,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":15,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}}]},{"id":18,"username":"cy6","email":"cy6@gmail.com","fullname":"cy6","is_active":true,"date_joined":"2021-04-07T01:59:46Z","enrollments":[{"id":32,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":27,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":15,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}}]},{"id":19,"username":"cy7","email":"cy7@gmail.com","fullname":"cy7","is_active":true,"date_joined":"2021-04-07T02:00:16Z","enrollments":[{"id":33,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":28,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":16,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":19,"username":"cy7","email":"cy7@gmail.com","fullname":"cy7","is_active":true,"date_joined":"2021-04-07T02:00:16Z","enrollments":[{"id":33,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":28,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":16,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":19,"username":"cy7","email":"cy7@gmail.com","fullname":"cy7","is_active":true,"date_joined":"2021-04-07T02:00:16Z","enrollments":[{"id":33,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":28,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":16,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]}]};
+    // this.setState({
+    //   learnersList: json['results'],
+    //   count: json['count'],
+    //   pages: Math.ceil(json['count'] / this.state.perPage),
+    //   currentPage: page,
+    // }) //MOCKDATA
   }
 
   setPerPage = (newValue) => {
@@ -135,17 +148,41 @@ class ProgressOverview extends Component {
     })
   }
 
-  onChangeSelectedCourses = (selectedList, item) => {
-    const selectedIdsList = selectedList.map((course, index) => {
+  onRemoveSelectedCourse = (id) => {
+    const selectedCourses = this.state.selectedCourses;
+    const index = selectedCourses.findIndex(c => c.id === id);
+    if (index > -1) {
+      selectedCourses.splice(index, 1);
+      this.onChangeSelectedCourse(selectedCourses);
+    }
+  }
+
+  onSelectCourses = (selected) => {
+    if (selected) {
+      const selectedCourses = this.state.selectedCourses;
+      if (!selectedCourses.some(c => c.id === selected.id)) {
+        selectedCourses.push(selected);
+        this.onChangeSelectedCourse(selectedCourses);
+      }
+      setTimeout(() => {
+        this.selectRef.select.clearValue();
+      });
+    }
+  }
+
+  onChangeSelectedCourse = (selectedCourses) => {
+    const selectedIdsList = selectedCourses.map((course, index) => {
       return course.id;
     });
     const selectedCourseIds = selectedIdsList.join('&course=');
     this.setState({
-      selectedCourses: selectedList,
+      selectedCourses: selectedCourses,
       selectedCourseIds: selectedCourseIds,
     }, () => {
       (this.state.selectedCourses.length || this.state.searchQuery) && this.getUsers();
-    })
+    });
+
+    this.setCoursesIndex();
   }
 
   startCsvExport = () => {
@@ -238,6 +275,28 @@ class ProgressOverview extends Component {
   }
 
   render() {
+    const listChips = this.state.selectedCourses.map((course) => {
+      return (
+        <div key={`chip-${course.id}`} className={styles['chip']}>
+          <div className={styles['chip-container']}>
+            <div className={styles['course-label']}>{`${course.name} | ${course.number} | ${course.id}`}</div>
+            <button className={styles["dismiss-btn"]} onClick={() => this.onRemoveSelectedCourse(course.id)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 16 16">
+                <path fill="#999" d="M11.375,3.375a8,8,0,1,0,8,8A8,8,0,0,0,11.375,3.375Zm2.027,10.9-2.027-2.027L9.348,14.271a.615.615,0,1,1-.869-.869l2.027-2.027L8.479,9.348a.615.615,0,0,1,.869-.869l2.027,2.027L13.4,8.479a.615.615,0,0,1,.869.869l-2.027,2.027L14.271,13.4a.618.618,0,0,1,0,.869A.611.611,0,0,1,13.4,14.271Z" transform="translate(-3.375 -3.375)"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      )
+    })
+
+    const formatOptionLabel = ({ id, name, number }) => (
+      <div className={styles['custom-label']}>
+        <div className={styles['number']}>{number}</div>
+        <div className={styles['name']}>{name}</div>
+        <div className={styles['id']}>{id}</div>
+      </div>
+    );
 
     const coursesFilter = this.state.selectedCourses.length ? this.state.selectedCourses : this.state.coursesFilterOptions;
 
@@ -311,7 +370,6 @@ class ProgressOverview extends Component {
       )
     })
 
-
     return (
       <div className="ef--layout-root">
         <HeaderAreaLayout>
@@ -360,15 +418,58 @@ class ProgressOverview extends Component {
                   inputPlaceholder='Search by users name, username or email...'
                 />
                 <div className={styles['multiselect-container']}>
-                  <Multiselect
+                  <Select
+                    ref={ref => {
+                      this.selectRef = ref;
+                    }}
                     options={this.state.coursesFilterOptions}
-                    selectedValues={this.state.selectedCourses}
-                    onSelect={this.onChangeSelectedCourses}
-                    onRemove={this.onChangeSelectedCourses}
-                    displayValue="label"
-                    placeholder="Filter by courses..."
-                    closeIcon="circle"
+                    formatOptionLabel={formatOptionLabel}
+                    onChange = {this.onSelectCourses}
+                    styles={{
+                      control: (base, state) => ({
+                        ...base,
+                        background: state.isFocused ? '#FFF' : '#F3F3F4',
+                        border: '0.0625rem solid transparent',
+                        borderColor: state.isFocused ? '#E60978 !important' : '#F3F3F4',
+                        boxShadow: state.isFocused ? '0 0 0 0.25rem rgba(230, 9, 120, 0.25)' : 'none',
+                        width: '25rem',
+                        marginLeft: 'auto',
+                        marginRight: '0',
+
+                        '&:hover': {
+                          borderColor: state.isFocused ? '#E60978' : '#F3F3F4',
+                        }
+                      }),
+
+                      dropdownIndicator: (base) => ({
+                        ...base,
+                        color: '#666',
+                        fontSize: '0.75rem'
+                      }),
+
+                      option: (base, state) => ({
+                        ...base,
+                        color: '#333',
+                        backgroundColor: state.isFocused ? '#FBFBFB !important' : '#fff !important',
+                      })
+                    }}
+                    components={{
+                      IndicatorSeparator: () => null,
+                      DropdownIndicator: (props) => {
+                        return (<components.DropdownIndicator {...props}>
+                          <FontAwesomeIcon icon={faFilter}/>
+                        </components.DropdownIndicator>);
+                      }
+                    }}
                   />
+
+                  {
+                    this.state.selectedCourses.length ?
+                    <div className={styles['chips']}>
+                      {listChips}
+                    </div>
+                    : ''
+                  }
                 </div>
               </div>
             </div>
