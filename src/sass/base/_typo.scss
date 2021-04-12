@@ -11,9 +11,9 @@
     @include fz(28);
     @include useFont2;
     font-weight: 100;
-    line-height: 1.2 !important;
+    line-height: 34px !important;
     color: $color02;
-    margin-bottom: calcRem(15);
+    margin-bottom: 15px;
     text-transform: uppercase;
 }
 
@@ -21,52 +21,52 @@
     @include fz(24);
     @include useFont1;
     font-weight: 700;
-    line-height: 1.2 !important;
+    line-height: 32px !important;
     color: $color02;
-    margin-bottom: calcRem(10);
+    margin-bottom: 10px;
 }
 
 @mixin heading3() {
     @include fz(17);
     @include useFont1;
     font-weight: 700;
-    line-height: 1.2 !important;
+    line-height: 24px !important;
     color: $color02;
-    margin-bottom: calcRem(10);
+    margin-bottom: 10px;
 }
 
 @mixin paragraph1() {
     @include fz(15);
     @include useFont1;
     font-weight: 600;
-    line-height: 1.2 !important;
+    line-height: 21px !important;
     color: $textColor01;
-    margin-bottom: calcRem(10);
+    margin-bottom: 10px;
 }
 
 @mixin paragraph2() {
     @include fz(15);
     @include useFont1;
     font-weight: 300;
-    line-height: 1.2 !important;
+    line-height: 21px !important;
     color: $textColor01;
-    margin-bottom: calcRem(10);
+    margin-bottom: 10px;
 }
 
 @mixin captain() {
     @include fz(13);
     @include useFont1;
     font-weight: 300;
-    line-height: 1.2 !important;
+    line-height: 18px !important;
     color: $textColor02;
-    margin-bottom: calcRem(7);
+    margin-bottom: 7px;
 }
 
 @mixin textLabel() {
     @include fz(15);
     @include useFont1;
     font-weight: 300;
-    line-height: 1.2 !important;
+    line-height: 21px !important;
     color: $textColor02;
-    margin-bottom: calcRem(7);
+    margin-bottom: 7px;
 }

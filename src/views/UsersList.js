@@ -8,7 +8,7 @@ import HeaderContentStatic from 'base/components/header-views/header-content-sta
 import Paginator from 'base/components/layout/Paginator';
 import ListSearch from 'base/components/inputs/ListSearch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faAngleDoubleUp, faAngleDoubleDown } from '@fortawesome/free-solid-svg-icons';
 
 import classNames from 'classnames/bind';
 let cx = classNames.bind(styles);
@@ -215,11 +215,11 @@ class UsersList extends Component {
                     <span>
                       User full name
                     </span>
-                    {(this.state.ordering === 'profile__name') ? (
-                      <FontAwesomeIcon icon={faCaretUp} />
+                    {/* {(this.state.ordering === 'profile__name') ? (
+                      <FontAwesomeIcon icon={faAngleDoubleUp} />
                     ) : (this.state.ordering === '-profile__name') ? (
-                      <FontAwesomeIcon icon={faCaretDown} />
-                    ) : ''}
+                      <FontAwesomeIcon icon={faAngleDoubleDown} />
+                    ) : ''} */}
                   </button>
                 </th>
                 <th className={styles['username']}>
@@ -230,11 +230,11 @@ class UsersList extends Component {
                     <span>
                       Username
                     </span>
-                    {(this.state.ordering === 'username') ? (
-                      <FontAwesomeIcon icon={faCaretUp} />
+                    {/* {(this.state.ordering === 'username') ? (
+                      <FontAwesomeIcon icon={faAngleDoubleUp} />
                     ) : (this.state.ordering === '-username') ? (
-                      <FontAwesomeIcon icon={faCaretDown} />
-                    ) : ''}
+                      <FontAwesomeIcon icon={faAngleDoubleDown} />
+                    ) : ''} */}
                   </button>
                 </th>
                 <th className={styles['is-active']}>
@@ -245,11 +245,11 @@ class UsersList extends Component {
                     <span>
                       Is activated
                     </span>
-                    {(this.state.ordering === 'is_active') ? (
-                      <FontAwesomeIcon icon={faCaretUp} />
+                    {/* {(this.state.ordering === 'is_active') ? (
+                      <FontAwesomeIcon icon={faAngleDoubleUp} />
                     ) : (this.state.ordering === '-is_active') ? (
-                      <FontAwesomeIcon icon={faCaretDown} />
-                    ) : ''}
+                      <FontAwesomeIcon icon={faAngleDoubleDown} />
+                    ) : ''} */}
                   </button>
                 </th>
                 <th className={styles['date-joined']}>
@@ -260,11 +260,11 @@ class UsersList extends Component {
                     <span>
                       Date joined
                     </span>
-                    {(this.state.ordering === 'date_joined') ? (
-                      <FontAwesomeIcon icon={faCaretUp} />
+                    {/* {(this.state.ordering === 'date_joined') ? (
+                      <FontAwesomeIcon icon={faAngleDoubleUp} />
                     ) : (this.state.ordering === '-date_joined') ? (
-                      <FontAwesomeIcon icon={faCaretDown} />
-                    ) : ''}
+                      <FontAwesomeIcon icon={faAngleDoubleDown} />
+                    ) : ''} */}
                   </button>
                 </th>
                 <th className={styles['number-of-courses']}>

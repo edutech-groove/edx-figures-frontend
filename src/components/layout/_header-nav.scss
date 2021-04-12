@@ -17,12 +17,11 @@ a.header-nav__link, a.header-nav__link:not(.btn) {
   position: relative;
   @include paragraph2;
   margin: 0 24px 0 0;
-  color: $color27;
 
   &:after {
     position: absolute;
-    bottom: calcRem(-10);
-    height: calcRem(2);
+    bottom: calcRem(-25);
+    height: calcRem(1);
     width: 0;
     left: 0;
     // background-color: pick-visible-color($primary-color, #fff, $base-text-color);

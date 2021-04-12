@@ -31,7 +31,6 @@
       @include heading2;
       display: block;
       margin-bottom: 0;
-      color: $color01;
     }
   }
 
@@ -57,7 +56,6 @@
       justify-content: center;
       @include paragraph2;
       margin-bottom: 0;
-      color: $color27;
     }
 
     &__lower {
@@ -91,21 +89,21 @@
       }
 
       :global(.recharts-wrapper) {
-        // :global(.recharts-surface) {
-        //   :global(.recharts-area) {
-        //     :global(path.recharts-curve) {
-        //       fill: #E1E1E1;
-        //       fill-opacity: 1;
-        //     }
-        //   }
+        :global(.recharts-surface) {
+          :global(.recharts-area) {
+            :global(path.recharts-curve) {
+              fill: #E1E1E1;
+              fill-opacity: 1;
+            }
+          }
 
-        //   :global(.recharts-active-dot) {
-        //     :global(.recharts-dot) {
-        //       fill: #E1E1E1;
-        //       stroke: #E1E1E1;
-        //     }
-        //   }
-        // }
+          :global(.recharts-active-dot) {
+            :global(.recharts-dot) {
+              fill: #E1E1E1;
+              stroke: #E1E1E1;
+            }
+          }
+        }
 
         :global(.recharts-tooltip-wrapper) {
           &:global(.recharts-tooltip-wrapper-right) {

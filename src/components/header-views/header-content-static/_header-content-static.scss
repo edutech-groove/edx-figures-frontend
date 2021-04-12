@@ -11,13 +11,11 @@
   .title {
     @include heading1;
     margin: 0 0 calcRem(10);
-    color: $color01;
   }
 
   .subtitle {
     @include paragraph2;
     margin: 0;
-    color: $color27;
 
     span {
       @include paragraph1;

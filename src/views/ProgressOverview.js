@@ -9,11 +9,9 @@ import HeaderContentStatic from 'base/components/header-views/header-content-sta
 import Paginator from 'base/components/layout/Paginator';
 import ListSearch from 'base/components/inputs/ListSearch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretUp, faCaretDown, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleUp, faAngleDoubleDown } from '@fortawesome/free-solid-svg-icons';
 import { ExportToCsv } from 'export-to-csv';
 import { Multiselect } from 'multiselect-react-dropdown';
-import learnersProgressOverviewArrow from 'base/images/learners-progress-overview-arrow.svg';
-import ReactTooltip from 'react-tooltip';
 
 import classNames from 'classnames/bind';
 let cx = classNames.bind(styles);
@@ -60,14 +58,11 @@ class ProgressOverview extends Component {
 
   getCourses = () => {
     const requestUrl = apiConfig.coursesIndex + '?limit=1000';
-    // trackPromise(
-    //   fetch((requestUrl), { credentials: "same-origin" })
-    //     .then(response => response.json())
-    //     .then(json => this.setCoursesIndex(json['results']))
-    // )
-
-    const json = {"count":10,"next":null,"previous":null,"results":[{"id":"course-v1:Groove+00011+2021_00011","name":"COURSE 11","org":"Groove","number":"00011"},{"id":"course-v1:Groove+00012+2021_00012","name":"COURSE 12","org":"Groove","number":"00012"},{"id":"course-v1:Groove+00014+2021_00014","name":"COURSE 14","org":"Groove","number":"00014"},{"id":"course-v1:Groove+00015+2021_00015","name":"COURSE 15","org":"Groove","number":"00015"},{"id":"course-v1:Groove+00016+2021_00016","name":"COURSE 16","org":"Groove","number":"00016"},{"id":"course-v1:Groove+00017+2021_00017","name":"COURSE 17","org":"Groove","number":"00017"},{"id":"course-v1:Groove+0008+2021_0008","name":"COURSE 08","org":"Groove","number":"0008"},{"id":"course-v1:Groove+0009+2021_0009","name":"COURSE 09","org":"Groove","number":"0009"},{"id":"course-v1:GrooveTechnology+00006+2021_00006","name":"COURSE 06","org":"GrooveTechnology","number":"00006"},{"id":"course-v1:GrooveTechnology+00007+2021_00007","name":"COURSE 15","org":"GrooveTechnology","number":"00007"}]};
-    this.setCoursesIndex(json['results']); //MOCKDATA
+    trackPromise(
+      fetch((requestUrl), { credentials: "same-origin" })
+        .then(response => response.json())
+        .then(json => this.setCoursesIndex(json['results']))
+    )
   }
 
   setCoursesIndex = (courses) => {
@@ -89,26 +84,18 @@ class ProgressOverview extends Component {
 
   getUsers = (page = 1) => {
     const offset = (page-1) * this.state.perPage;
-    // const requestUrl = this.constructApiUrl(apiConfig.learnerMetrics, this.state.searchQuery, this.state.selectedCourseIds, this.state.ordering, this.state.perPage, offset);
-    // trackPromise(
-    //   fetch((requestUrl), { credentials: "same-origin" })
-    //     .then(response => response.json())
-    //     .then(json => this.setState({
-    //       learnersList: json['results'],
-    //       count: json['count'],
-    //       pages: Math.ceil(json['count'] / this.state.perPage),
-    //       currentPage: page,
-    //     })
-    //   )
-    // )
-
-    const json = {"count":33,"next":"https://openedx.groovetechnology.co/figures/api/learner-metrics/?limit=20&offset=20&ordering=profile__name&search=c","previous":null,"results":[{"id":10,"username":"admin","email":"products@groovetechnology.com","fullname":"admin","is_active":true,"date_joined":"2021-04-06T02:27:23.060097Z","enrollments":[{"id":6,"course_id":"course-v1:Groove+00014+2021_00014","date_enrolled":"2021-04-06","is_enrolled":true,"progress_percent":0.0,"progress_details":null},{"id":4,"course_id":"course-v1:Groove+0009+2021_0009","date_enrolled":"2021-04-06","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}}]},{"id":10,"username":"admin","email":"products@groovetechnology.com","fullname":"admin","is_active":true,"date_joined":"2021-04-06T02:27:23.060097Z","enrollments":[{"id":6,"course_id":"course-v1:Groove+00014+2021_00014","date_enrolled":"2021-04-06","is_enrolled":true,"progress_percent":0.0,"progress_details":null},{"id":4,"course_id":"course-v1:Groove+0009+2021_0009","date_enrolled":"2021-04-06","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}}]},{"id":12,"username":"cy","email":"cy@gmail.com","fullname":"cy","is_active":true,"date_joined":"2021-04-07T01:51:03Z","enrollments":[{"id":11,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":8,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":20,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":12,"username":"cy","email":"cy@gmail.com","fullname":"cy","is_active":true,"date_joined":"2021-04-07T01:51:03Z","enrollments":[{"id":11,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":8,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":20,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":12,"username":"cy","email":"cy@gmail.com","fullname":"cy","is_active":true,"date_joined":"2021-04-07T01:51:03Z","enrollments":[{"id":11,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":8,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":false,"progress_percent":0.0,"progress_details":null},{"id":20,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":22,"username":"cy10","email":"cy10@gmail.com","fullname":"cy10","is_active":true,"date_joined":"2021-04-07T02:01:34Z","enrollments":[{"id":19,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}}]},{"id":14,"username":"cy2","email":"cy2@gmail.com","fullname":"cy2","is_active":true,"date_joined":"2021-04-07T01:52:39Z","enrollments":[{"id":21,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":15,"username":"cy3","email":"cy3@gmail.com","fullname":"cy3","is_active":true,"date_joined":"2021-04-07T01:53:04Z","enrollments":[{"id":30,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":22,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":15,"username":"cy3","email":"cy3@gmail.com","fullname":"cy3","is_active":true,"date_joined":"2021-04-07T01:53:04Z","enrollments":[{"id":30,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":22,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":16,"username":"cy4","email":"cy4@gmail.com","fullname":"cy4","is_active":true,"date_joined":"2021-04-07T01:57:17Z","enrollments":[{"id":31,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":23,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}}]},{"id":16,"username":"cy4","email":"cy4@gmail.com","fullname":"cy4","is_active":true,"date_joined":"2021-04-07T01:57:17Z","enrollments":[{"id":31,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":23,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}}]},{"id":17,"username":"cy5","email":"cy5@gmail.com","fullname":"cy5","is_active":true,"date_joined":"2021-04-07T01:59:12Z","enrollments":[{"id":26,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}},{"id":25,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":24,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":17,"username":"cy5","email":"cy5@gmail.com","fullname":"cy5","is_active":true,"date_joined":"2021-04-07T01:59:12Z","enrollments":[{"id":26,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}},{"id":25,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":24,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":17,"username":"cy5","email":"cy5@gmail.com","fullname":"cy5","is_active":true,"date_joined":"2021-04-07T01:59:12Z","enrollments":[{"id":26,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.0,"progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0}},{"id":25,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":24,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":18,"username":"cy6","email":"cy6@gmail.com","fullname":"cy6","is_active":true,"date_joined":"2021-04-07T01:59:46Z","enrollments":[{"id":32,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":27,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":15,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}}]},{"id":18,"username":"cy6","email":"cy6@gmail.com","fullname":"cy6","is_active":true,"date_joined":"2021-04-07T01:59:46Z","enrollments":[{"id":32,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":27,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":15,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}}]},{"id":18,"username":"cy6","email":"cy6@gmail.com","fullname":"cy6","is_active":true,"date_joined":"2021-04-07T01:59:46Z","enrollments":[{"id":32,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":27,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}},{"id":15,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}}]},{"id":19,"username":"cy7","email":"cy7@gmail.com","fullname":"cy7","is_active":true,"date_joined":"2021-04-07T02:00:16Z","enrollments":[{"id":33,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":28,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":16,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":19,"username":"cy7","email":"cy7@gmail.com","fullname":"cy7","is_active":true,"date_joined":"2021-04-07T02:00:16Z","enrollments":[{"id":33,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":28,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":16,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]},{"id":19,"username":"cy7","email":"cy7@gmail.com","fullname":"cy7","is_active":true,"date_joined":"2021-04-07T02:00:16Z","enrollments":[{"id":33,"course_id":"course-v1:Groove+00015+2021_00015","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":0.5,"progress_details":{"sections_worked":1,"points_possible":3.0,"sections_possible":2,"points_earned":1.0}},{"id":28,"course_id":"course-v1:Groove+00016+2021_00016","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":3.0}},{"id":16,"course_id":"course-v1:Groove+00017+2021_00017","date_enrolled":"2021-04-07","is_enrolled":true,"progress_percent":1.0,"progress_details":{"sections_worked":2,"points_possible":3.0,"sections_possible":2,"points_earned":2.0}}]}]};
-    this.setState({
-      learnersList: json['results'],
-      count: json['count'],
-      pages: Math.ceil(json['count'] / this.state.perPage),
-      currentPage: page,
-    })
+    const requestUrl = this.constructApiUrl(apiConfig.learnerMetrics, this.state.searchQuery, this.state.selectedCourseIds, this.state.ordering, this.state.perPage, offset);
+    trackPromise(
+      fetch((requestUrl), { credentials: "same-origin" })
+        .then(response => response.json())
+        .then(json => this.setState({
+          learnersList: json['results'],
+          count: json['count'],
+          pages: Math.ceil(json['count'] / this.state.perPage),
+          currentPage: page,
+        })
+      )
+    )
   }
 
   setPerPage = (newValue) => {
@@ -243,50 +230,21 @@ class ProgressOverview extends Component {
 
     const headerCourseColumns = coursesFilter.map((course, index) => {
       return(
-        <th key={`header-${index}`} className={styles['course-info-column-header']} colSpan="3">
-          <div>
-            <span>
-              {course['name']}
-            </span>
-            <span data-tip data-for={`course-${index}`} className={styles['course-id']}>
-              <FontAwesomeIcon icon={faInfoCircle} />
-            </span>
-          </div>
-          <ReactTooltip id={`course-${index}`} type="light" effect='solid'>
-            <span>{course['id']}</span>
-          </ReactTooltip>
-        </th>
+        <div className={styles['course-info-column-header']}>
+          <span className={styles['course-name']}>
+            {course['name']}
+          </span>
+          <span className={styles['course-id']}>
+            {course['id']}
+          </span>
+        </div>
       )
     })
 
-    const listItems = this.state.learnersList.map((user, index) => {
-
-      const userCoursesImmutable = Immutable.fromJS(user['enrollments']);
-      const userCoursesRender = coursesFilter.map((course, i) => {
-        const userProgress = userCoursesImmutable.find(singleCourse => singleCourse.get('course_id') === course.id);
-        return (
-            userProgress ? [
-              <td key={`course-section-${i}`} className={styles['data-group']}>
-                <span className={styles['data-label']}>Sections</span>
-                <span className={styles['data']}>{userProgress.getIn(['progress_details', 'sections_worked']) ? userProgress.getIn(['progress_details', 'sections_worked']).toFixed(1) : '-'}/{userProgress.getIn(['progress_details', 'sections_possible']) ? userProgress.getIn(['progress_details', 'sections_possible']).toFixed(1) : '-'}</span>
-              </td>,
-              <td key={`course-points-${i}`} className={styles['data-group']}>
-                <span className={styles['data-label']}>Points</span>
-                <span className={styles['data']}>{userProgress.getIn(['progress_details', 'points_earned']) ? userProgress.getIn(['progress_details', 'points_earned']).toFixed(1) : '-'}/{userProgress.getIn(['progress_details', 'points_possible']) ? userProgress.getIn(['progress_details', 'points_possible']).toFixed(1) : '-'}</span>
-              </td>,
-              <td key={`course-progress-${i}`} className={styles['data-group']}>
-                <span className={styles['data-label']}>Progress</span>
-                <span className={styles['data']}>{(userProgress.getIn(['progress_percent'])*100).toFixed(0)}%</span>
-              </td>
-            ] : (
-              <td colSpan="3" key={`course-${i}`} className={styles['no-data']}>-</td>
-            )
-        )
-      })
-
+    const floatingListItems = this.state.learnersList.map((user, index) => {
       return (
-        <tr key={`user-${index}`} className={styles['user-list-item']}>
-          <td className={styles['user-fullname']}>
+        <li key={`floating+${user['id']}`} className={styles['user-list-item']}>
+          <div className={styles['user-fullname']}>
             <Link
               className={styles['user-fullname-link']}
               to={'/figures/user/' + user['id']}
@@ -295,19 +253,52 @@ class ProgressOverview extends Component {
                 {user['fullname']}
               </span>
             </Link>
-          </td>
-          <td className={styles['username']}>
+          </div>
+        </li>
+      )
+    });
+
+    const scrollingListItems = this.state.learnersList.map((user, index) => {
+
+      const userCoursesImmutable = Immutable.fromJS(user['enrollments']);
+      const userCoursesRender = coursesFilter.map((course, i) => {
+        const userProgress = userCoursesImmutable.find(singleCourse => singleCourse.get('course_id') === course.id);
+        return (
+          <div className={styles['single-course-progress']}>
+            {userProgress ? [
+              <div className={styles['data-group']}>
+                <span className={styles['data-label']}>Sections</span>
+                <span className={styles['data']}>{userProgress.getIn(['progress_details', 'sections_worked']) ? userProgress.getIn(['progress_details', 'sections_worked']).toFixed(1) : '-'}/{userProgress.getIn(['progress_details', 'sections_possible']) ? userProgress.getIn(['progress_details', 'sections_possible']).toFixed(1) : '-'}</span>
+              </div>,
+              <div className={styles['data-group']}>
+                <span className={styles['data-label']}>Points</span>
+                <span className={styles['data']}>{userProgress.getIn(['progress_details', 'points_earned']) ? userProgress.getIn(['progress_details', 'points_earned']).toFixed(1) : '-'}/{userProgress.getIn(['progress_details', 'points_possible']) ? userProgress.getIn(['progress_details', 'points_possible']).toFixed(1) : '-'}</span>
+              </div>,
+              <div className={styles['data-group']}>
+                <span className={styles['data-label']}>Progress</span>
+                <span className={styles['data']}>{(userProgress.getIn(['progress_percent'])*100).toFixed(0)}%</span>
+              </div>
+            ] : (
+              <span className={styles['no-data']}>-</span>
+            )}
+          </div>
+        )
+      })
+
+      return (
+        <li key={`scrolling+${user['id']}`} className={styles['user-list-item']}>
+          <div className={styles['username']}>
             <span className={styles['user-info-value']}>
               {user['username']}
             </span>
-          </td>
-          <td className={styles['email']}>
+          </div>
+          <div className={styles['email']}>
             <span className={styles['user-info-value']}>
               {user['email']}
             </span>
-          </td>
+          </div>
           {userCoursesRender}
-        </tr>
+        </li>
       )
     })
 
@@ -334,9 +325,7 @@ class ProgressOverview extends Component {
               <p>It is now safe to close the exporter.</p>,
             ]}
             <div className={styles['progress-bar']}>
-              <div>
-                <div className={styles['progress-bar-inner']} style={{ width: this.state.csvExportProgress * 100 + '%'}}></div>
-              </div>
+              <span className={styles['progress-bar-inner']} style={{ width: this.state.csvExportProgress * 100 + '%'}}></span>
             </div>
             {(this.state.csvExportProgress < 1) ? (
               <span className={styles['percentage']}>
@@ -367,101 +356,21 @@ class ProgressOverview extends Component {
                     onRemove={this.onChangeSelectedCourses}
                     displayValue="label"
                     placeholder="Filter by courses..."
-                    closeIcon="circle"
+                    style={{ chips: { background: "#0090c1" }, searchBox: { border: "none", "border-bottom": "1px solid #ccc", "border-radius": "0px", "font-size": "14px", "padding-top": "13px", "padding-bottom": "13px" }, option: { "font-size": "14px" } }}
                   />
                 </div>
               </div>
-            </div>
-            {(this.state.selectedCourses.length || this.state.searchQuery) && this.state.pages ? (
-              <div className={styles['view-controls-container']}>
+              {(this.state.selectedCourses.length || this.state.searchQuery) ? (
                 <button
                   className={styles['export-the-csv-button']}
                   onClick = {() => this.startCsvExport()}
                 >
                   Generate a CSV from Current View
                 </button>
-                <div>
-                  <div className={styles['toggle-wide-view-button']}>
-                    <label className={styles['toggle-label']} htmlFor="toggle-wide-view-button">{this.state.wideView ? 'On wide view' : 'Off wide view'}</label>
-                    <input type="checkbox" id="toggle-wide-view-button" name="toggle" checked={this.state.wideView} onChange = {() => this.toggleWideView()}/>
-                    <label htmlFor="toggle-wide-view-button"></label>
-                  </div>
-                  <Paginator
-                    pageSwitchFunction={this.getUsers}
-                    currentPage={this.state.currentPage}
-                    perPage={this.state.perPage}
-                    pages={this.state.pages}
-                    changePerPageFunction={this.setPerPage}
-                  />
-                </div>
-              </div>
-            ) : ''}
-            {(this.state.selectedCourses.length || this.state.searchQuery) ? (
-              <div className={styles['users-overview-list-wrapper']}>
-                <table className={styles['users-overview-list']}>
-                  <thead>
-                    <tr key='list-header' className={cx(styles['user-list-item'], styles['list-header'])}>
-                      <th className={styles['user-fullname']}>
-                        <button
-                          className={styles['sorting-header-button']}
-                          onClick={() => (this.state.ordering !== 'profile__name') ? this.setOrdering('profile__name') : this.setOrdering('-profile__name')}
-                        >
-                          <span>
-                            User full name
-                          </span>
-                          {(this.state.ordering === 'profile__name') ? (
-                            <FontAwesomeIcon icon={faCaretUp} />
-                          ) : (this.state.ordering === '-profile__name') ? (
-                            <FontAwesomeIcon icon={faCaretDown} />
-                          ) : ''}
-                        </button>
-                      </th>
-                      <th className={styles['username']}>
-                        <button
-                          className={styles['sorting-header-button']}
-                          onClick={() => (this.state.ordering !== 'username') ? this.setOrdering('username') : this.setOrdering('-username')}
-                        >
-                          <span>
-                            Username
-                          </span>
-                          {(this.state.ordering === 'username') ? (
-                            <FontAwesomeIcon icon={faCaretUp} />
-                          ) : (this.state.ordering === '-username') ? (
-                            <FontAwesomeIcon icon={faCaretDown} />
-                          ) : ''}
-                        </button>
-                      </th>
-                      <th className={styles['email']}>
-                        <button
-                          className={styles['sorting-header-button']}
-                          onClick={() => (this.state.ordering !== 'email') ? this.setOrdering('email') : this.setOrdering('-email')}
-                        >
-                          <span>
-                            Email
-                          </span>
-                          {(this.state.ordering === 'email') ? (
-                            <FontAwesomeIcon icon={faCaretUp} />
-                          ) : (this.state.ordering === '-email') ? (
-                            <FontAwesomeIcon icon={faCaretDown} />
-                          ) : ''}
-                        </button>
-                      </th>
-                      {headerCourseColumns}
-                    </tr>
-                    </thead>
-                    <tbody>
-                      {listItems}
-                    </tbody>
-                </table>
-              </div>
-            ) : (
-              <div className={styles['no-data-message']}>
-                <img src={learnersProgressOverviewArrow} alt="Gender" />
-                Enter a search term and/or select course(s) to <br/> display the data.
-              </div>
-            )}
-            {(this.state.selectedCourses.length || this.state.searchQuery) && this.state.pages ? (
-              <div className={styles['page-footer']}>
+              ) : ''}
+            </div>
+            {this.state.pages ? (
+              <div className={styles['view-controls-container']}>
                 <Paginator
                   pageSwitchFunction={this.getUsers}
                   currentPage={this.state.currentPage}
@@ -469,7 +378,86 @@ class ProgressOverview extends Component {
                   pages={this.state.pages}
                   changePerPageFunction={this.setPerPage}
                 />
+                <button
+                  className={styles['toggle-wide-view-button']}
+                  onClick = {() => this.toggleWideView()}
+                >
+                  {this.state.wideView ? 'Switch to narrow view' : 'Switch to wide view'}
+                </button>
               </div>
+            ) : ''}
+            {(this.state.selectedCourses.length || this.state.searchQuery) ? (
+              <div className={styles['users-overview-list']}>
+                <ul className={styles['list-floating-columns']}>
+                  <li key='list-header' className={cx(styles['user-list-item'], styles['list-header'])}>
+                    <div className={styles['user-fullname']}>
+                      <button
+                        className={styles['sorting-header-button']}
+                        onClick={() => (this.state.ordering !== 'profile__name') ? this.setOrdering('profile__name') : this.setOrdering('-profile__name')}
+                      >
+                        <span>
+                          User full name
+                        </span>
+                        {(this.state.ordering === 'profile__name') ? (
+                          <FontAwesomeIcon icon={faAngleDoubleUp} />
+                        ) : (this.state.ordering === '-profile__name') ? (
+                          <FontAwesomeIcon icon={faAngleDoubleDown} />
+                        ) : ''}
+                      </button>
+                    </div>
+                  </li>
+                  {floatingListItems}
+                </ul>
+                <ul className={styles['list-scrolling-columns']}>
+                  <li key='list-header' className={cx(styles['user-list-item'], styles['list-header'])}>
+                    <div className={styles['username']}>
+                      <button
+                        className={styles['sorting-header-button']}
+                        onClick={() => (this.state.ordering !== 'username') ? this.setOrdering('username') : this.setOrdering('-username')}
+                      >
+                        <span>
+                          Username
+                        </span>
+                        {(this.state.ordering === 'username') ? (
+                          <FontAwesomeIcon icon={faAngleDoubleUp} />
+                        ) : (this.state.ordering === '-username') ? (
+                          <FontAwesomeIcon icon={faAngleDoubleDown} />
+                        ) : ''}
+                      </button>
+                    </div>
+                    <div className={styles['email']}>
+                      <button
+                        className={styles['sorting-header-button']}
+                        onClick={() => (this.state.ordering !== 'email') ? this.setOrdering('email') : this.setOrdering('-email')}
+                      >
+                        <span>
+                          Email
+                        </span>
+                        {(this.state.ordering === 'email') ? (
+                          <FontAwesomeIcon icon={faAngleDoubleUp} />
+                        ) : (this.state.ordering === '-email') ? (
+                          <FontAwesomeIcon icon={faAngleDoubleDown} />
+                        ) : ''}
+                      </button>
+                    </div>
+                    {headerCourseColumns}
+                  </li>
+                  {scrollingListItems}
+                </ul>
+              </div>
+            ) : (
+              <div className={styles['no-data-message']}>
+                Enter a search term and/or select course(s) to display the data.
+              </div>
+            )}
+            {this.state.pages ? (
+              <Paginator
+                pageSwitchFunction={this.getUsers}
+                currentPage={this.state.currentPage}
+                perPage={this.state.perPage}
+                pages={this.state.pages}
+                changePerPageFunction={this.setPerPage}
+              />
             ) : ''}
           </div>
         )}

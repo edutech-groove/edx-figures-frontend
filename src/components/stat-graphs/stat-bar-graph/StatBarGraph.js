@@ -53,7 +53,7 @@ class StatBarGraph extends Component {
             cursor={{ fill: 'rgba(255, 255, 255, 0.15)'}}
             offset={0}
           />
-          <Bar className={styles['stat-bar']} dataKey='value' stroke='none' barSize={30} />
+          <Bar className={styles['stat-bar']} dataKey='value' stroke='none' />
           <YAxis className="test" tickFormatter={yAxisTickFormatter} />
           <XAxis className="test" dataKey='period' tickFormatter={xAxisTickFormatter} />
         </BarChart>

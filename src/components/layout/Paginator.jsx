@@ -76,7 +76,7 @@ class Paginator extends React.Component {
         }
       } else {
         pageNumbers.push(
-          <button key={`page-${i+1}`}
+          <button
             className={buttonClass}
             onClick={() => this.props.pageSwitchFunction(i+1)}
           >

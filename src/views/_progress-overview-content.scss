@@ -4,291 +4,321 @@
 @import '~base/sass/base/mixins';
 @import '~base/sass/base/stat-cards';
 
-.users-content {
-  padding-top: calcRem(20);
+.container-max {
+  padding-left: calcRem(50);
+  padding-right: calcRem(50);
+}
 
-  &.container-max {
-    padding-left: calcRem(50);
-    padding-right: calcRem(50);
-  }
+.users-overview-list {
+  padding-top: calcRem(30);
+  display: grid;
+  grid-template-columns: calcRem(200) 1fr;
+}
 
-  .refining-container {
-    &__filters {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-  
-      .list-search .inner-container {
-        width: calcRem(400);
-      }
-  
-      .multiselect-container {
-  
-        :global(#multiselectContainerReact) {
-          >:global(div:first-child) {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            border: none;
-            padding: 0;
-            border-radius: 0;
-            @include fz(15);
-  
-            :global(.searchBox) {
-              margin: 0;
-              order: -1;
-              width: calcRem(400);
-            }
-  
-            :global(.chip) {
-              margin: calcRem(13) 0 0;
-              padding: calcRem(3) calcRem(3) calcRem(3) calcRem(16);
-              background: $grey04;
-              color: $textColor02;
-  
-              &:first-of-type {
-                margin-top: calcRem(15);
-              }
-  
-              :global(.icon_cancel) {
-                color: $color09;
-                margin-left: calcRem(15);
-  
-                &::after {
-                  margin: 0;
-                }
-              }
+.list-floating-columns {
+  padding: 0;
 
-              &:hover {
-                background: #FFF7F7;
-                color: $color21;
-    
-                :global(.icon_cancel) {
-                  color: $color21;
-                }
-              }
-            }
-          }
-  
-          :global(.optionListContainer) {
-            top: calcRem(50);
-            right: 0;
-            width: auto;
-  
-            :global(.optionContainer) {
-              :global(.option) {
-                @include fz(15);
-                color: $textColor01;
-  
-                &:hover,
-                &:global(.highlight) {
-                  background-color: #FBFBFB;
-                  color: $textColor01;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .users-overview-list-wrapper {
-    margin-top: calcRem(15);
-    position: relative;
-    width:100%;
-    z-index: 1;
-    overflow: auto;
-
-    .users-overview-list {
-      @include usePrimaryTableStyle;
-      text-align: left;
-    
-      .user-list-item {
-        .user-fullname {
-          position: -webkit-sticky;
-          position: sticky;
-          left: 0;
-          z-index: 5;
-        }
-  
-        >th {
-          white-space: nowrap;
-
-          >div {
-            display: flex;
-            align-items: center;
-
-            .course-id {
-              color: #89A4B4;
-              margin-left: calcRem(6);
-              cursor: pointer;
-  
-              svg {
-                width: calcRem(14);
-                height: auto;
-              }
-
-              &:hover {
-                color: $color03;
-              }
-            }
-          }
-
-          :global(.__react_component_tooltip) {
-            border-radius: calcRem(8);
-            opacity: 1;
-            box-shadow: 0px 0px calcRem(16) rgba(137, 137, 137, 0.161);
-          }
-        }
-  
-        >td {
-          &.data-group,
-          &.no-data {
-            text-align: center;
-  
-            .data-label {
-              display: block;
-              @include captain;
-              margin-bottom: calcRem(10);
-            }
-          }
-        }
-        .user-info-value {
-          display: block;
-          width: 100%;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
-        }
-      
-        .user-fullname-link {
-          &:hover {
-            color: $grvColor06;
-          }
-          @include paragraph1;
-          margin-bottom: 0;
-          text-decoration: none;
-        }
-      }
-    }
-  }
-
-  .view-controls-container {
-    padding-top: calcRem(30);
-    margin-top: calcRem(30);
-    border-top: 1px solid #D6D6D6;
+  .user-fullname {
+    width: 100%;
+    padding-left: calcRem(15);
+    padding-top: calcRem(20);
+    padding-bottom: calcRem(20);
+    padding-right: calcRem(15);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-  
-    button.export-the-csv-button {
-      @include useGrvPrimaryButtonStyleLarge;
-    }
-  
-    >div {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-  
-      :global([class*="paginator"]) {
-        padding: 0;
-  
-        :global([class*="number-controls-container"]) {
-          display: none;
-        }
-      }
-  
-      .toggle-wide-view-button {
-        display: flex;
-        align-items: center;
-        margin-right: calcRem(27);
-  
-        >.toggle-label {
-          @include paragraph2;
-          margin: 0 calcRem(10) 0 0;
-          white-space: nowrap;
-        }
-  
-        >input[type="checkbox"] {
-            @include usePrimaryToggle;
-        }
-      }
-    }
   }
+}
 
-  .no-data-message {
-    text-align: center;
-    font-size: calcRem(17);
-    color: $textColor02;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-  
-    img {
-      width: calcRem(270);
-      margin-bottom: calcRem(35);
-    }
-  
-    &::after {
-      content: "";
-      width: calcRem(270);
-    }
-  }
+.list-scrolling-columns {
+  overflow-x: auto;
+  padding: 0;
 
-  .page-footer {
+  .username {
+    width: calcRem(200);
+    font-size: calcRem(13);
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding-left: calcRem(15);
+    padding-right: calcRem(15);
     padding-top: calcRem(20);
+    padding-bottom: calcRem(20);
+    display: flex;
+    align-items: center;
+  }
 
-    :global([class*="paginator"]) {
-      padding: 0;
-      justify-content: center;
+  .email {
+    width: calcRem(300);
+    font-size: calcRem(13);
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding-right: calcRem(15);
+    padding-left: calcRem(15);
+    padding-top: calcRem(20);
+    padding-bottom: calcRem(20);
+    display: flex;
+    align-items: center;
+  }
 
-      :global([class*="dropdown-controls-container"]) {
-        display: none;
+  .course-info-column, .course-info-column-header, .single-course-progress {
+    width: calcRem(280);
+    text-align: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding-right: calcRem(15);
+    padding-left: calcRem(15);
+    padding-top: calcRem(20);
+    padding-bottom: calcRem(20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .course-info-column-header {
+    flex-wrap: wrap;
+
+    .course-name {
+      display: block;
+    }
+
+    .course-id {
+      display: block;
+      margin-top: calcRem(5);
+      font-size: calcRem(11);
+      color: #666;
+    }
+  }
+
+  .single-course-progress {
+
+    .data-group {
+      padding: 0 calcRem(7);
+      text-align: center;
+      width: 33%;
+
+      .data-label {
+        display: block;
+        font-size: calcRem(11);
+        color: #aaa;
+        margin: 0 0 calcRem(5) 0;
+      }
+
+      .data {
+        display: block;
+      }
+
+      .no-data {
+        color: #aaa;
       }
     }
   }
 }
 
-.csv-export-content {
-  text-align: center;
 
-  >h2 {
-    @include heading2;
-  }
 
-  >p {
-    @include paragraph2;
-  }
 
-  .progress-bar {
-    margin: calcRem(30) auto calcRem(15);
-    width: calcRem(400);
-    height: calcRem(18);
-    padding: calcRem(4);
-    border-radius: $globalRadius;
-    border: calcRem(1) solid #efefef;
+.users-content {
 
-    >div {
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      border-radius: $globalRadius;
+}
 
-      .progress-bar-inner {
-        height: 100%;
-        border-radius: $globalRadius;
-        background-color: $color03;
-      }
+.users-list {
+  border-top: none;
+  margin: 0;
+  padding: 0;
+}
+
+.user-list-item {
+  @include fz(15);
+  color: $textColor01;
+  display: flex;
+  height: calcRem(80);
+
+  &:nth-child(even) {
+
+    .user-fullname, .username, .email, .single-course-progress {
+      background-color: #eee;
     }
   }
 
-  .percentage {
-    @include captain;
-    margin-bottom: 0;
+  &.list-header {
+    font-size: calcRem(12);
   }
 
-  .close-csv-button {
-    @include useGrvPrimaryButtonStyleLarge;
+  .user-info-value {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
+
+  .sorting-header-button {
+    color: $textColor02;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    outline: none;
+
+    span {
+      @include fz(13);
+      color: $textColor02;
+      margin-right: calcRem(5);
+      text-decoration: none;
+      text-transform: uppercase;
+
+      & + svg {
+        @include fz(13);
+        color: $textColor02;
+      }
+    }
+
+    &:hover, &:focus {
+      cursor: pointer;
+    }
+  }
+
+  .user-fullname-link {
+    color: $primary-color !important;
+    text-decoration: none;
+  }
+}
+
+button.export-the-csv-button {
+  padding: 8px calcRem(30);
+  color: #fff;
+  display: inline-block;
+  background-color: $primary-color !important;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  margin-left: auto;
+  transition: all 0.3s ease-in-out;
+  font-size: calcRem(14);
+
+  &:hover {
+    cursor: pointer;
+    background-color: darken($primary-color, 15%) !important;
+  }
+}
+
+.refining-container {
+  display: flex;
+  align-items: center;
+  padding-bottom: calcRem(40);
+  margin-bottom: calcRem(30);
+  border-bottom: 1px solid #ccc;
+
+  &__filters {
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    grid-gap: calcRem(10);
+
+    .list-search .inner-container {
+      max-width: calcRem(600);
+    }
+
+    .multiselect-container {
+      max-width: calcRem(600);
+    }
+  }
+}
+
+.csv-export-content {
+  min-height: calcRem(500);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: calcRem(80) calcRem(30);
+
+  h2 {
+    font-size: calcRem(24);
+    text-align: center;
+    margin: 0 0 calcRem(20);
+  }
+
+  p {
+    font-size: calcRem(14);
+    max-width: calcRem(800);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .progress-bar {
+    border-radius: 0 0 $globalRadius $globalRadius;
+    border: 1px solid #ddd;
+    height: calcRem(18);
+    margin: calcRem(40) 0 calcRem(20);
+    max-width: calcRem(500);
+    overflow: hidden;
+    padding: 4px;
+    width: 100%;
+  }
+
+  .progress-bar-inner {
+    background-color: $primary-color;
+    border-radius: 0 0 $globalRadius $globalRadius;
+    display: block;
+    height: 100%;
+  }
+
+  .percentage {
+    display: block;
+    text-align: center;
+    font-size: calcRem(14);
+    color: #aaa;
+  }
+}
+
+button.close-csv-button {
+  padding: calcRem(15) calcRem(30);
+  color: #fff;
+  display: inline-block;
+  background-color: $primary-color !important;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+  font-size: calcRem(16);
+
+  &:hover {
+    cursor: pointer;
+    background-color: darken($primary-color, 15%) !important;
+  }
+}
+
+.view-controls-container {
+  display: flex;
+  align-items: center;
+
+  .toggle-wide-view-button {
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-left: calcRem(20);
+    padding: calcRem(10) calcRem(10);
+    width: calcRem(200);
+    text-align: center;
+    border: 1px solid #ccc;
+    font-size: calcRem(14);
+    border-radius: calcRem(4);
+    transition: all 0.3s ease-in-out;
+    color: #666;
+
+    &:hover {
+      border-color: $primary-color;
+      color: $primary-color;
+      cursor: pointer;
+    }
+  }
+}
+
+.no-data-message {
+  text-align: center;
+  font-size: calcRem(18);
+  font-weight: bold;
+  color: $primary-color;
+  padding: calcRem(90) calcRem(30);
 }
