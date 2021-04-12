@@ -13,11 +13,11 @@
 }
 
 a.header-nav__link, a.header-nav__link:not(.btn) {
-  @include fz(15);
-  margin-right: 24px;
-  color: $textColor01;
   text-decoration: none;
   position: relative;
+  @include paragraph2;
+  margin: 0 24px 0 0;
+  color: $color27;
 
   &:after {
     position: absolute;
@@ -31,7 +31,8 @@ a.header-nav__link, a.header-nav__link:not(.btn) {
     transition: all 0.2s ease-in-out;
   }
 
-  &:hover {
+  &:hover,
+  &:global(.active) {
     // color: pick-visible-color($primary-color, #fff, $base-text-color);
     color: $color03;
 
@@ -43,11 +44,5 @@ a.header-nav__link, a.header-nav__link:not(.btn) {
   &:focus {
     // color: pick-visible-color($primary-color, #fff, $base-text-color);
     color: $color03;
-  }
-
-  &.active {
-    color: $color03;
-    font-weight: 900;
-    opacity: 0.6;
   }
 }

@@ -61,3 +61,128 @@
     transition: all 0.3s ease-in-out;
   }
 }
+
+@mixin usePopover {
+  border-color: transparent;
+  position: relative;
+  border-radius: calcRem(8);
+  padding: calcRem(20);
+  margin: 0;
+  list-style: none;
+  box-shadow: 0px 0px calcRem(16) rgba(137, 137, 137, 0.161);
+  background-color: #fff;
+
+  &:after {
+    position: absolute;
+    border-style: solid;
+    content: "";
+    display: block;
+    height: 0;
+    width: 0;
+  }
+
+  &:before {
+    content: unset;
+  }
+}
+
+@mixin usePopoverBottom {
+  @include usePopover;
+
+  &:after {
+    border-color: transparent transparent #fff transparent;
+    border-width: 0 calcRem(6) calcRem(8) calcRem(6);
+    left: 50%;
+    transform: translateX(-50%);
+    top: calcRem(-7);
+  }
+}
+
+@mixin usePopoverTop {
+  @include usePopover;
+
+  &:after {
+    border-color: #fff transparent transparent transparent;
+    border-width: calcRem(8) calcRem(6) 0 calcRem(6);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calcRem(-7);
+  }
+}
+
+@mixin usePopoverLeft {
+  @include usePopover;
+
+  &:after {
+    border-color: transparent transparent transparent #fff;
+    border-width: calcRem(6) 0 calcRem(6) calcRem(8);
+    top: 50%;
+    transform: translateY(-50%);
+    right: calcRem(-7);
+  }
+}
+
+@mixin usePopoverRight {
+  @include usePopover;
+
+  &:after {
+    border-color: transparent #fff transparent transparent;
+    border-width: calcRem(6) calcRem(8) calcRem(6) 0;
+    top: 50%;
+    transform: translateY(-50%);
+    left: calcRem(-7);
+  }
+}
+@mixin usePrimaryTableStyle() {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+
+  tr {
+    th {
+      padding: calcRem(12) calcRem(15);
+      border: 0;
+      @include captain;
+      margin-bottom: 0;
+      text-transform: uppercase;
+      background-color: $color26;
+
+      button {
+        @include captain;
+        padding: 0;
+        margin: 0;
+        background: none;
+        border: none;
+        outline: none;
+        text-transform: uppercase;
+
+        svg {
+          margin-left: calcRem(7);
+        }
+      }
+
+      &:first-child {
+        border-radius: $globalRadius 0 0 $globalRadius;
+      }
+
+      &:last-child {
+        border-radius: 0 $globalRadius $globalRadius 0;
+      }
+    }
+
+    td {
+      padding: calcRem(15);
+      border-bottom: 1px dashed $grey03;
+      @include paragraph2;
+      margin-bottom: 0;
+      background-color: $color01;
+    }
+  }
+}
+
+@mixin getIconCode($iconCode: null) {
+  @if ($iconCode) {
+    content: $iconCode;
+    font-family: "fontello";
+  }
+}

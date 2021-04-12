@@ -1,38 +1,121 @@
 @import '~base/sass/base/variables';
 @import '~base/sass/base/functions';
 @import '~base/sass/base/grid';
+@import '~base/sass/base/mixins';
 
 .stat-card {
   background-color: #fff;
-  border: calcRem(1) solid #efefef;
+  border: calcRem(1) solid #E8E8E8;
   border-radius: $globalRadius;
   box-shadow: none;
   display: flex;
   padding: calcRem(20);
   transition: all 0.3s ease-in-out;
 
+  .history-content {
+    margin-left: calcRem(35);
+
+    :global(.recharts-responsive-container) {
+      :global(.recharts-wrapper) {
+        :global(.recharts-surface) {
+          :global(.recharts-cartesian-grid) {
+            :global(.recharts-cartesian-grid-horizontal) {
+              line {
+                &:not(:first-child) {
+                  stroke-dasharray: 2;
+                }
+              }
+            }
+          }
+
+          :global(.recharts-cartesian-axis) {
+
+            :global(.recharts-cartesian-axis-line),
+            :global(recharts-cartesian-axis-tick-line) {
+              stroke: #A7A7A7;
+              stroke-width: 1px;
+            }
+
+            :global(.recharts-cartesian-axis-ticks) {
+              :global(.recharts-cartesian-axis-tick-value) {
+                @include captain;
+                margin-bottom: 0;
+              }
+
+              :global(.recharts-cartesian-axis-tick-line) {
+                stroke: #A7A7A7;
+                stroke-width: 1px;
+              }
+            }
+
+            &:global(.recharts-yAxis) {
+              :global(.recharts-cartesian-axis-ticks) {
+                :global(.recharts-cartesian-axis-tick-value) {
+                  transform: translateX(calcRem(-5));
+                }
+              }
+            }
+
+            &:global(.recharts-xAxis) {
+              :global(.recharts-cartesian-axis-ticks) {
+                :global(.recharts-cartesian-axis-tick-value) {
+                  transform: translateY(calcRem(10));
+                }
+              }
+            }
+          }
+        }
+
+        :global(.recharts-tooltip-wrapper) {
+          >* {
+            text-align: center;
+            @include usePopoverTop;
+            background-color: #25304C;
+            padding: calcRem(5) 0;
+            border-radius: calcRem(4);
+
+            &:after {
+              border-top-color: #25304C;
+              margin-left: 0
+            }
+
+            >* {
+              @include paragraph1;
+              margin-bottom: 0;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @include whenHover {
+    box-shadow: none;
+  }
+
   &.span-2 {
     grid-column-end: span 2;
 
-    .main-content {
-      width: 50%;
-    }
+    // .main-content {
+    //   width: 50%;
+    // }
   }
 
   &.span-3 {
     grid-column-end: span 3;
 
-    .main-content {
-      width: 33%;
-    }
+    // .main-content {
+    //   width: 33%;
+    // }
   }
 
   &.span-4 {
     grid-column-end: span 4;
 
-    .main-content {
-      width: 25%;
-    }
+    // .main-content {
+    //   width: 25%;
+    // }
   }
 
   &:hover {
@@ -48,10 +131,18 @@
 
     .card-title {
       display: block;
-      font-weight: bold;
-      color: $base-text-color;
-      font-size: calcRem(16);
-      margin: 0 0 calcRem(10);
+      @include heading3;
+    }
+
+    .main-data-container {
+      .current-data {
+        @include fz(32);
+        @include useFont2;
+        font-weight: 100;
+        line-height: 1.2;
+        color: $color02;
+        text-transform: uppercase;
+      }
     }
 
     .card-description {

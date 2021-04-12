@@ -61,6 +61,10 @@ class SingleUserContent extends Component {
           userData: Immutable.fromJS(json)
         }))
     )
+
+    this.setState({
+      userData: Immutable.fromJS({"id":10,"username":"admin","name":"admin","email":"products@groovetechnology.com","country":"","is_active":true,"year_of_birth":null,"level_of_education":null,"gender":null,"date_joined":"2021-04-06T02:27:23.060097Z","bio":null,"courses":[{"course_name":"COURSE 14","course_code":"00014","course_id":"course-v1:Groove+00014+2021_00014","date_enrolled":"2021-04-06","progress_data":{"course_progress_history":[],"course_progress_details":null,"course_progress":0.0,"course_completed":false},"enrollment_id":6},{"course_name":"COURSE 09","course_code":"0009","course_id":"course-v1:Groove+0009+2021_0009","date_enrolled":"2021-04-06","progress_data":{"course_progress_history":[],"course_progress_details":{"sections_worked":0,"points_possible":3.0,"sections_possible":2,"points_earned":0.0},"course_progress":0.0,"course_completed":false},"enrollment_id":4}],"language_proficiencies":[],"profile_image":{"image_url_full":"https://picsum.photos/id/237/200/300","image_url_large":"https://picsum.photos/id/237/200/300","image_url_medium":"https://picsum.photos/id/237/200/300","image_url_small":"https://picsum.photos/id/237/200/300","has_image":false}})
+    })
   }
 
   componentDidMount() {

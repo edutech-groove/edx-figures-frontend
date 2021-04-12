@@ -5,132 +5,77 @@
 @import '~base/sass/base/stat-cards';
 
 .users-content {
+  padding-top: calcRem(20);
 
-}
+  .page-header {
+    display: flex;
+    align-items: center;
+    padding-bottom: calcRem(20);
 
-.users-list {
-  border-top: none;
-  margin: 0;
-  padding: 0;
-}
+    :global([class*="paginator"]) {
+      padding: 0;
 
-.user-list-item {
-  @include fz(15);
-  align-items: center;
-  border-bottom: 1px dashed $grey03;
-  color: $textColor01;
-  display: grid;
-  grid-column-gap: calcRem(20);
-  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 2fr;
-  padding: calcRem(20) 0;
-
-  @media (max-width: $half-screen-breakpoint) {
-    grid-template-columns: 1fr;
-    grid-row-gap: calcRem(15);
-  }
-
-  &.list-header {
-    align-items: flex-end;
-    font-size: calcRem(12);
-    padding: 15px 0;
-  }
-
-  .sorting-header-button {
-    color: $textColor02;
-    padding: 0;
-    margin: 0;
-    background: none;
-    border: none;
-    outline: none;
-
-    span {
-      @include fz(13);
-      color: $textColor02;
-      margin-right: calcRem(5);
-      text-decoration: none;
-      text-transform: uppercase;
-
-      & + svg {
-        @include fz(13);
-        color: $textColor02;
+      :global([class*="number-controls-container"]) {
+        display: none;
       }
     }
+  }
 
-    &:hover, &:focus {
-      cursor: pointer;
+  .page-footer {
+    padding-top: calcRem(20);
+
+    :global([class*="paginator"]) {
+      padding: 0;
+      justify-content: center;
+
+      :global([class*="dropdown-controls-container"]) {
+        display: none;
+      }
     }
   }
 
-  .user-fullname-link {
-    color: $primary-color !important;
-    font-weight: bold;
-    text-decoration: none;
-  }
+  .users-list {
+    @include usePrimaryTableStyle;
+    text-align: left;
+  
+    tr {
+      th {
+        &.is-active {
+          text-align: center;
+        }
+      }
+      
+      td {
+        .user-fullname-link {
+          &:hover {
+            color: $grvColor06;
+          }
+        }
+        .user-fullname-link,
+        &.number-of-courses {
+          @include paragraph1;
+          margin-bottom: 0;
+          text-decoration: none;
+        }
+      
+        &.is-active {
+          text-align: center;
 
-  .is-active, .number-of-courses, .date-joined {
-    text-align: center;
-
-    @media (max-width: $half-screen-breakpoint) {
-      text-align: left;
-    }
-  }
-
-  .number-of-courses {
-    @include fz(13);
-    color: $textColor02;
-    margin-right: calcRem(5);
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-
-  .action-container {
-    text-align: right;
-
-    @media (max-width: $half-screen-breakpoint) {
-      text-align: left;
-      padding-top: calcRem(15);
-    }
-  }
-
-  .user-action {
-    @include useLightYellowButton;
-    @include fz(15);
-    border: none;
-    box-shadow: none;
-    cursor: pointer;
-    display: inline-block;
-    min-width: 100px;
-    outline: none;
-    text-align: center;
-    text-decoration: none;
-    transition-duration: 100ms;
-  }
-}
-
-.in-cell-label-value {
-  display: flex;
-  align-items: baseline;
-
-  .mobile-label {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: calcRem(90);
-    margin-right: calcRem(15);
-    font-size: calcRem(12);
-    color: #666;
-
-    @media (min-width: $half-screen-breakpoint) {
-      display: none;
-    }
-  }
-
-  .mobile-value {
-    flex-grow: 1;
-    flex-shrink: 1;
-    width: 99%;
-
-    .checkmark-icon {
-      color: $primary-color;
+          svg {
+            path {
+              fill: $color03;
+            }
+          }
+        }
+      
+        &.action-container {
+          text-align: right;
+      
+          .user-action {
+            @include useGrvSecondaryYellowButtonStyle;
+          }
+        }
+      }
     }
   }
 }
