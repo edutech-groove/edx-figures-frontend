@@ -119,8 +119,7 @@ class BaseStatCard extends Component {
         {(this.state.historyExpanded && this.props.enableHistory) && (
           <div className={styles['history-content']}>
             <StatBarGraph
-              // data={this.state.valueHistory}
-              data={Immutable.fromJS([{"period":"2021/01","value":7},{"period":"2021/02","value":8},{"period":"2021/03","value":33},{"period":"2021/04","value":9}])} //MOCKDATA
+              data={this.state.valueHistory}
               graphHeight='100%'
               dataType={this.props.dataType}
             />
