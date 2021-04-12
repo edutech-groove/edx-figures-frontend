@@ -180,7 +180,7 @@ class LearnerStatistics extends Component {
                 control: (base, state) => ({
                   ...base,
                   background: state.isFocused ? '#FFF' : '#F3F3F4',
-                  border: '0.0625rem solid transparent',
+                  border: '1px solid transparent',
                   borderColor: state.isFocused ? '#E60978 !important' : '#F3F3F4',
                   boxShadow: state.isFocused ? '0 0 0 0.25rem rgba(230, 9, 120, 0.25)' : 'none',
 
@@ -189,15 +189,10 @@ class LearnerStatistics extends Component {
                   }
                 }),
 
-                dropdownIndicator: (base) => ({
-                  ...base,
-                  color: '#666',
-                }),
-
                 option: (base, state) => ({
                   ...base,
                   color: '#333',
-                  backgroundColor: state.isFocused ? '#FBFBFB !important' : '#fff !important',
+                  backgroundColor: state.isFocused ? '#FBFBFB' : '#fff',
                 })
               }}
               components={{

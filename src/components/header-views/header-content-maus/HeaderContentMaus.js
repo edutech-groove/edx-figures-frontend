@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from './_header-content-maus.scss';
 import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 let cx = classNames.bind(styles);
 
@@ -31,13 +33,13 @@ class HeaderContentMaus extends Component {
   render() {
     let currentPeriodValue = this.props.mauDataCurrent;
     let previousPeriodValue = this.props.mauDataHistory.getIn([this.props.mauDataHistory.size-2, 'value'], 0);
-    // let comparisonIcon;
+    let comparisonIcon;
     let comparisonValue;
     if (currentPeriodValue >= previousPeriodValue) {
-      // comparisonIcon = <FontAwesomeIcon icon={faCaretUp} />;
+      comparisonIcon = <FontAwesomeIcon icon={faCaretUp} />;
       comparisonValue = currentPeriodValue - previousPeriodValue;
     } else {
-      // comparisonIcon = <FontAwesomeIcon icon={faCaretDown} />;
+      comparisonIcon = <FontAwesomeIcon icon={faCaretDown} />;
       comparisonValue = previousPeriodValue - currentPeriodValue;
     }
 
@@ -92,8 +94,8 @@ HeaderContentMaus.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => ({
   mauDataCurrent: Immutable.fromJS(state.generalData.activeUsers['current_month']),
-  mauDataHistory: Immutable.fromJS(state.generalData.activeUsers['history']),
-  // mauDataHistory: Immutable.fromJS([{"period":"2021/01","value":7},{"period":"2021/02","value":8},{"period":"2021/03","value":33},{"period":"2021/04","value":9}]), // MOCKDATA
+  // mauDataHistory: Immutable.fromJS(state.generalData.activeUsers['history']),
+  mauDataHistory: Immutable.fromJS([{"period":"2021/01","value":7},{"period":"2021/02","value":8},{"period":"2021/03","value":33},{"period":"2021/04","value":9}]), // MOCKDATA
 })
 
 export default connect(

@@ -12,9 +12,9 @@ class MauDetailsContent extends Component {
 
   render() {
     let previousValue = undefined;
-    // const mockData = [{"period":"2021/01","value":7},{"period":"2021/02","value":8},{"period":"2021/03","value":33},{"period":"2021/04","value":9}]; // MOCKDATA
-    // const mausRender = mockData.map((period, index) => {
-    const mausRender = this.props.mauHistory.map((period, index) => {
+    const mockData = [{"period":"2021/01","value":7},{"period":"2021/02","value":8},{"period":"2021/03","value":33},{"period":"2021/04","value":9}]; // MOCKDATA
+    const mausRender = mockData.map((period, index) => {
+    // const mausRender = this.props.mauHistory.map((period, index) => {
       const difference = (previousValue || (previousValue === 0)) ? (period.value - previousValue) : 'N/A';
       previousValue = period.value;
       return (
