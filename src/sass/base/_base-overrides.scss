@@ -51,3 +51,35 @@
     font-display: swap;
     src: url('../../fonts/Plumpfull.woff') format('woff');
 }
+
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../fonts/NunitoSans-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../../fonts/NunitoSans-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../../fonts/NunitoSans-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('../../fonts/NunitoSans-ExtraBold.woff') format('woff');
+}
