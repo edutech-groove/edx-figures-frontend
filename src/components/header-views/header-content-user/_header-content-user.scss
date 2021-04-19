@@ -2,21 +2,19 @@
 @import '~base/sass/base/functions';
 
 .header-content-user {
-  margin-bottom: calcRem(60);
+  margin-bottom: calcRem(74);
   position: relative;
-  height: calcRem(80);
+  // height: calcRem(80);
 
   .user-image {
     width: calcRem(128);
     height: calcRem(128);
     display: block;
     border-radius: 40px;
-    overflow: hidden;
-    position: absolute;
-    top: calcRem(10);
-    left: 50%;
-    margin-left: calcRem(-60);
-    border: calcRem(8) solid rgba($base-text-color, 0.1);
-    background-color: rgba($base-text-color, 0.1);
+    border: calcRem(10) solid rgba($color02, 0.15);
+    background-color: rgba($color02, 0.1);
+    margin: auto;
+    transform: translateY(50%);
+    object-fit: cover;
   }
 }

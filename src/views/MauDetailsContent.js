@@ -12,15 +12,17 @@ class MauDetailsContent extends Component {
 
   render() {
     let previousValue = undefined;
+    // const mockData = [{"period":"2021/01","value":7},{"period":"2021/02","value":8},{"period":"2021/03","value":33},{"period":"2021/04","value":9}]; // MOCKDATA
+    // const mausRender = mockData.map((period, index) => {
     const mausRender = this.props.mauHistory.map((period, index) => {
       const difference = (previousValue || (previousValue === 0)) ? (period.value - previousValue) : 'N/A';
       previousValue = period.value;
       return (
-        <li key={index} className={styles['content-row']}>
-          <span className={styles['period']}>{period.period}</span>
-          <span className={styles['mau-count']}>{period.value}</span>
-          <span className={cx({ 'difference': true, 'positive': ((difference > 0) || (difference === undefined)), 'negative': (difference < 0)})}>{(difference > 0) ? "+" : ""}{difference}</span>
-        </li>
+        <tr key={index} className={styles['content-row']}>
+          <td className={styles['period']}>{period.period}</td>
+          <td className={styles['mau-count']}>{period.value}</td>
+          <td className={cx({ 'difference': true, 'positive': ((difference > 0) || (difference === undefined)), 'negative': (difference < 0)})}>{(difference > 0) ? "+" : ""}{difference}</td>
+        </tr>
       )
     });
 
@@ -37,14 +39,18 @@ class MauDetailsContent extends Component {
               </div>
             </div>
             <div className={cx({ 'stat-card': true, 'span-2': false, 'span-3': false, 'span-4': true, 'mau-table-container': true})}>
-              <ul className={styles['mau-table']}>
-                <li key="header" className={styles['header-row']}>
-                  <span className={styles['period']}>Period</span>
-                  <span className={styles['mau-count']}>Monthly active users</span>
-                  <span className={styles['difference']}>Difference vs. previous period</span>
-                </li>
+              <table className={styles['mau-table']}>
+                <thead>
+                  <tr key="header" className={styles['header-row']}>
+                    <th className={styles['period']}>Period</th>
+                    <th className={styles['mau-count']}>Monthly active users</th>
+                    <th className={styles['difference']}>Difference vs. previous period</th>
+                  </tr>
+                </thead>
+                <tbody>
                 {mausRender.reverse()}
-              </ul>
+                </tbody>
+              </table>
             </div>
           </section>
         </div>

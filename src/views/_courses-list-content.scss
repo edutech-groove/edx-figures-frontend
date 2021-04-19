@@ -5,126 +5,78 @@
 @import '~base/sass/base/stat-cards';
 
 .courses-content {
+  padding-top: calcRem(20);
 
-}
+  .page-header {
+    display: flex;
+    align-items: center;
+    padding-bottom: calcRem(20);
 
-.courses-list {
-  padding: calcRem(25) 0;
-  border-top: 1px solid #ccc;
-}
+    :global([class*="paginator"]) {
+      padding: 0;
 
-.course-list-item {
-  display: grid;
-  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr 1fr;
-  grid-column-gap: calcRem(20);
-  border-bottom: 1px dashed $grey03;
-  padding: calcRem(20) 0;
-  font-size: calcRem(14);
-  align-items: center;
-
-  @media (max-width: $half-screen-breakpoint) {
-    grid-template-columns: 1fr;
-    grid-row-gap: calcRem(15);
-  }
-
-  &.list-header {
-    align-items: flex-end;
-    font-size: calcRem(12);
-    padding: 15px 0;
-  }
-
-  .sorting-header-button {
-    color: $textColor02;
-    padding: 0;
-    margin: 0;
-    background: none;
-    border: none;
-    outline: none;
-
-    span {
-      @include fz(13);
-      color: $textColor02;
-      margin-right: calcRem(5);
-      text-decoration: none;
-      text-transform: uppercase;
-
-      & + svg {
-        @include fz(13);
-        color: $textColor02;
+      :global([class*="number-controls-container"]) {
+        display: none;
       }
     }
+  }
 
-    &:hover, &:focus {
-      cursor: pointer;
+  .page-footer {
+    padding-top: calcRem(20);
+
+    :global([class*="paginator"]) {
+      padding: 0;
+      justify-content: center;
+
+      :global([class*="dropdown-controls-container"]) {
+        display: none;
+      }
     }
   }
 
-  .course-name-link {
-    color: $primary-color !important;
-    font-weight: bold;
-    text-decoration: none;
-  }
+  .courses-list {
+    @include usePrimaryTableStyle;
+    text-align: left;
+  
+    tr {
+      th {
+        &.self-paced {
+          text-align: center;
+        }
+      }
 
-  .course-id {
-    font-size: calcRem(12);
-  }
+      td {
+        .course-name-link {
+          &:hover {
+            color: $grvColor06;
+          }
+        }
+        .course-name-link,
+        &.enrolments,
+        &.completions {
+          @include paragraph1;
+          margin-bottom: 0;
+          text-decoration: none;
+        }
+      
+        &.self-paced {
+          text-align: center;
 
-  .start-date, .self-paced, .enrolments, .completions {
-    text-align: center;
-
-    @media (max-width: $half-screen-breakpoint) {
-      text-align: left;
-    }
-  }
-
-  .action-container {
-    text-align: right;
-
-    @media (max-width: $half-screen-breakpoint) {
-      text-align: left;
-      padding-top: calcRem(15);
-    }
-  }
-
-  .course-action {
-    @include useLightYellowButton;
-    @include fz(15);
-    border: none;
-    box-shadow: none;
-    cursor: pointer;
-    display: inline-block;
-    min-width: 160px;
-    outline: none;
-    text-align: center;
-    text-decoration: none;
-    transition-duration: 100ms;
-  }
-}
-
-.in-cell-label-value {
-  display: flex;
-  align-items: baseline;
-
-  .mobile-label {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: calcRem(90);
-    margin-right: calcRem(15);
-    font-size: calcRem(12);
-    color: #666;
-
-    @media (min-width: $half-screen-breakpoint) {
-      display: none;
-    }
-  }
-
-  .mobile-value {
-    flex-grow: 1;
-    flex-shrink: 1;
-    width: 100%;
-
-    .checkmark-icon {
-      color: $primary-color;
+          svg {
+            path {
+              fill: $color03;
+            }
+          }
+        }
+      
+        &.action-container {
+          text-align: right;
+      
+          >a {
+            @include useGrvSecondaryYellowButtonStyle;
+          }
+        }
+      }
     }
   }
 }

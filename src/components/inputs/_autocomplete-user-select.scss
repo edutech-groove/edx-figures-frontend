@@ -8,8 +8,7 @@
 
 button.selector-trigger-button {
   @include override-edx-styles;
-  @include usePrimaryButtonStyle;
-  @include fz(15);
+  @include useGrvPrimaryButtonStyleLarge;
   margin-left: calcRem(20);
   transition: all 0.2s ease-in-out;
 
@@ -28,11 +27,53 @@ button.selector-trigger-button {
   top: 0;
   right: 0;
   width: calcRem(360);
-  padding: calcRem(17) 0 calcRem(7);
-  background: #FFFFFF;
-  box-shadow: 2px 4px 6px 0 rgba(0,0,0,0.15);
-  border-radius: $elements-border-radius;
   z-index: 50;
+  height: 100%;
+
+  >div {
+    height: 100%;
+
+    >div {
+      height: 100%;
+
+      >input[type="text"] {
+        margin: 0;
+        box-sizing: border-box;
+        @include searchInputStyle;
+        height: 100%;
+      }
+    }
+
+    .search-btn {
+      @include useSearchButtonStyle('stroke');
+      height: 100%;
+
+      svg {
+        path {
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-width: calcRem(2);
+        }
+      }
+    }
+
+    .dismiss-btn {
+      border-radius: 50%;
+      position: absolute;
+      z-index: 5;
+      right: calcRem(10);
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      border: 0;
+      padding: 0;
+      outline: none;
+      cursor: pointer;
+    }
+  }
 }
 
 .modal-dismiss {
@@ -46,7 +87,8 @@ button.selector-trigger-button {
   right: calcRem(8);
   border-radius: $elements-border-radius;
 
-  &:hover, &:hover:not(:disabled) {
+  &:hover,
+  &:hover:not(:disabled) {
     color: $primary-color;
     background: none;
     cursor: pointer;
@@ -55,7 +97,12 @@ button.selector-trigger-button {
 
 // we have to style inputs like this since the default Open edX stylesheet has these selectors and (sigh) has them target globally in the entire document. Essentially, that renders targeting purely by class name basically futile.
 
-textarea, input[type="text"], input[type="url"], input[type="email"], input[type="password"], input[type="tel"] {
+textarea,
+input[type="text"],
+input[type="url"],
+input[type="email"],
+input[type="password"],
+input[type="tel"] {
 
   &.input {
     @include override-edx-styles;
@@ -71,48 +118,50 @@ textarea, input[type="text"], input[type="url"], input[type="email"], input[type
   }
 }
 
-.suggestions-container {
-
-}
+.suggestions-container {}
 
 .suggestionsList {
-  padding: 0;
-  margin: 0;
+  padding: calcRem(15) 0;
+  margin: calcRem(5) 0 0;
   max-height: calcRem(300);
   overflow-y: auto;
-}
+  background-color: $color01;
+  box-shadow: 0 0 calcRem(4) rgba(#000, .2);
+  border-radius: $globalRadius;
 
-.suggestion {
-  list-style-type: none;
-  border-top: calcRem(1) solid rgba(#D8D8D8, 0.5);
-  padding: calcRem(15) 0;
-  margin: 0 calcRem(20);
-  color: $base-text-color;
-  font-size: $base-font-size;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    opacity: 0.5;
-  }
-
-  .suggestion-link {
+  .suggestion {
+    list-style-type: none;
     display: block;
-    text-decoration: none;
+    padding: 0 calcRem(15);
 
-    &__user-username {
-      display: block;
-      font-weight: bold;
-      color: $primary-color;
-      font-size: calcRem(12);
-      min-width: calcRem(5);
-      margin-bottom: calcRem(5);
+    &:hover {
+      background-color: $color23;
     }
 
-    &__user-name {
-      display: block;
-      color: $base-text-color;
-      font-size: $base-font-size;
+    &:not(:last-child) {
+      .suggestion-link {
+        border-bottom: calcRem(1) solid #E5E5E5;
+      }
+    }
 
+    .suggestion-link {
+      display: block;
+      text-decoration: none;
+      padding: calcRem(10) 0;
+
+      &__user-username {
+        @include fz(11);
+        @include useFont1;
+        line-height: 1.2;
+        font-weight: 600;
+        color: $color03;
+        margin-bottom: 0;
+      }
+
+      &__user-name {
+        @include paragraph2;
+        margin: calcRem(5) 0 0;
+      }
     }
   }
 }

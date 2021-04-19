@@ -1,6 +1,7 @@
 @import '~base/sass/base/variables';
 @import '~base/sass/base/functions';
 @import '~base/sass/base/grid';
+@import '~base/sass/base/mixins';
 
 .header-content-maus {
 
@@ -9,8 +10,7 @@
   }
 
   .main-content {
-    margin-bottom: calcRem(30);
-    padding-top: calcRem(50);
+    padding-top: calcRem(60);
     text-align: center;
   }
 
@@ -18,22 +18,20 @@
     align-items: center;
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
 
     .number {
-      @include useFont2;
-      @include fz(28);
+      @include heading1;
       color: $primary-color;
       display: block;
-      font-weight: 900;
-      line-height: 120%;
-      margin-right: 16px;
+      margin: 0 calcRem(12) 0 0;
     }
 
     .text {
-      @include fz(24);
+      @include heading2;
       display: block;
-      font-weight: 900;
-      line-height: 120%;
+      margin-bottom: 0;
+      color: $color01;
     }
   }
 
@@ -57,17 +55,19 @@
       align-items: center;
       display: flex;
       justify-content: center;
-      padding: 16px 0 30px;
+      @include paragraph2;
+      margin-bottom: 0;
+      color: $color27;
     }
 
     &__lower {
+      margin-top: 30px;
       display: block;
     }
   }
 
   .mau-history-link, .mau-history-link:not(.btn) {
-    @include useYellowButton;
-    @include fz(15);
+    @include useGrvPrimaryYellowButtonStyle;
     display: inline-block;
     flex-shrink: 0;
     flex-grow: 0;
@@ -77,54 +77,65 @@
     transition: all 0.2s ease-in-out;
   }
 
-  .bar-tooltip {
-    position: relative;
-    left: calcRem(10);
-    background-color: $color01;
-    color: $base-text-color;
-    width: calcRem(100);
-    border-radius: calcRem(2);
-    padding: calcRem(10);
-    text-align: center;
-
-    &:after {
-      border-color: rgba(136, 183, 213, 0);
-      border-right-color: $base-text-color;
-      border-width: calcRem(10);
-      border: solid transparent;
-      content: " ";
-      height: 0;
-      margin-top: calcRem(-10);
-      pointer-events: none;
-      position: absolute;
-      right: 100%;
-      top: 50%;
-      width: 0;
-    }
-
-    .tooltip-value {
-      @include fz(15);
-      font-weight: bold;
-    }
-
-    p {
-      margin: 0;
-      font-size: calcRem(10);
-    }
-  }
-
   .graph-container {
-    margin-left: calcRem(-20);
-    margin-right: calcRem(-20);
-  }
-}
+    :global(.recharts-responsive-container) {
+      .no-data-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        @include paragraph2;
+        margin-bottom: 0;
+        font-style: italic;
+        opacity: 0.6;
+      }
 
-.no-data-label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-style: italic;
-  opacity: 0.6;
-  font-size: 1.4rem;
+      :global(.recharts-wrapper) {
+        // :global(.recharts-surface) {
+        //   :global(.recharts-area) {
+        //     :global(path.recharts-curve) {
+        //       fill: #E1E1E1;
+        //       fill-opacity: 1;
+        //     }
+        //   }
+
+        //   :global(.recharts-active-dot) {
+        //     :global(.recharts-dot) {
+        //       fill: #E1E1E1;
+        //       stroke: #E1E1E1;
+        //     }
+        //   }
+        // }
+
+        :global(.recharts-tooltip-wrapper) {
+          &:global(.recharts-tooltip-wrapper-right) {
+            .bar-tooltip {
+              @include usePopoverRight;
+              left: calcRem(7);
+            }
+          }
+
+          &:global(.recharts-tooltip-wrapper-left) {
+            .bar-tooltip {
+              @include usePopoverLeft;
+              right: calcRem(7);
+            }
+          }
+
+          .bar-tooltip {
+            text-align: center;
+
+            .tooltip-value {
+              @include paragraph1;
+            }
+
+            >p {
+              @include paragraph2;
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+  }
 }

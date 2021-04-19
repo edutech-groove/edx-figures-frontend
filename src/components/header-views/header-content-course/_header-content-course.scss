@@ -3,35 +3,35 @@
 @import '~base/sass/base/grid';
 
 .header-content-course {
-
+  padding-top: calcRem(60);
+  padding-bottom: calcRem(50);
 
   .main-content {
     text-align: center;
-    margin: calcRem(30) auto calcRem(40);
-  }
 
-  .course-title {
-    font-size: calcRem(36);
-    margin-bottom: calcRem(15);
-    line-height: 130%;
-  }
-
-  .course-info {
-    font-size: calcRem(16);
-    margin-bottom: calcRem(5);
-    line-height: 130%;
-
-    .course-code {
-      font-weight: 900;
+    .course-title {
+      @include heading2;
+      color: $color01;
+      margin-bottom: calcRem(8);
     }
-
-    .course-info-separator {
-      margin-left: calcRem(10);
-      margin-right: calcRem(10);
-    }
-
-    .course-date {
-      font-weight: normal;
+  
+    .course-info {
+      @include paragraph2;
+      color: $color27;
+      margin-bottom: 0;
+  
+      .course-code {
+        color: $color24;
+      }
+  
+      .course-info-separator {
+        margin-left: calcRem(10);
+        margin-right: calcRem(10);
+      }
+  
+      .course-date {
+        font-weight: normal;
+      }
     }
   }
 
@@ -48,9 +48,9 @@
   }
 
   .graph-bottom-padding {
-    display: block;
-    width: 100%;
-    height: calcRem(50);
+    // display: block;
+    // width: 100%;
+    // height: calcRem(50);
   }
 }
 

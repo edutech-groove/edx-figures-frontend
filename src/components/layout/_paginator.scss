@@ -1,6 +1,7 @@
 @import '~base/sass/base/variables';
 @import '~base/sass/base/functions';
 @import '~base/sass/base/grid';
+@import '~base/sass/base/mixins';
 
 
 .paginator {
@@ -16,12 +17,12 @@
     margin-left: auto;
 
     .paginator-dropdown-label {
-      @include fz(15);
       flex-shrink: 0;
       flex-grow: 0;
       display: inline-block;
       margin-right: calcRem(10);
-      color: #666;
+      @include paragraph2;
+      margin-bottom: 0;
     }
   }
 
@@ -36,13 +37,13 @@
 
   .text-item-dummy,
   .text-item {
-    margin-right: calcRem(5);
+    margin-right: calcRem(10);
   }
 
   .ellipsis-item {
     display: block;
     padding: calcRem(10);
-    margin-right: calcRem(5);
+    margin-right: calcRem(10);
   }
 
   .text-item,
@@ -59,6 +60,8 @@
     outline: none;
     padding: 0 6px;
     text-align: center;
+    box-sizing: border-box;
+    @include useFont1;
 
     &:hover {
       cursor: pointer;
@@ -67,23 +70,34 @@
 
   .text-item,
   .text-item-dummy {
-    color: $textColor01;
     background-color: $grey08;
 
+    svg {
+      path {
+        fill: $textColor01
+      }
+    }
+
     &:hover {
-      background-color: $color03;
-      color: $color01;
+      background-color: $color22;
+
+      svg {
+        path {
+          fill: $color03
+        }
+      }
     }
   }
 
   .number-item {
     background-color: $color01;
     color: $textColor01;
-    margin-right: calcRem(5);
+    margin-right: calcRem(10);
 
     &:hover {
       background-color: $color01;
       color: $color03;
+      font-weight: 600;
     }
   }
 
@@ -91,13 +105,14 @@
     color: $primary-color;
     background-color: $color22;
     pointer-events: none;
+    font-weight: 600;
 
     & + .number-item {
-      margin-left: calcRem(5);
+      margin-left: calcRem(10);
     }
 
     & + .text-item-dummy {
-      margin-left: calcRem(5);
+      margin-left: calcRem(10);
     }
   }
 }
