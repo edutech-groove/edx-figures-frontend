@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import Select from 'react-select';
-import styles from './_csv-reports-content.scss';
 import HeaderAreaLayout from 'base/components/layout/HeaderAreaLayout';
 import HeaderContentCsvReports from 'base/components/header-views/header-content-csv-reports/HeaderContentCsvReports';
-
-import classNames from 'classnames/bind';
-let cx = classNames.bind(styles);
 
 const parseReportDate = (fetchedDate) => {
   if (fetchedDate === null) {
@@ -143,23 +139,23 @@ class CsvReports extends Component {
 
     const displayedAutoReportsRender = this.state.displayedAutoReports.map((report, index) => {
       return (
-        <li key={index} className={styles['report']}>
-          <div className={styles['report-name']}>
+        <li key={index} className='report'>
+          <div className='report-name'>
             <a
               href={report.get('report_url')}
-              className={styles['view-report-button']}
+              className='view-report-button'
               target="_blank"
             >
               {report.get('report_name')}
             </a>
           </div>
-          <div className={styles['report-timestamp']}>
+          <div className='report-timestamp'>
             {parseReportDate(report.get('report_timestamp'))}
           </div>
-          <div className={styles['report-buttons']}>
+          <div className='report-buttons'>
             <a
               href={report.get('report_url')}
-              className={styles['view-report-button']}
+              className='view-report-button'
               target="_blank"
             >
               View report
@@ -174,30 +170,30 @@ class CsvReports extends Component {
         <HeaderAreaLayout>
           <HeaderContentCsvReports />
         </HeaderAreaLayout>
-        <section className={cx({ 'container': true, 'csv-reports-content': true, 'csv-regular-reports-content': true})}>
-          <div className={styles['reports-section']}>
-            <div className={styles['reports-filters']}>
-              <div className={styles['header-title']}>
+        <section className='container csv-reports-content csv-regular-reports-content'>
+          <div className='reports-section'>
+            <div className='reports-filters'>
+              <div className='header-title'>
                 Regular automatically generated CSV reports
               </div>
-              <div className={styles['filters-heading']}>
+              <div className='filters-heading'>
                 Filter reports
               </div>
-              <span className={styles['filters-heading-separator']}></span>
-              <div className={styles['filter']}>
-                <div className={styles['dropdown-container']}>
+              <span className='filters-heading-separator'></span>
+              <div className='filter'>
+                <div className='dropdown-container'>
                   <span>Year:</span>
-                  <Select
+                  <Select className='react-select-container' classNamePrefix="react-select"
                     options={this.state.filterOptions.get('years').toJS()}
                     onChange = {this.setAutoReportYearFilter}
                     value={this.state.filterOptions.get('years').get(this.state.filterOptions.get('years').findIndex(item => (item.value === this.state.autoReportsYearFilter)))}
                   />
                 </div>
               </div>
-              <div className={styles['filter']}>
-                <div className={styles['dropdown-container']}>
+              <div className='filter'>
+                <div className='dropdown-container'>
                   <span>Month:</span>
-                  <Select
+                  <Select className='react-select-container' classNamePrefix="react-select"
                     options={this.state.filterOptions.get('months').toJS()}
                     onChange = {this.setAutoReportMonthFilter}
                     value={this.state.filterOptions.get('months').get(this.state.filterOptions.get('months').findIndex(item => (item.value === this.state.autoReportsMonthFilter)))}
@@ -205,35 +201,35 @@ class CsvReports extends Component {
                 </div>
               </div>
             </div>
-            <div className={styles['report-tab-select']}>
+            <div className='report-tab-select'>
               <button
-                className={cx({ 'report-selector': true, 'active': (this.state.selectedAutoReports === 'csvUserReports')})}
+                className={'report-selector' + (this.state.selectedAutoReports === 'csvUserReports' ? ' active' : '')}
                 onClick={() => this.setSelectedAutoReports('csvUserReports')}
               >
                 User Reports
               </button>
               <button
-                className={cx({ 'report-selector': true, 'active': (this.state.selectedAutoReports === 'csvGradeReports')})}
+                className={'report-selector' + (this.state.selectedAutoReports === 'csvGradeReports' ? ' active' : '')}
                 onClick={() => this.setSelectedAutoReports('csvGradeReports')}
               >
                 Grade Reports
               </button>
               <button
-                className={cx({ 'report-selector': true, 'active': (this.state.selectedAutoReports === 'csvCourseMetrics')})}
+                className={'report-selector' + (this.state.selectedAutoReports === 'csvCourseMetrics' ? ' active' : '')}
                 onClick={() => this.setSelectedAutoReports('csvCourseMetrics')}
               >
                 Course Metrics Reports
               </button>
             </div>
-            <ul className={styles['reports-list']}>
-              <li key='list-header' className={cx(styles['report'], styles['list-header'])}>
-                <div className={styles['report-name']}>
+            <ul className='reports-list'>
+              <li key='list-header' className='report list-header'>
+                <div className='report-name'>
                   Report name:
                 </div>
-                <div className={styles['report-timestamp']}>
+                <div className='report-timestamp'>
                   Time created:
                 </div>
-                <div className={styles['report-buttons']}>
+                <div className='report-buttons'>
                 </div>
               </li>
               {displayedAutoReportsRender}

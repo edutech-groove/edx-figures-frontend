@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styles from './_stat-bar-graph.scss';
 import { ResponsiveContainer, BarChart, Bar, Tooltip, CartesianGrid, YAxis, XAxis } from 'recharts';
 
 
@@ -11,8 +10,8 @@ class CustomTooltip extends Component {
     if (active) {
       const { payload } = this.props;
       return (
-        <div className={styles['bar-tooltip']}>
-          <span className={styles['tooltip-value']}>
+        <div className='bar-tooltip'>
+          <span className='tooltip-value'>
             {(this.props.dataType === 'percentage') ? (payload[0].value)*100 : payload[0].value}
             {(this.props.dataType === 'percentage') && '%'}
           </span>
@@ -39,7 +38,7 @@ class StatBarGraph extends Component {
     }
 
     return (
-      <ResponsiveContainer className={styles['stat-bar-graph']} width="100%" height={this.props.graphHeight}>
+      <ResponsiveContainer className='stat-bar-graph' width="100%" height={this.props.graphHeight}>
         <BarChart
           data={this.props.data.toJS()}
           margin={{top: 0, bottom: 0, left: 0, right: 0}}
@@ -53,7 +52,7 @@ class StatBarGraph extends Component {
             cursor={{ fill: 'rgba(255, 255, 255, 0.15)'}}
             offset={0}
           />
-          <Bar className={styles['stat-bar']} dataKey='value' stroke='none' />
+          <Bar className='stat-bar' dataKey='value' stroke='none' barSize={30} />
           <YAxis className="test" tickFormatter={yAxisTickFormatter} />
           <XAxis className="test" dataKey='period' tickFormatter={xAxisTickFormatter} />
         </BarChart>

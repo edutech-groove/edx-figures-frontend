@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { List } from 'immutable';
 import PropTypes from 'prop-types';
-import styles from './_learner-statistics.scss';
-import classNames from 'classnames/bind';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import StatHorizontalBarGraph from 'base/components/stat-graphs/stat-bar-graph/StatHorizontalBarGraph';
-
-let cx = classNames.bind(styles);
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretDown  } from '@fortawesome/free-solid-svg-icons';
 
 var countries = require("i18n-iso-countries");
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
@@ -163,21 +161,29 @@ class LearnerStatistics extends Component {
     ])
 
     return (
-      <section className={styles['courses-list']}>
-        <div className={styles['header']}>
-          <div className={styles['header-title']}>
+      <section className='courses-list'>
+        <div className='header'>
+          <div className='header-title'>
             {this.props.listTitle}
           </div>
-          <div className={styles['dropdown-container']}>
-            <span>Course learners breakdown type:</span>
-            <Select
+          <div className='dropdown-container'>
+            <span>Course learners breakdown type</span>
+            <Select className='react-select-container' classNamePrefix="react-select"
               options={dropdownOptions.toArray()}
               onChange = {this.onChangeBreakdownType}
               value={dropdownOptions.get(dropdownOptions.findIndex(item => (item.value === this.state.breakdownType)))}
+              components={{
+                IndicatorSeparator: () => null,
+                DropdownIndicator: (props) => {
+                  return (<components.DropdownIndicator {...props}>
+                    <FontAwesomeIcon icon={faCaretDown}/>
+                  </components.DropdownIndicator>);
+                }
+              }}
             />
           </div>
         </div>
-        <div className={cx({ 'stat-card': true, 'span-2': false, 'span-3': false, 'span-4': true})}>
+        <div className='stat-card span-4'>
           <StatHorizontalBarGraph
             data={this.state.graphData}
             valueLabel='count'

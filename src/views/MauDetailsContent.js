@@ -1,26 +1,23 @@
 import React, { Component } from 'react';
-import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import styles from './_mau-details-content.scss';
 import HeaderAreaLayout from 'base/components/layout/HeaderAreaLayout';
 import HeaderContentMaus from 'base/components/header-views/header-content-maus/HeaderContentMaus';
-
-let cx = classNames.bind(styles);
-
 
 class MauDetailsContent extends Component {
 
   render() {
     let previousValue = undefined;
-    const mausRender = this.props.mauHistory.map((period, index) => {
-      const difference = (previousValue || (previousValue === 0)) ? (period.value - previousValue) : 'N/A';
+    const mockData = [{"period":"2021/01","value":7},{"period":"2021/02","value":8},{"period":"2021/03","value":33},{"period":"2021/04","value":9}]; //MOCKDATA
+    const mausRender = mockData.map((period, index) => {
+    // const mausRender = this.props.mauHistory.map((period, index) => {
+      const difference = (previousValue || (previousValue === 0)) ? (period.value - previousValue) : 'N/A';
       previousValue = period.value;
       return (
-        <li key={index} className={styles['content-row']}>
-          <span className={styles['period']}>{period.period}</span>
-          <span className={styles['mau-count']}>{period.value}</span>
-          <span className={cx({ 'difference': true, 'positive': ((difference > 0) || (difference === undefined)), 'negative': (difference < 0)})}>{(difference > 0) ? "+" : ""}{difference}</span>
-        </li>
+        <tr key={index} className='content-row'>
+          <td className='period'>{period.period}</td>
+          <td className='mau-count'>{period.value}</td>
+          <td className={'difference' + ((difference > 0) || (difference === undefined) ? ' positive' : '') + (difference < 0 ? ' negative' : '')}>{(difference > 0) ? "+" : ""}{difference}</td>
+        </tr>
       )
     });
 
@@ -29,22 +26,26 @@ class MauDetailsContent extends Component {
         <HeaderAreaLayout>
           <HeaderContentMaus />
         </HeaderAreaLayout>
-        <div className={cx({ 'container': true, 'base-grid-layout': true, 'mau-details-content': true})}>
-          <section className={styles['mau-history-list']}>
-            <div className={styles['header']}>
-              <div className={styles['header-title']}>
+        <div className='container base-grid-layout mau-details-content'>
+          <section className='mau-history-list'>
+            <div className='header'>
+              <div className='header-title'>
                 Monthly Active Users history
               </div>
             </div>
-            <div className={cx({ 'stat-card': true, 'span-2': false, 'span-3': false, 'span-4': true, 'mau-table-container': true})}>
-              <ul className={styles['mau-table']}>
-                <li key="header" className={styles['header-row']}>
-                  <span className={styles['period']}>Period</span>
-                  <span className={styles['mau-count']}>Monthly active users</span>
-                  <span className={styles['difference']}>Difference vs. previous period</span>
-                </li>
+            <div className='stat-card span-4 mau-table-container'>
+              <table className='mau-table'>
+                <thead>
+                  <tr key="header" className='header-row'>
+                    <th className='period'>Period</th>
+                    <th className='mau-count'>Monthly active users</th>
+                    <th className='difference'>Difference vs. previous period</th>
+                  </tr>
+                </thead>
+                <tbody>
                 {mausRender.reverse()}
-              </ul>
+                </tbody>
+              </table>
             </div>
           </section>
         </div>
