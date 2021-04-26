@@ -88,8 +88,8 @@ HeaderContentMaus.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => ({
   mauDataCurrent: Immutable.fromJS(state.generalData.activeUsers['current_month']),
-  // mauDataHistory: Immutable.fromJS(state.generalData.activeUsers['history']),
-  mauDataHistory: Immutable.fromJS([{"period":"2021/01","value":7},{"period":"2021/02","value":8},{"period":"2021/03","value":33},{"period":"2021/04","value":9}]), // MOCKDATA
+  mauDataHistory: Immutable.fromJS(state.generalData.activeUsers['history']),
+  // mauDataHistory: Immutable.fromJS([{"period":"2021/01","value":7},{"period":"2021/02","value":8},{"period":"2021/03","value":33},{"period":"2021/04","value":9}]), // MOCKDATA
 })
 
 export default connect(
