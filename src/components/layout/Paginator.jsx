@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select, { components } from 'react-select';
 import { List } from 'immutable';
-import styles from './_paginator.scss';
-import cx from "classnames";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown  } from '@fortawesome/free-solid-svg-icons';
 
@@ -38,9 +36,9 @@ class Paginator extends React.Component {
 
     const numbersToRender = [];
     if (this.props.pages > this.props.ellipsisPageLimit) {
-      if ((this.state.currentPage === 1) || (this.state.currentPage === 2)) {
+      if ((this.state.currentPage === 1) || (this.state.currentPage === 2)) {
         numbersToRender.push(0, 1, 2, 3, 4, this.props.pages -1, this.props.pages);
-      } else if ((this.state.currentPage === this.props.pages - 1) || (this.state.currentPage === this.props.pages)) {
+      } else if ((this.state.currentPage === this.props.pages - 1) || (this.state.currentPage === this.props.pages)) {
         numbersToRender.push(0, 1, this.props.pages -4, this.props.pages -3, this.props.pages -2, this.props.pages -1, this.props.pages);
       } else {
         numbersToRender.push(0, 1, this.state.currentPage - 1, this.state.currentPage, this.state.currentPage + 1, this.props.pages -1, this.props.pages);
@@ -49,14 +47,10 @@ class Paginator extends React.Component {
     var renderEllipsis = true;
     for (let i = 0; i < this.props.pages; i++) {
       const page = i + 1;
-      const buttonClass = cx({
-        'ignore': true,
-        [styles['number-item']]: Boolean(page !== this.state.currentPage),
-        [styles['number-item-active']]: Boolean(page === this.state.currentPage),
-      })
+      const buttonClass = 'ignore' + (Boolean(page !== this.state.currentPage) ? ' number-item' : '') + (Boolean(page === this.state.currentPage) ? ' number-item-active' : '');
 
       if (this.props.pages > this.props.ellipsisPageLimit) {
-        if (numbersToRender.includes(i)) {
+        if (numbersToRender.includes(i)) {
           pageNumbers.push(
             <button
               className={buttonClass}
@@ -69,7 +63,7 @@ class Paginator extends React.Component {
         } else {
           if (renderEllipsis) {
             pageNumbers.push(
-              <span className={styles['ellipsis-item']}>...</span>
+              <span className='ellipsis-item'>...</span>
             )
             renderEllipsis = false;
           }
@@ -87,14 +81,11 @@ class Paginator extends React.Component {
     }
 
     return (
-      <div className={styles['paginator']}>
-        <div className={styles['number-controls-container']}>
+      <div className='paginator'>
+        <div className='number-controls-container'>
           {(this.state.currentPage !== 1) ? (
             <button
-              className={cx({
-                [styles['text-item']]: true,
-                'ignore': true
-              })}
+              className='text-item ignore'
               onClick={() => this.props.pageSwitchFunction(1)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="8" height="9" viewBox="0 0 8 9">
@@ -108,7 +99,7 @@ class Paginator extends React.Component {
             </button>
           ) : (
             <span
-              className={styles['text-item-dummy']}
+              className='text-item-dummy'
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="8" height="9" viewBox="0 0 8 9">
                 <g transform="translate(3 9) rotate(-90)">
@@ -122,10 +113,7 @@ class Paginator extends React.Component {
           )}
           {(this.state.currentPage !== 1) ? (
             <button
-              className={cx({
-                [styles['text-item']]: true,
-                'ignore': true
-              })}
+              className='text-item ignore'
               onClick={() => this.props.pageSwitchFunction(this.props.currentPage-1)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="5" height="9" viewBox="0 0 5 9">
@@ -136,7 +124,7 @@ class Paginator extends React.Component {
             </button>
           ) : (
             <span
-              className={styles['text-item-dummy']}
+              className='text-item-dummy'
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="5" height="9" viewBox="0 0 5 9">
                 <g transform="translate(0 9) rotate(-90)">
@@ -148,10 +136,7 @@ class Paginator extends React.Component {
           {pageNumbers}
           {(this.state.currentPage !== this.props.pages) ? (
             <button
-              className={cx({
-                [styles['text-item']]: true,
-                'ignore': true
-              })}
+              className='text-item ignore'
               onClick={() => this.props.pageSwitchFunction(this.props.currentPage+1)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="5" height="9" viewBox="0 0 5 9">
@@ -162,7 +147,7 @@ class Paginator extends React.Component {
             </button>
           ) : (
             <span
-              className={styles['text-item-dummy']}
+              className='text-item-dummy'
             >
             <svg xmlns="http://www.w3.org/2000/svg" width="5" height="9" viewBox="0 0 5 9">
               <g transform="translate(-390.547 424.663) rotate(-90)">
@@ -173,10 +158,7 @@ class Paginator extends React.Component {
           )}
           {(this.state.currentPage !== this.props.pages) ? (
             <button
-              className={cx({
-                [styles['text-item']]: true,
-                'ignore': true
-              })}
+              className='text-item ignore'
               onClick={() => this.props.pageSwitchFunction(this.props.pages)}
             >
               
@@ -193,7 +175,7 @@ class Paginator extends React.Component {
             </button>
           ) : (
             <span
-              className={styles['text-item-dummy']}
+              className='text-item-dummy'
             >
               
               <svg xmlns="http://www.w3.org/2000/svg" width="8" height="9" viewBox="0 0 8 9">
@@ -209,39 +191,15 @@ class Paginator extends React.Component {
             </span>
           )}
         </div>
-        <div className={styles['dropdown-controls-container']}>
-          <span className={styles['paginator-dropdown-label']}>
+        <div className='dropdown-controls-container'>
+          <span className='paginator-dropdown-label'>
             Per page
           </span>
-          <div className={styles['dropdown-inner-container']}>
-            <Select
+          <div className='dropdown-inner-container'>
+            <Select className='react-select-container' classNamePrefix="react-select"
               options={perPageDropdownOptions.toArray()}
               onChange = {(payload) => this.props.changePerPageFunction(payload.value)}
               value={perPageDropdownOptions.get(perPageDropdownOptions.findIndex(item => (item.value === this.state.perPage)))}
-              styles={{
-                control: (base, state) => ({
-                  ...base,
-                  background: state.isFocused ? '#FFF' : '#F3F3F4',
-                  border: '0.0625rem solid transparent',
-                  borderColor: state.isFocused ? '#E60978 !important' : '#F3F3F4',
-                  boxShadow: state.isFocused ? '0 0 0 0.25rem rgba(230, 9, 120, 0.25)' : 'none',
-
-                  '&:hover': {
-                    borderColor: state.isFocused ? '#E60978' : '#F3F3F4',
-                  }
-                }),
-
-                dropdownIndicator: (base) => ({
-                  ...base,
-                  color: '#666',
-                }),
-
-                option: (base, state) => ({
-                  ...base,
-                  color: '#333',
-                  backgroundColor: state.isFocused ? '#FBFBFB !important' : '#fff !important',
-                })
-              }}
               components={{
                 IndicatorSeparator: () => null,
                 DropdownIndicator: (props) => {

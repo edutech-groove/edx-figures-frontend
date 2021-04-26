@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { trackPromise } from 'react-promise-tracker';
-import classNames from 'classnames/bind';
-import styles from './_single-user-content.scss';
 import HeaderAreaLayout from 'base/components/layout/HeaderAreaLayout';
 import HeaderContentUser from 'base/components/header-views/header-content-user/HeaderContentUser';
 import UserCoursesList from 'base/components/user-courses-list/UserCoursesList';
@@ -39,8 +37,6 @@ const genderDict = {
   "f": "Female",
   "o": "Other / Prefer not to say"
 }
-
-let cx = classNames.bind(styles);
 
 class SingleUserContent extends Component {
   constructor(props) {
@@ -82,82 +78,84 @@ class SingleUserContent extends Component {
             name = {this.state.userData.getIn(['name'])}
           />
         </HeaderAreaLayout>
-        <div className={cx({ 'container': true, 'base-grid-layout': true, 'user-content': true})}>
-          <div className={styles['user-information']}>
-            {this.state.userData['name'] && (
-              <div className={styles['name']}>
-                {this.state.userData['name']}
-              </div>
-            )}
-            <ul className={styles['user-details']}>
-              <li>
-                <span className={styles['label']}>
-                  <img src={iconUsername} alt="Username" />
-                  Username
-                </span>
-                <span className={styles['value']}>{this.state.userData.getIn(['username'])}</span>
-              </li>
-              <li>
-                <span className={styles['label']}>
-                  <img src={iconBirthday} alt="Year of birth" />
-                  Year of birth
-                </span>
-                <span className={styles['value']}>{this.state.userData.getIn(['year_of_birth'])}</span>
-              </li>
-              <li>
-                <span className={styles['label']}>
-                  <img src={iconGender} alt="Gender" />
-                  Gender
-                </span>
-                <span className={styles['value']}>{genderDict[this.state.userData.getIn(['gender'])]}</span>
-              </li>
-              <li>
-                <span className={styles['label']}>
-                  <img src={iconDateStart} alt="Date joined" />
-                  Date joined
-                </span>
-                <span className={styles['value']}>{dateJoined.toUTCString()}</span>
-              </li>
-              <li>
-                <span className={styles['label']}>
-                  <img src={iconActivated} alt="Account Activated" />
-                  Account activated
-                </span>
-                <span className={styles['value']}>{this.state.userData.getIn(['is_active'], false) ? 'Account activated' : 'Not activated'}</span>
-              </li>
-              <li>
-                <span className={styles['label']}>
-                  <img src={iconCourse} alt="Courses enrolled" />
-                  Courses enrolled
-                </span>
-                <span className={styles['value']}>{this.state.userData.getIn(['courses']) ? this.state.userData.getIn(['courses']).length : ""}</span>
-              </li>
-              <li>
-                <span className={styles['label']}>
-                  <img src={iconCountry} alt="Country" />
-                  Country
-                </span>
-                <span className={styles['value']}>{this.state.userData.getIn(['country']) ? countries.getName(this.state.userData.getIn(['country']), "en") : "Not Available"}</span>
-              </li>
-              <li>
-                <span className={styles['label']}>
-                  <img src={iconEducation} alt="Level of Education" />
-                  Level of education
-                </span>
-                <span className={styles['value']}>{this.state.userData.getIn(['level_of_education']) ? educationLevelsDict[this.state.userData.getIn(['level_of_education'])] : 'Not Available'}</span>
-              </li>
-              <li>
-                <span className={styles['label']}>
-                  <img src={iconEmail} alt="Email address" />
-                  Email address
-                </span>
-                <span className={styles['value']}><a href={"mailto:" + this.state.userData.getIn(['email'])}>{this.state.userData.getIn(['email'])}</a></span>
-              </li>
-            </ul>
+        <div className='container base-grid-layout user-content'>
+          <div className="user-container">
+            <div className='user-information'>
+              {this.state.userData['name'] && (
+                <div className='name'>
+                  {this.state.userData['name']}
+                </div>
+              )}
+              <ul className='user-details'>
+                <li>
+                  <span className='label'>
+                    <img src={iconUsername} alt="Username" />
+                    Username
+                  </span>
+                  <span className='value'>{this.state.userData.getIn(['username'])}</span>
+                </li>
+                <li>
+                  <span className='label'>
+                    <img src={iconBirthday} alt="Year of birth" />
+                    Year of birth
+                  </span>
+                  <span className='value'>{this.state.userData.getIn(['year_of_birth'])}</span>
+                </li>
+                <li>
+                  <span className='label'>
+                    <img src={iconGender} alt="Gender" />
+                    Gender
+                  </span>
+                  <span className='value'>{genderDict[this.state.userData.getIn(['gender'])]}</span>
+                </li>
+                <li>
+                  <span className='label'>
+                    <img src={iconDateStart} alt="Date joined" />
+                    Date joined
+                  </span>
+                  <span className='value'>{dateJoined.toUTCString()}</span>
+                </li>
+                <li>
+                  <span className='label'>
+                    <img src={iconActivated} alt="Account Activated" />
+                    Account activated
+                  </span>
+                  <span className='value'>{this.state.userData.getIn(['is_active'], false) ? 'Account activated' : 'Not activated'}</span>
+                </li>
+                <li>
+                  <span className='label'>
+                    <img src={iconCourse} alt="Courses enrolled" />
+                    Courses enrolled
+                  </span>
+                  <span className='value'>{this.state.userData.getIn(['courses']) ? this.state.userData.getIn(['courses']).length : ""}</span>
+                </li>
+                <li>
+                  <span className='label'>
+                    <img src={iconCountry} alt="Country" />
+                    Country
+                  </span>
+                  <span className='value'>{this.state.userData.getIn(['country']) ? countries.getName(this.state.userData.getIn(['country']), "en") : "Not Available"}</span>
+                </li>
+                <li>
+                  <span className='label'>
+                    <img src={iconEducation} alt="Level of Education" />
+                    Level of education
+                  </span>
+                  <span className='value'>{this.state.userData.getIn(['level_of_education']) ? educationLevelsDict[this.state.userData.getIn(['level_of_education'])] : 'Not Available'}</span>
+                </li>
+                <li>
+                  <span className='label'>
+                    <img src={iconEmail} alt="Email address" />
+                    Email address
+                  </span>
+                  <span className='value'><a href={"mailto:" + this.state.userData.getIn(['email'])}>{this.state.userData.getIn(['email'])}</a></span>
+                </li>
+              </ul>
+            </div>
+            <UserCoursesList
+              enrolledCoursesData={this.state.userData.getIn(['courses'], [])}
+            />
           </div>
-          <UserCoursesList
-            enrolledCoursesData={this.state.userData.getIn(['courses'], [])}
-          />
         </div>
       </div>
     );

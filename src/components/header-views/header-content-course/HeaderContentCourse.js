@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import classNames from 'classnames/bind';
-import styles from './_header-content-course.scss';
 import { ResponsiveContainer, BarChart, Bar, XAxis, Tooltip } from 'recharts';
-
-let cx = classNames.bind(styles);
 
 const parseCourseDate = (fetchedDate) => {
   if (fetchedDate === null) {
@@ -24,8 +20,8 @@ class CustomTooltip extends Component {
     if (active) {
       const { payload } = this.props;
       return (
-        <div className={styles['bar-tooltip']}>
-          <span className={styles['tooltip-value']}>{payload[0].value}</span>
+        <div className='bar-tooltip'>
+          <span className='tooltip-value'>{payload[0].value}</span>
           <p>learners currently at this section</p>
         </div>
       );
@@ -42,33 +38,33 @@ class HeaderContentCourse extends Component {
     const displayCourseHeaderGraph = false;
 
     return (
-      <section className={styles['header-content-course']}>
-        <div className={cx({ 'main-content': true, 'container': true})}>
-          <div className={styles['course-title']}>
+      <section className='header-content-course'>
+        <div className='main-content container'>
+          <div className='course-title'>
             {this.props.courseName}
           </div>
-          <div className={styles['course-info']}>
-            <span className={styles['course-code']}>{this.props.courseCode}</span>
-            <span className={styles['course-info-separator']}>|</span>
+          <div className='course-info'>
+            <span className='course-code'>{this.props.courseCode}</span>
+            <span className='course-info-separator'>|</span>
             {this.props.isSelfPaced ? (
-              <span className={styles['course-date']}>This course is self-paced</span>
+              <span className='course-date'>This course is self-paced</span>
             ) : [
-              <span key='courseStart' className={styles['course-date']}>Starts: {parseCourseDate(this.props.startDate)}</span>,
-              this.props.endDate && <span key='separator' className={styles['course-info-separator']}>|</span>,
-              this.props.endDate && <span key='courseEnd' className={styles['course-date']}>Ends: {parseCourseDate(this.props.endDate)}</span>,
+              <span key='courseStart' className='course-date'>Starts: {parseCourseDate(this.props.startDate)}</span>,
+              this.props.endDate && <span key='separator' className='course-info-separator'>|</span>,
+              this.props.endDate && <span key='courseEnd' className='course-date'>Ends: {parseCourseDate(this.props.endDate)}</span>,
             ]}
           </div>
           {displayCourseHeaderGraph ? [
-            <span className={styles['text-separator']} />,
-            <div className={styles['learners-info']}>
+            <span className='text-separator' />,
+            <div className='learners-info'>
               <strong>{this.props.learnersEnrolled && this.props.learnersEnrolled['current_month']}</strong> learners currently enrolled, progressing through sections as displayed below:
             </div>
           ] : (
-            <span className={styles['graph-bottom-padding']} />
+            <span className='graph-bottom-padding' />
           )}
         </div>
         {displayCourseHeaderGraph ? [
-          <div className={cx({ 'graph-bars-container': true, 'container': true})}>
+          <div className='graph-bars-container container'>
             <ResponsiveContainer width="100%" height={140}>
               <BarChart
                 data={this.props.data}
@@ -84,8 +80,8 @@ class HeaderContentCourse extends Component {
               </BarChart>
             </ResponsiveContainer>
           </div>,
-          <div className={styles['graph-labels-wrapper']}>
-            <div className={cx({ 'graph-labels-container': true, 'container': true})}>
+          <div className='graph-labels-wrapper'>
+            <div className='graph-labels-container container'>
               <ResponsiveContainer width="100%" height={100}>
                 <BarChart
                   data={this.props.data}

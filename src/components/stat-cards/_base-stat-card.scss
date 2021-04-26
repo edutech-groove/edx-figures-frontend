@@ -18,33 +18,32 @@
 
       .current-data {
         @include fz(32);
-        height: 1;
+        line-height: 100%;
+        height: 100%;
       }
 
       .previous-comparison {
         font-weight: normal;
         margin-left: calcRem(15);
-        padding-left: calcRem(15);
+        padding: calcRem(5) 0 calcRem(5) calcRem(15);
         border-left: calcRem(1) solid $color02;
+      }
 
-        .comparison-value {
-          @include paragraph1;
-          line-height: 1 !important;
-          margin-bottom: calcRem(3);
-          display: block;
-        }
+      .comparison-value {
+        font-weight: bold;
+        font-size: calcRem(18);
+        display: block;
+      }
 
-        .comparison-text {
-          @include paragraph2;
-          line-height: 1 !important;
-          margin-bottom: 0;
-          display: block;
-        }
+      .comparison-text {
+        font-size: calcRem(12);
+        display: block;
       }
     }
 
     .history-toggle {
-      @include useGrvSecondaryYellowButtonStyle;
+      @include useLightYellowButton;
+      @include fz(14);
       border: none;
       box-shadow: none;
       cursor: pointer;
@@ -53,7 +52,6 @@
       text-align: center;
       transition-duration: 100ms;
       width: 120px;
-      white-space: nowrap;
     }
 
     .history-toggle-faux {

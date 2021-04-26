@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import { List } from 'immutable';
 import PropTypes from 'prop-types';
-import styles from './_learner-statistics.scss';
-import classNames from 'classnames/bind';
 import Select, { components } from 'react-select';
 import StatHorizontalBarGraph from 'base/components/stat-graphs/stat-bar-graph/StatHorizontalBarGraph';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown  } from '@fortawesome/free-solid-svg-icons';
-
-let cx = classNames.bind(styles);
 
 var countries = require("i18n-iso-countries");
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
@@ -165,41 +161,17 @@ class LearnerStatistics extends Component {
     ])
 
     return (
-      <section className={styles['courses-list']}>
-        <div className={styles['header']}>
-          <div className={styles['header-title']}>
+      <section className='courses-list'>
+        <div className='header'>
+          <div className='header-title'>
             {this.props.listTitle}
           </div>
-          <div className={styles['dropdown-container']}>
+          <div className='dropdown-container'>
             <span>Course learners breakdown type</span>
-            <Select
+            <Select className='react-select-container' classNamePrefix="react-select"
               options={dropdownOptions.toArray()}
               onChange = {this.onChangeBreakdownType}
               value={dropdownOptions.get(dropdownOptions.findIndex(item => (item.value === this.state.breakdownType)))}
-              styles={{
-                control: (base, state) => ({
-                  ...base,
-                  background: state.isFocused ? '#FFF' : '#F3F3F4',
-                  border: '0.0625rem solid transparent',
-                  borderColor: state.isFocused ? '#E60978 !important' : '#F3F3F4',
-                  boxShadow: state.isFocused ? '0 0 0 0.25rem rgba(230, 9, 120, 0.25)' : 'none',
-
-                  '&:hover': {
-                    borderColor: state.isFocused ? '#E60978' : '#F3F3F4',
-                  }
-                }),
-
-                dropdownIndicator: (base) => ({
-                  ...base,
-                  color: '#666',
-                }),
-
-                option: (base, state) => ({
-                  ...base,
-                  color: '#333',
-                  backgroundColor: state.isFocused ? '#FBFBFB !important' : '#fff !important',
-                })
-              }}
               components={{
                 IndicatorSeparator: () => null,
                 DropdownIndicator: (props) => {
@@ -211,7 +183,7 @@ class LearnerStatistics extends Component {
             />
           </div>
         </div>
-        <div className={cx({ 'stat-card': true, 'span-2': false, 'span-3': false, 'span-4': true})}>
+        <div className='stat-card span-4'>
           <StatHorizontalBarGraph
             data={this.state.graphData}
             valueLabel='count'

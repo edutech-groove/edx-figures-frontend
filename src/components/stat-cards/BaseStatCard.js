@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
-import styles from './_base-stat-card.scss';
-import classNames from 'classnames/bind';
 import StatBarGraph from 'base/components/stat-graphs/stat-bar-graph/StatBarGraph';
-
-let cx = classNames.bind(styles);
-
 
 class BaseStatCard extends Component {
   constructor(props) {
@@ -89,43 +84,44 @@ class BaseStatCard extends Component {
   render() {
 
     return (
-      <div className={cx({ 'stat-card': true, 'span-2': (this.state.cardWidth === 2), 'span-3': (this.state.cardWidth === 3), 'span-4': (this.state.cardWidth === 4)})}>
-        <div className={styles['main-content']}>
-          <span className={styles['card-title']}>{this.props.cardTitle}</span>
-          {(this.props.cardDescription !== '') && (
-            <span className={styles['card-description']}>
-              {this.props.cardDescription}
-            </span>
-          )}
-          <div className={styles['main-data-container']}>
-            {this.props.singleValue ? (
-              <span className={styles['current-data']}>{this.state.mainValue}</span>
-            ) : (
-              <span className={styles['current-data']}>{(this.props.dataType === 'percentage') ? ((this.state.mainValue)*100).toFixed(2) : (this.state.mainValue)}{(this.props.dataType === 'percentage') && '%'}</span>
+      <div className={'stat-card' + (this.state.cardWidth === 2 ? ' span-2' : '') + (this.state.cardWidth === 3 ? ' span-3' : '') + (this.state.cardWidth === 4 ? ' span-4' : '')}>
+        <div className='stat-card-container'>
+          <div className='main-content'>
+            <span className='card-title'>{this.props.cardTitle}</span>
+            {(this.props.cardDescription !== '') && (
+              <span className='card-description'>
+                {this.props.cardDescription}
+              </span>
             )}
-            {(this.props.compareToPrevious && !this.props.singleValue) && (
-              <div className={styles['previous-comparison']}>
-                <span className={styles['comparison-value']}>{this.state.comparisonValue}</span>
-                <span className={styles['comparison-text']}>since last month</span>
-              </div>
+            <div className='main-data-container'>
+              {this.props.singleValue ? (
+                <span className='current-data'>{this.state.mainValue}</span>
+              ) : (
+                <span className='current-data'>{(this.props.dataType === 'percentage') ? ((this.state.mainValue)*100).toFixed(2) : (this.state.mainValue)}{(this.props.dataType === 'percentage') && '%'}</span>
+              )}
+              {(this.props.compareToPrevious && !this.props.singleValue) && (
+                <div className='previous-comparison'>
+                  <span className='comparison-value'>{this.state.comparisonValue}</span>
+                  <span className='comparison-text'>since last month</span>
+                </div>
+              )}
+            </div>
+            {(this.props.enableHistory && !this.props.singleValue) ? (
+              <button onClick={this.historyToggle} className='history-toggle'>{this.state.historyExpanded ? 'Hide history' : 'See history'}</button>
+            ) : (
+              <span className='history-toggle-faux'></span>
             )}
           </div>
-          {(this.props.enableHistory && !this.props.singleValue) ? (
-            <button onClick={this.historyToggle} className={styles['history-toggle']}>{this.state.historyExpanded ? 'Hide history' : 'See history'}</button>
-          ) : (
-            <span className={styles['history-toggle-faux']}></span>
+          {(this.state.historyExpanded && this.props.enableHistory) && (
+            <div className='history-content'>
+              <StatBarGraph
+                data={this.state.valueHistory}
+                graphHeight='100%'
+                dataType={this.props.dataType}
+              />
+            </div>
           )}
         </div>
-        {(this.state.historyExpanded && this.props.enableHistory) && (
-          <div className={styles['history-content']}>
-            <StatBarGraph
-              data={this.state.valueHistory}
-              // data={Immutable.fromJS([{"period":"2021/01","value":7},{"period":"2021/02","value":8},{"period":"2021/03","value":33},{"period":"2021/04","value":9}])} //MOCKDATA
-              graphHeight='100%'
-              dataType={this.props.dataType}
-            />
-          </div>
-        )}
       </div>
     )
   }

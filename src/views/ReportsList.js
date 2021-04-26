@@ -2,13 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchReportsList } from 'base/redux/actions/Actions';
-import styles from './_reports-list-content.scss';
 import HeaderAreaLayout from 'base/components/layout/HeaderAreaLayout';
 import HeaderContentReportsList from 'base/components/header-views/header-content-reports-list/HeaderContentReportsList';
-
-import classNames from 'classnames/bind';
-let cx = classNames.bind(styles);
-
 
 class ReportsList extends Component {
   constructor(props) {
@@ -34,25 +29,25 @@ class ReportsList extends Component {
   render() {
     const listItems = this.state.reportsList.map((report, index) => {
       return (
-        <li key={index} className={styles['report']}>
-          <div className={styles['report-name']}>
+        <li key={index} className='report'>
+          <div className='report-name'>
             <Link
               to={'/figures/report/' + report.reportId}
-              className={styles['view-report-button']}
+              className='view-report-button'
             >
               {report.reportName}
             </Link>
           </div>
-          <div className={styles['report-description']}>
+          <div className='report-description'>
             {report.reportDescription}
           </div>
-          <div className={styles['report-timestamp']}>
+          <div className='report-timestamp'>
             {report.dateCreated}
           </div>
-          <div className={styles['report-buttons']}>
+          <div className='report-buttons'>
             <Link
               to={'/figures/report/' + report.reportId}
-              className={styles['view-report-button']}
+              className='view-report-button'
             >
               View report
             </Link>
@@ -66,18 +61,18 @@ class ReportsList extends Component {
         <HeaderAreaLayout>
           <HeaderContentReportsList />
         </HeaderAreaLayout>
-        <ul className={cx({ 'container': true, 'reports-list': true})}>
-          <li key='list-header' className={cx(styles['report'], styles['list-header'])}>
-            <div className={styles['report-name']}>
+        <ul className='container reports-list'>
+          <li key='list-header' className='report list-header'>
+            <div className='report-name'>
               Report name:
             </div>
-            <div className={styles['report-description']}>
+            <div className='report-description'>
               Report description:
             </div>
-            <div className={styles['report-timestamp']}>
+            <div className='report-timestamp'>
               Time created:
             </div>
-            <div className={styles['report-buttons']}>
+            <div className='report-buttons'>
             </div>
           </li>
           {listItems}

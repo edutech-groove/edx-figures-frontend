@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styles from './_stat-horizontal-bar-graph.scss';
 
 class StatHorizontalBarGraph extends Component {
 
@@ -18,22 +17,26 @@ class StatHorizontalBarGraph extends Component {
       const barWidth = (this.props.dataType === 'percentage') ? (dataSingle[this.props.valueLabel]*100 + '%') : (dataSingle[this.props.valueLabel]/maxValue*100 + '%');
 
       return (
-        <div key={dataSingle[this.props.labelLabel]} className={styles['horizontal-bar-wrapper']}>
-          <div className={styles['label-container']}>
-            <span className={styles['label-text']}>{dataSingle[this.props.labelLabel]}</span>
-            <span className={styles['label-value']}>{(this.props.dataType === 'percentage') ? (dataSingle[this.props.valueLabel]*100 + '%') : dataSingle[this.props.valueLabel]}</span>
-          </div>
-          <div className={styles['bar-container']}>
-            <span className={styles['bar-line']} style={{width: barWidth}} />
-          </div>
-        </div>
+        <tr key={dataSingle[this.props.labelLabel]} className='horizontal-bar-wrapper'>
+          <td className='label-container'>
+            <span className='label-text'>{dataSingle[this.props.labelLabel]}</span>
+          </td>
+          <td className='label-container'>
+            <span className='label-value'>{(this.props.dataType === 'percentage') ? (dataSingle[this.props.valueLabel]*100 + '%') : dataSingle[this.props.valueLabel]}</span>
+          </td>
+          <td className='bar-container'>
+            <div className="line-wrapper">
+              <span className='bar-line' style={{width: barWidth}} />
+            </div>
+          </td>
+        </tr>
       );
     });
 
     return (
-      <div className={styles['horizontal-bar-chart']}>
+      <table className='horizontal-bar-chart'>
         {graphRender}
-      </div>
+      </table>
     );
   }
 }

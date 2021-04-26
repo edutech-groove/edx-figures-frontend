@@ -4,7 +4,7 @@
 @import '~base/sass/base/stat-cards';
 
 .courses-list {
-  margin: calcRem(40) 0 0;
+  margin: calcRem(20) 0;
   grid-column-end: span 4;
 
   @media (max-width: $tablet-breakpoint) {
@@ -13,27 +13,31 @@
 
   .header {
     display: flex;
-    align-items: center;
-    margin-bottom: calcRem(15);
+    margin-bottom: calcRem(20);
+  }
 
-    .header-title {
-      @include heading2;
-      margin-bottom: 0;
+  .header-title {
+    font-weight: bold;
+    font-size: calcRem(24);
+    padding-left: calcRem(20);
+    line-height: 100%;
+  }
+
+  .dropdown-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding-right: calcRem(10);
+    font-size: calcRem(14);
+
+    &>span {
+      font-size: calcRem(12);
+      color: lighten($base-text-color, 30%);
+      margin: 0 calcRem(10) 0 0;
     }
-  
-    .dropdown-container {
-      display: flex;
-      align-items: center;
-      margin-left: auto;
-  
-      &>span {
-        @include textLabel;
-        margin: 0 calcRem(10) 0 0;
-      }
-  
-      &>div {
-        width: calcRem(160);
-      }
+
+    &>div {
+      width: calcRem(160);
     }
   }
 }

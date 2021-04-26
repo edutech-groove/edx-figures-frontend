@@ -4,8 +4,7 @@
 @import '~base/sass/base/stat-cards';
 
 .user-content {
-  padding-top: calcRem(40);
-  padding-bottom: calcRem(70);
+  padding: calcRem(40) 0 calcRem(70);
 
   @media (max-width: $tablet-breakpoint) {
     grid-template-columns: 1fr;
@@ -32,25 +31,25 @@
       width: 100%;
 
       li {
+        border-top: calcRem(1) dashed lighten($base-text-color, 75%);
         list-style-type: none;
+        padding: calcRem(15) 0;
         display: flex;
         align-items: baseline;
         width: 100%;
 
-        &:not(:last-child) {
-          padding-bottom: calcRem(15);
-          margin-bottom: calcRem(15);
-          border-bottom: calcRem(1) dashed #DBDBDB;
+        .label,
+        .value {
+          @include fz(15);
         }
 
         .label {
           align-items: center;
+          color: $textColor01;
           display: flex;
           flex: 0 0 auto;
           padding-right: calcRem(20);
           width: 180px;
-          @include paragraph2;
-          margin-bottom: 0;
 
           & > img {
             margin-right: 10px;
@@ -64,12 +63,9 @@
           text-align: right;
           width: 100%;
           word-break: break-word;
-          @include paragraph1;
-          margin-bottom: 0;
 
           a {
             color: $textColor01;
-            text-decoration: none;
           }
         }
       }

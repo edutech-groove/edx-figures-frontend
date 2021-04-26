@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import Immutable from 'immutable';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import classNames from 'classnames/bind';
-import styles from './_header-content-maus.scss';
 import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts';
-
-let cx = classNames.bind(styles);
 
 class CustomTooltip extends Component {
 
@@ -16,8 +12,8 @@ class CustomTooltip extends Component {
     if (active) {
       const { payload } = this.props;
       return (
-        <div className={styles['bar-tooltip']}>
-          <span className={styles['tooltip-value']}>{payload[0].value}</span>
+        <div className='bar-tooltip'>
+          <span className='tooltip-value'>{payload[0].value}</span>
           <p>active users in {payload[0].payload.period}</p>
         </div>
       );
@@ -42,27 +38,27 @@ class HeaderContentMaus extends Component {
     }
 
     return (
-      <section className={styles['header-content-maus']}>
-        <div className={cx({ 'main-content': true, 'container': true})}>
-          <div className={styles['users-count']}>
-            <span className={styles['number']}>{currentPeriodValue}</span>
-            <span className={styles['text']}>active users (MAUs) this month</span>
+      <section className='header-content-maus'>
+        <div className='main-content container'>
+          <div className='users-count'>
+            <span className='number'>{currentPeriodValue}</span>
+            <span className='text'>active users (MAUs) this month</span>
           </div>
-          <span className={styles['text-separator']} />
-          <div className={styles['comparison-box']}>
-            <div className={styles['comparison-box__upper']}>
-              <span className={styles['comparison-box__text']}>
+          <span className='text-separator' />
+          <div className='comparison-box'>
+            <div className='comparison-box__upper'>
+              <span className='comparison-box__text'>
                 {(currentPeriodValue >= previousPeriodValue) ? 'up' : 'down'} {comparisonValue} compared to last month
               </span>
             </div>
             {this.props.showHistoryButton ? (
-              <div className={styles['comparison-box__lower']}>
-                <Link to='/figures/mau-history' className={styles['mau-history-link']}>See details</Link>
+              <div className='comparison-box__lower'>
+                <Link to='/figures/mau-history' className='mau-history-link'>See details</Link>
               </div>
             ) : ''}
           </div>
         </div>
-        <div className={styles['graph-container']}>
+        <div className='graph-container'>
           <ResponsiveContainer width="100%" height={110}>
             {this.props.mauDataHistory.size ? (
               <AreaChart
@@ -77,7 +73,7 @@ class HeaderContentMaus extends Component {
                 />
               </AreaChart>
             ) : (
-              <span className={styles['no-data-label']}>Active Users historic data unavailable</span>
+              <span className='no-data-label'>Active Users historic data unavailable</span>
             )}
           </ResponsiveContainer>
         </div>
@@ -93,7 +89,6 @@ HeaderContentMaus.defaultProps = {
 const mapStateToProps = (state, ownProps) => ({
   mauDataCurrent: Immutable.fromJS(state.generalData.activeUsers['current_month']),
   mauDataHistory: Immutable.fromJS(state.generalData.activeUsers['history']),
-  // mauDataHistory: Immutable.fromJS([{"period":"2021/01","value":7},{"period":"2021/02","value":8},{"period":"2021/03","value":33},{"period":"2021/04","value":9}]), // MOCKDATA
 })
 
 export default connect(

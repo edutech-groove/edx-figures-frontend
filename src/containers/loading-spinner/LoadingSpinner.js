@@ -1,22 +1,18 @@
 import React from 'react';
-import styles from './_loading-spinner.scss';
 import { HashLoader } from 'react-spinners';
 import { usePromiseTracker } from "react-promise-tracker";
-import classNames from 'classnames/bind';
 
-let cx = classNames.bind(styles);
-
-const appsemblerBlue = '#0090c1';
+const appsemblerBlue = '#E60978';
 
 const LoadingSpinner = props => {
 
   const { promiseInProgress } = usePromiseTracker();
 
   return (
-    <section className={styles['loading-spinner-root-container']}>
+    <section className='loading-spinner-root-container'>
       {promiseInProgress && (
-        <div className={styles['spinner-container']}>
-          <div className={styles['spinner-container__content']}>
+        <div className='spinner-container'>
+          <div className='spinner-container__content'>
             <HashLoader
               color={appsemblerBlue}
             />
@@ -24,7 +20,7 @@ const LoadingSpinner = props => {
           </div>
         </div>
       )}
-      <div className={cx({ 'main-content': true, 'blurred': promiseInProgress })}>
+      <div className={'main-content' + (promiseInProgress ? ' blurred' : '')}>
         {props.children}
       </div>
     </section>
