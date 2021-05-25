@@ -107,17 +107,19 @@ class CoursesList extends Component {
   }
 
   render() {
-    var metrics_enrollment_count = 'N/A';
-    var metrics_num_learners_completed = 'N/A';
-    if (course.hasOwnProperty('metrics') && course['metrics'] ) {
-      if (course['metrics'].hasOwnProperty('enrollment_count')) {
-        metrics_enrollment_count = course['metrics']['enrollment_count'];
-      }
-      if (course['metrics'].hasOwnProperty('num_learners_completed')) {
-        metrics_num_learners_completed = course['metrics']['num_learners_completed'];
-      }
-    }
+    
     const listItems = this.state.coursesList.map((course, index) => {
+      var metrics_enrollment_count = 'N/A';
+      var metrics_num_learners_completed = 'N/A';
+      if (course.hasOwnProperty('metrics') && course['metrics'] ) {
+        if (course['metrics'].hasOwnProperty('enrollment_count')) {
+          metrics_enrollment_count = course['metrics']['enrollment_count'];
+        }
+        if (course['metrics'].hasOwnProperty('num_learners_completed')) {
+          metrics_num_learners_completed = course['metrics']['num_learners_completed'];
+        }
+      }
+      
       return (
         <tr key={`course-${index}`} className='course-list-item'>
           <td className='course-name'>
