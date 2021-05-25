@@ -107,7 +107,16 @@ class CoursesList extends Component {
   }
 
   render() {
-
+    var metrics_enrollment_count = 'N/A';
+    var metrics_num_learners_completed = 'N/A';
+    if (course.hasOwnProperty('metrics') && course['metrics'] ) {
+      if (course['metrics'].hasOwnProperty('enrollment_count')) {
+        metrics_enrollment_count = course['metrics']['enrollment_count'];
+      }
+      if (course['metrics'].hasOwnProperty('num_learners_completed')) {
+        metrics_num_learners_completed = course['metrics']['num_learners_completed'];
+      }
+    }
     const listItems = this.state.coursesList.map((course, index) => {
       return (
         <tr key={`course-${index}`} className='course-list-item'>
@@ -168,7 +177,7 @@ class CoursesList extends Component {
                 Enrolments:
               </div> */}
               <div className='mobile-value'>
-                {course['metrics']['enrollment_count']}
+                {metrics_enrollment_count}
               </div>
             </div>
           </td>
@@ -178,7 +187,7 @@ class CoursesList extends Component {
                 Completions:
               </div> */}
               <div className='mobile-value'>
-                {course['metrics']['num_learners_completed']}
+                {metrics_num_learners_completed}
               </div>
             </div>
           </td>
